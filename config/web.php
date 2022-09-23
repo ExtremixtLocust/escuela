@@ -4,10 +4,11 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
-    'basePath' => dirname(__DIR__),
+    'id' => 'escuela',
+    'name' => 'Escuela',
     'language' => 'es-ES',
     'timezone' => 'America/Mexico_City',
+    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
