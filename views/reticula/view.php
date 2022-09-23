@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Reticula */
 
-$this->title = $model->ret_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reticulas'), 'url' => ['index']];
+$this->title = $model->ret_carrera;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Retículas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'ret_id' => $model->ret_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'ret_id' => $model->ret_id], [
+        <?= Html::a(Yii::t('app', 'Actualizar'), ['update', 'ret_id' => $model->ret_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'ret_id' => $model->ret_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('app', '¿Realmente desea eliminar esta retícula?'),
                 'method' => 'post',
             ],
         ]) ?>

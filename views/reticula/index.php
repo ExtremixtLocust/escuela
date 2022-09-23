@@ -5,11 +5,13 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Reticula;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ReticulaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Reticulas');
+$this->title = Yii::t('app', 'Retículas');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="reticula-index">
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Reticula'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Crear Retícula'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -29,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'ret_id',
+            //'ret_id',
             'ret_carrera',
             [
                 'class' => ActionColumn::className(),
