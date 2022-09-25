@@ -11,6 +11,14 @@ $this->title = 'Escuela';
 
     <div class="body-content">
 
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>Alumnos</h2>
+            <p>Accederl al menú de los alumnos.</p>
+            <?= Html::a(Yii::t('app', 'Alumnos'), ['/alumno/index'], ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
+
         <div class="row">
             <div class="col-lg-4">
                 <h2>Retículas</h2>
