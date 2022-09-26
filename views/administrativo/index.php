@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Administrativo;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AdministrativoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

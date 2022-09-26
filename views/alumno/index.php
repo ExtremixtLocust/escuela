@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Alumno;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AlumnoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -29,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'alu_id',
+            //no se muestra el ID
+            //'alu_id',
             'alu_nombre',
             'alu_appaterno',
             'alu_apmaterno',

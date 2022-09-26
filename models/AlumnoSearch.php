@@ -17,8 +17,8 @@ class AlumnoSearch extends Alumno
     public function rules()
     {
         return [
-            [['alu_id', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_semestre'], 'integer'],
-            [['alu_nombre', 'alu_nocontrol'], 'safe'],
+            [['alu_id', 'alu_reticula_id', 'alu_semestre'], 'integer'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'safe'],
         ];
     }
 
@@ -59,13 +59,13 @@ class AlumnoSearch extends Alumno
         // grid filtering conditions
         $query->andFilterWhere([
             'alu_id' => $this->alu_id,
-            'alu_appaterno' => $this->alu_appaterno,
-            'alu_apmaterno' => $this->alu_apmaterno,
             'alu_reticula_id' => $this->alu_reticula_id,
             'alu_semestre' => $this->alu_semestre,
         ]);
 
         $query->andFilterWhere(['like', 'alu_nombre', $this->alu_nombre])
+            ->andFilterWhere(['like', 'alu_appaterno', $this->alu_appaterno])
+            ->andFilterWhere(['like', 'alu_apmaterno', $this->alu_apmaterno])
             ->andFilterWhere(['like', 'alu_nocontrol', $this->alu_nocontrol]);
 
         return $dataProvider;

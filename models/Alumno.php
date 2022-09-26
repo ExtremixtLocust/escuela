@@ -9,8 +9,8 @@ use Yii;
  *
  * @property int $alu_id Id
  * @property string $alu_nombre Nombre
- * @property int $alu_appaterno Apellido Paterno
- * @property int $alu_apmaterno Apellido Materno
+ * @property string $alu_appaterno Apellido Paterno
+ * @property string $alu_apmaterno Apellido Materno
  * @property int $alu_reticula_id Retícula
  * @property string $alu_nocontrol No de control
  * @property int $alu_semestre Semestre
@@ -35,8 +35,8 @@ class Alumno extends \yii\db\ActiveRecord
     {
         return [
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre'], 'required'],
-            [['alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_semestre'], 'integer'],
-            [['alu_nombre', 'alu_nocontrol'], 'string', 'max' => 255],
+            [['alu_reticula_id', 'alu_semestre'], 'integer'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
         ];
     }
