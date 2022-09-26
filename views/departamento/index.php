@@ -5,20 +5,20 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use app\models\Maestro;
+use app\models\Departamento;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\MaestroSearch */
+/* @var $searchModel app\models\DepartamentoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Maestros');
+$this->title = Yii::t('app', 'Departamentos');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="maestro-index">
+<div class="departamento-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Maestro'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Departamento'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -30,19 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'mae_id',
-            'mae_departamento_id',
-            'mae_nombre',
-            'mae_appaterno',
-            'mae_apmaterno',
-            //'mae_rfc',
-            //'mae_telefono',
-            //'mae_direccion',
-            //'mae_correo',
+            'dep_id',
+            'dep_proveedor_id',
+            'dep_nombre',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Maestro $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'mae_id' => $model->mae_id]);
+                'urlCreator' => function ($action, Departamento $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'dep_id' => $model->dep_id]);
                  }
             ],
         ],
