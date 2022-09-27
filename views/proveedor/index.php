@@ -10,7 +10,7 @@ use app\models\Proveedor;
 /* @var $searchModel app\models\ProveedorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Proveedors');
+$this->title = Yii::t('app', 'Proveedores');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="proveedor-index">

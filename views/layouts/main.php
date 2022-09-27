@@ -36,12 +36,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
+    $default = Yii::$app->session->get('language', 'en-US');
+    $language = $default == 'en-US' ? 'es-INGLES' : 'en-US';
+    $bandera = Yii::$app->params['languages'][$language];
+
     echo Nav::widget([
+        'encodeLabels' => false,
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => Yii::t('app', 'Inicio'), 'url' => ['/site/index']],
             ['label' => Yii::t('app', 'Acerca de'), 'url' => ['/site/about']],
             ['label' => Yii::t('app', 'Contacto'), 'url' => ['/site/contact']],
+            ['label' => $bandera, 'url' => ['/site/language', 'language' => $language]],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
