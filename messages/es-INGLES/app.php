@@ -1,8 +1,8 @@
-<?php
+<?php //Traduccion a ingles
 return[
-    'Acerca de'           => 'About',
-    'Administrativo'      => 'Administrative',
-    'Administrativos'     => 'Administratives',
+    'Acerca de'               => 'About',
+    'Administrativo'          => 'Administrative',
+    'Administrativos'         => 'Administratives',
     'Alumno'                  => 'Student',
     'Alumnos'                 => 'Students',
     'Apellido Paterno'        => 'Father last name',
