@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'escuela',
     'name' => 'Escuela',
-    'language' => 'es-ES',
+    'language' => 'en-USA',
     'timezone' => 'America/Mexico_City',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -71,7 +71,7 @@ $config = [
     ],
     'params' => $params,
     'on beforeRequest' => function ($event) {
-        Yii::$app->language = Yii::$app->session->get('language', 'en-US');
+        Yii::$app->language = Yii::$app->session->get('language', 'en-USA');
         },
 ];
 
