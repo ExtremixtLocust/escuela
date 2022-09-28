@@ -1,5 +1,16 @@
 <?php //Traduccion a ingles
 return[
+    'Acceder al menú de los alumnos'              => 'Access The Students Menu',
+    'Acceder al menú de las aulas'                => 'Access The Classrooms Menu',
+    'Acceder al menú de grupos'                   => 'Access The Groups Menu',
+    'Acceder al menú de las materias'             => 'Access The Matters Menu',
+    'Acceder al menú de los proveedores'          => 'Access The Suppliers menu',
+    'Acceder al menú del inventario'              => 'Access The Inventers Menu',
+    'Acceder al menú de los trabajadores'         => 'Access The Employees Menu',
+    'Acceder al menú de los departamentos'        => 'Access The Apartments Menu',
+    'Acceder al menú de las retículas'            => 'Access The Grids Menu',
+    'Acceder al menú del personal Administrativo' => 'Access The Administrative Personal Menu',
+    'Acceder al menú de los maestros'             => 'Access The Teachers Menu',
     'Acerca de'               => 'About',
     'Administrativo'          => 'Administrative',
     'Administrativos'         => 'Administratives',
