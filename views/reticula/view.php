@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Reticula;
+use app\models\Materia;
+use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Reticula */
@@ -30,8 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'ret_id',
-            'ret_carrera',
+            'ret_carrera'
         ],
     ]) ?>
+
+    
+    <?= GridView::widget([
+        'dataProvider' => $model->materiasDataProvider,
+    ]); ?>
 
 </div>
