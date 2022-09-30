@@ -93,4 +93,22 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Materia::className(), ['mat_id' => 'gru_materia_id']);
     }
+
+    //obtenemos la materia
+    public function getMateria()
+    {
+        return $this->gruMateria->mat_nombre;
+    }
+
+    //obtenemos el nombre del maestro
+    public function getMaestro()
+    {
+        return $this->gruMaestro->mae_nombre;
+    }
+
+    //obtenemos el número de aula
+    public function getAula()
+    {
+        return $this->gruAula->aul_numero;
+    }
 }

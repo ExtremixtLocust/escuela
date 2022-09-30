@@ -62,6 +62,7 @@ class Alumno extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+    //metodo para obtener la relación como tal (sin datos)
     public function getAluReticula()
     {
         return $this->hasOne(Reticula::className(), ['ret_id' => 'alu_reticula_id']);
@@ -75,5 +76,11 @@ class Alumno extends \yii\db\ActiveRecord
     public function getCursos()
     {
         return $this->hasMany(Curso::className(), ['cur_alumno_id' => 'alu_id']);
+    }
+
+    //Método creado para obtener el nombre de las retículas
+    public function getReticula()
+    {
+        return $this->aluReticula->ret_carrera;
     }
 }

@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(Yii::t('app', 'Ver Carga'), ['/carga/index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?= DetailView::widget([

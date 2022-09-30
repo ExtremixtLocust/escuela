@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "curso".
  *
+ * @property int $cur_id Id
  * @property int $cur_alumno_id Id alumno
  * @property int $cur_grupo_id Id carrera
  *
@@ -42,6 +43,7 @@ class Curso extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'cur_id' => Yii::t('app', 'Id'),
             'cur_alumno_id' => Yii::t('app', 'Id alumno'),
             'cur_grupo_id' => Yii::t('app', 'Id carrera'),
         ];

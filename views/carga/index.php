@@ -5,20 +5,23 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use app\models\Grupo;
+use app\models\Carga;
+use yii\helpers\ArrayHelper;
+use app\models\Materia;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\GrupoSearch */
+/* @var $searchModel app\models\CargaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Grupos');
+$this->title = Yii::t('app', 'Cargas');
 $this->params['breadcrumbs'][] = $this->title;
+$reticulas = ArrayHelper::map(Materia::find()->all(), 'mat_id', 'mat_nombre');
 ?>
-<div class="grupo-index">
+<div class="carga-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Grupo'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Carga'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -29,21 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            //ocultamos el id
-            //'gru_id',
-            //cambiamos el id de la materia por el nombre
-            //'gru_materia_id',
+
+            //no necesitamos ver el id
+            //'car_id',
+            'car_reticula_id',
+            //comentamos el id de la materia
+            //'car_materia_id',
+            //añadimos el método para ver el nombre de la materia
             'materia',
-            //cambiamos el id del maestro por el nombre
-            //'gru_maestro_id',
-            'maestro',
-            //cambiamos el id del aula por el no de aula
-            //'gru_aula_id',
-            'aula',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Grupo $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'gru_id' => $model->gru_id]);
+                'urlCreator' => function ($action, Carga $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'car_id' => $model->car_id]);
                  }
             ],
         ],

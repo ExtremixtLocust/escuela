@@ -90,4 +90,10 @@ class Departamento extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Trabajador::className(), ['tra_departamento_id' => 'dep_id']);
     }
+
+    //método para obtener el proveedor
+    public function getProveedor()
+    {
+        return $this->depProveedor->pro_nombre;
+    }
 }

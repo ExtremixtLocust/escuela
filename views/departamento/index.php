@@ -30,9 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'dep_id',
-            'dep_proveedor_id',
             'dep_nombre',
+            //no necesitamos el ID
+            //'dep_id',
+            //cambiamos el id de proveedor por su nombre
+            //'dep_proveedor_id',
+            'proveedor',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Departamento $model, $key, $index, $column) {

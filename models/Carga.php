@@ -7,6 +7,7 @@ use Yii;
 /**
  * This is the model class for table "carga".
  *
+ * @property int $car_id Id
  * @property int $car_reticula_id Id retícula
  * @property int $car_materia_id Id materia
  *
@@ -42,6 +43,7 @@ class Carga extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'car_id' => Yii::t('app', 'Id'),
             'car_reticula_id' => Yii::t('app', 'Id retícula'),
             'car_materia_id' => Yii::t('app', 'Id materia'),
         ];
@@ -65,5 +67,11 @@ class Carga extends \yii\db\ActiveRecord
     public function getCarReticula()
     {
         return $this->hasOne(Reticula::className(), ['ret_id' => 'car_reticula_id']);
+    }
+
+    //método para obtener el nombre de la materia
+    public function getMateria()
+    {
+        return $this->carMateria->mat_nombre;
     }
 }

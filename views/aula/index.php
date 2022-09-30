@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Aula;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AulaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'aul_id',
+            //no necesitamos el id
+            //'aul_id',
             'aul_numero',
             [
                 'class' => ActionColumn::className(),

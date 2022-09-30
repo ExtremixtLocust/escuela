@@ -81,4 +81,10 @@ class Maestro extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Departamento::className(), ['dep_id' => 'mae_departamento_id']);
     }
+
+    //creamos el método que nos devolverá el nombre del departamento traído de la BD
+    public function getDepartamento()
+    {
+        return $this->maeDepartamento->dep_nombre;
+    }
 }

@@ -29,9 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'mae_id',
-            'mae_departamento_id',
+            //comentamos ID porque no necesitamos verlo
+            //'mae_id',
+            //comentamos el campo que solo muestra ID
+            //'mae_departamento_id',
+            'departamento',
             'mae_nombre',
             'mae_appaterno',
             'mae_apmaterno',
