@@ -10,7 +10,7 @@ use app\models\Trabajador;
 /* @var $searchModel app\models\TrabajadorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Trabajadors');
+$this->title = Yii::t('app', 'Trabajadores');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="trabajador-index">

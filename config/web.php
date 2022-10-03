@@ -6,7 +6,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'escuela',
     'name' => 'Escuela',
-    'language' => 'es-ES',
+    'language' => 'en-USA',
     'timezone' => 'America/Mexico_City',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -54,8 +54,25 @@ $config = [
                 '<controller:\w+>/<action:\w+>'          => '<controller>/<action>'
             ],
         ],
+
+        'i18n' => [
+            'translations' => [
+            'app*' => [
+            'class' => 'yii\i18n\PhpMessageSource',
+            //'basePath' => '@app/messages',
+            //'sourceLanguage' => 'en-US',
+            'fileMap' => [
+            'app' => 'app.php',
+            'app/error' => 'error.php',
+                    ],
+                 ],       
+             ],      
+         ],
     ],
     'params' => $params,
+    'on beforeRequest' => function ($event) {
+        Yii::$app->language = Yii::$app->session->get('language', 'en-USA');
+        },
 ];
 
 if (YII_ENV_DEV) {
