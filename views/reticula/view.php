@@ -39,9 +39,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
-    
-    <?= GridView::widget([
-        'dataProvider' => $model->materiasDataProvider,
-    ]); ?>
-
 </div>
