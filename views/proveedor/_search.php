@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pro_nombre') ?>
 
+    <?= $form->field($model, 'pro_fechaAsoc') ?>
+
     <?= $form->field($model, 'pro_direccion') ?>
 
     <?= $form->field($model, 'pro_correo') ?>

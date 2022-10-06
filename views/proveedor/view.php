@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'pro_id',
             'pro_nombre',
+            'pro_fechaAsoc',
             'pro_direccion',
             'pro_correo',
             'pro_telefono',

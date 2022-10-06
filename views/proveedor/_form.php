@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pro_nombre')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'pro_fechaAsoc')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'pro_direccion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'pro_correo')->textInput(['maxlength' => true]) ?>

@@ -31,8 +31,8 @@ class Proveedor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pro_nombre', 'pro_direccion', 'pro_correo', 'pro_telefono'], 'required'],
-            [['pro_nombre', 'pro_direccion', 'pro_correo'], 'string', 'max' => 255],
+            [['pro_nombre', 'pro_fechaAsoc','pro_direccion', 'pro_correo', 'pro_telefono'], 'required'],
+            [['pro_nombre', 'pro_fechaAsoc','pro_direccion', 'pro_correo'], 'string', 'max' => 255],
             [['pro_telefono'], 'string', 'max' => 15],
         ];
     }
@@ -45,6 +45,7 @@ class Proveedor extends \yii\db\ActiveRecord
         return [
             'pro_id' => Yii::t('app', 'Id'),
             'pro_nombre' => Yii::t('app', 'Nombre'),
+            'pro_fechaAsoc' => Yii::t('app', 'Fecha de Asociación'),
             'pro_direccion' => Yii::t('app', 'Direccion'),
             'pro_correo' => Yii::t('app', 'Correo'),
             'pro_telefono' => Yii::t('app', 'Teléfono'),

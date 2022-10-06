@@ -18,7 +18,7 @@ class ProveedorSearch extends Proveedor
     {
         return [
             [['pro_id'], 'integer'],
-            [['pro_nombre', 'pro_direccion', 'pro_correo', 'pro_telefono'], 'safe'],
+            [['pro_nombre', 'pro_fechaAsoc', 'pro_direccion', 'pro_correo', 'pro_telefono'], 'safe'],
         ];
     }
 
@@ -62,6 +62,7 @@ class ProveedorSearch extends Proveedor
         ]);
 
         $query->andFilterWhere(['like', 'pro_nombre', $this->pro_nombre])
+            ->andFilterWhere(['like', 'pro_fechaAsoc', $this->pro_fechaAsoc])
             ->andFilterWhere(['like', 'pro_direccion', $this->pro_direccion])
             ->andFilterWhere(['like', 'pro_correo', $this->pro_correo])
             ->andFilterWhere(['like', 'pro_telefono', $this->pro_telefono]);
