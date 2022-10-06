@@ -54,6 +54,7 @@ class Alumno extends \yii\db\ActiveRecord
             'alu_reticula_id' => Yii::t('app', 'Retícula'),
             'alu_nocontrol' => Yii::t('app', 'No de control'),
             'alu_semestre' => Yii::t('app', 'Semestre'),
+            'reticula' => Yii::t('app', 'Retícula'),
         ];
     }
 

@@ -11,6 +11,8 @@ use app\models\Alumno;
  */
 class AlumnoSearch extends Alumno
 {
+    public $reticula;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +20,7 @@ class AlumnoSearch extends Alumno
     {
         return [
             [['alu_id', 'alu_reticula_id', 'alu_semestre'], 'integer'],
-            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'safe'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol', 'reticula'], 'safe'],
         ];
     }
 
@@ -40,12 +42,29 @@ class AlumnoSearch extends Alumno
      */
     public function search($params)
     {
-        $query = Alumno::find();
+        $query = Alumno::find()->joinWith(['aluReticula']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'alu_nombre',
+                'alu_appaterno',
+                'alu_apmaterno',
+                'alu_reticula_id',
+                'alu_nocontrol' ,
+                'alu_semestre',
+                'reticula'=> [  
+                    'asc' => ['ret_carrera' => SORT_ASC],
+                    'desc' => ['ret_carrera' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+            ]
         ]);
 
         $this->load($params);
@@ -66,7 +85,8 @@ class AlumnoSearch extends Alumno
         $query->andFilterWhere(['like', 'alu_nombre', $this->alu_nombre])
             ->andFilterWhere(['like', 'alu_appaterno', $this->alu_appaterno])
             ->andFilterWhere(['like', 'alu_apmaterno', $this->alu_apmaterno])
-            ->andFilterWhere(['like', 'alu_nocontrol', $this->alu_nocontrol]);
+            ->andFilterWhere(['like', 'alu_nocontrol', $this->alu_nocontrol])
+            ->andFilterWhere(['like', 'ret_carrera', $this->reticula]);
 
         return $dataProvider;
     }

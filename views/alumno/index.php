@@ -28,7 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn',
+                'header' => Html::a('<i class="fa fa-trash"></i>',['index'])
+            ],
 
             //no se muestra el ID
             //'alu_id',
