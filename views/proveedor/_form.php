@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\icons\Icon;
+use kartik\date\DatePicker;
+
+Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Proveedor */
@@ -14,7 +18,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'pro_nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'pro_fechaAsoc')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'pro_fechaAsoc')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Ingrese la fecha de Asociación'],
+    'pluginOptions' => [
+        'autoclose' => true
+    ]
+]) ?>
 
     <?= $form->field($model, 'pro_direccion')->textInput(['maxlength' => true]) ?>
 
