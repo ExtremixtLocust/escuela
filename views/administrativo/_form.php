@@ -1,24 +1,45 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
+use kartik\icons\Icon;
+use kartik\typeahead\TypeaheadBasic;
+use app\models\Departamento;
+//use kartik\typeahead\Typeahead;
+
+Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Administrativo */
 /* @var $form yii\widgets\ActiveForm */
+$apellidosM = [
+        'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López'
+];
+
+$apellidosP = [
+        'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López'
+];
 ?>
 
 <div class="administrativo-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'adm_departamento_id')->textInput() ?>
+    <?= $form->field($model, 'adm_departamento_id')->dropDownList(Departamento::map(), ['prompt' => Yii::t('app', 'Seleccione el Departamento')]) ?>
 
     <?= $form->field($model, 'adm_nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'adm_appaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'adm_appaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosM,
+        'options' => ['placeholder' => 'Escriba su apellido paterno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
-    <?= $form->field($model, 'adm_apmaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'adm_apmaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosM,
+        'options' => ['placeholder' => 'Escriba su apellido materno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
     <?= $form->field($model, 'adm_telefono')->textInput(['maxlength' => true]) ?>
 

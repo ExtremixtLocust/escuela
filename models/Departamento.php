@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "departamento".
@@ -95,5 +96,9 @@ class Departamento extends \yii\db\ActiveRecord
     public function getProveedor()
     {
         return $this->depProveedor->pro_nombre;
+    }
+    public static function map() 
+    {
+        return ArrayHelper::map(self::find()->all(), 'dep_id', 'dep_nombre');
     }
 }

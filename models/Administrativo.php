@@ -49,7 +49,7 @@ class Administrativo extends \yii\db\ActiveRecord
     {
         return [
             'adm_id' => Yii::t('app', 'Id'),
-            'adm_departamento_id' => Yii::t('app', 'Id departamento'),
+            'adm_departamento_id' => Yii::t('app', 'Departamento'),
             'adm_nombre' => Yii::t('app', 'Nombre'),
             'adm_appaterno' => Yii::t('app', 'Apellido Paterno'),
             'adm_apmaterno' => Yii::t('app', 'Apellido Materno'),

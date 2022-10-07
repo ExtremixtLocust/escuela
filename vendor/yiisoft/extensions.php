@@ -49,4 +49,49 @@ return array (
     ),
     'bootstrap' => 'yii\\bootstrap5\\i18n\\TranslationBootstrap',
   ),
+  'yiisoft/yii2-jui' => 
+  array (
+    'name' => 'yiisoft/yii2-jui',
+    'version' => '2.0.7.0',
+    'alias' => 
+    array (
+      '@yii/jui' => $vendorDir . '/yiisoft/yii2-jui',
+    ),
+  ),
+  'kartik-v/yii2-krajee-base' => 
+  array (
+    'name' => 'kartik-v/yii2-krajee-base',
+    'version' => '3.0.5.0',
+    'alias' => 
+    array (
+      '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base/src',
+    ),
+  ),
+  'kartik-v/yii2-icons' => 
+  array (
+    'name' => 'kartik-v/yii2-icons',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/icons' => $vendorDir . '/kartik-v/yii2-icons/src',
+    ),
+  ),
+  'kartik-v/yii2-widget-datepicker' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-datepicker',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/date' => $vendorDir . '/kartik-v/yii2-widget-datepicker/src',
+    ),
+  ),
+  'kartik-v/yii2-widget-typeahead' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-typeahead',
+    'version' => 'dev-master',
+    'alias' => 
+    array (
+      '@kartik/typeahead' => $vendorDir . '/kartik-v/yii2-widget-typeahead/src',
+    ),
+  ),
 );

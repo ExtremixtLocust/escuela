@@ -10,4 +10,6 @@ return [
         //'es-ITALIANO' => '<img src="/img/es-ITALIANO.png" width="20px">',
         //'es-CHINO' => '<img src="/img/es-CHINO.png" width="20px">',
     ],
+    'bsVersion' => '5.x',
+    'icon-framework' => \kartik\icons\Icon::FAS,  // Font Awesome Icon framework
 ];
