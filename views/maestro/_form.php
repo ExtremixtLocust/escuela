@@ -1,11 +1,30 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
+use kartik\icons\Icon;
+use kartik\typeahead\TypeaheadBasic;
+
+//use kartik\typeahead\Typeahead;
+
+Icon::map($this);
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Maestro */
+/* @var $model app\models\Administrativo */
 /* @var $form yii\widgets\ActiveForm */
+$apellidosM = [
+        'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
+        'Gordillo', 'Gallardo', 'Arias', 'Alcudia', 'Baeza', 'Lara', 'Cabrera', 'Cabrales', 'Soberano', 'Jesús', 'Peralta', 'Morales', 'Villanueva',
+        'Felix', 'Aquino', 'Ruiz', 'Collado', 'Flores', 'Estrada', 'Sánchez', 'Ramírez', 'Aguilar', 'Salazar', 'Cruz', 'De la Cruz', 'González', 'Díaz',
+        'Rodriguez', 'Sosa', 'Fernández', 'Martínez', 'Lázaro', 'Mendoza', 'Muñoz', 'Romero', 'Ramoz', 'Benítez'
+];
+
+$apellidosP = [
+        'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
+        'Gordillo', 'Gallardo', 'Arias', 'Alcudia', 'Baeza', 'Lara', 'Cabrera', 'Cabrales', 'Soberano', 'Jesús', 'Peralta', 'Morales', 'Villanueva',
+        'Felix', 'Aquino', 'Ruiz', 'Collado', 'Flores', 'Estrada', 'Sánchez', 'Ramírez', 'Aguilar', 'Salazar', 'Cruz', 'De la Cruz', 'González', 'Díaz',
+        'Rodriguez', 'Sosa', 'Fernández', 'Martínez', 'Lázaro', 'Mendoza', 'Muñoz', 'Romero', 'Ramoz', 'Benítez'
+];
 ?>
 
 <div class="maestro-form">
@@ -16,9 +35,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'mae_nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'mae_appaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'mae_appaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosP,
+        'options' => ['placeholder' => 'Escriba su apellido paterno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
-    <?= $form->field($model, 'mae_apmaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'mae_apmaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosM,
+        'options' => ['placeholder' => 'Escriba su apellido materno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
     <?= $form->field($model, 'mae_rfc')->textInput(['maxlength' => true]) ?>
 

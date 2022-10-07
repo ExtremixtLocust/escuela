@@ -5,6 +5,10 @@ use yii\bootstrap5\ActiveForm;
 //se importan las librerías para usar arrays
 use yii\helpers\ArrayHelper;
 use app\models\Reticula;
+use kartik\icons\Icon;
+use kartik\typeahead\TypeaheadBasic;
+
+Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Alumno */
@@ -12,6 +16,19 @@ use app\models\Reticula;
 
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 
+$apellidosM = [
+    'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
+    'Gordillo', 'Gallardo', 'Arias', 'Alcudia', 'Baeza', 'Lara', 'Cabrera', 'Cabrales', 'Soberano', 'Jesús', 'Peralta', 'Morales', 'Villanueva',
+    'Felix', 'Aquino', 'Ruiz', 'Collado', 'Flores', 'Estrada', 'Sánchez', 'Ramírez', 'Aguilar', 'Salazar', 'Cruz', 'De la Cruz', 'González', 'Díaz',
+    'Rodriguez', 'Sosa', 'Fernández', 'Martínez', 'Lázaro', 'Mendoza', 'Muñoz', 'Romero', 'Ramoz', 'Benítez'
+];
+
+$apellidosP = [
+    'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
+    'Gordillo', 'Gallardo', 'Arias', 'Alcudia', 'Baeza', 'Lara', 'Cabrera', 'Cabrales', 'Soberano', 'Jesús', 'Peralta', 'Morales', 'Villanueva',
+    'Felix', 'Aquino', 'Ruiz', 'Collado', 'Flores', 'Estrada', 'Sánchez', 'Ramírez', 'Aguilar', 'Salazar', 'Cruz', 'De la Cruz', 'González', 'Díaz',
+    'Rodriguez', 'Sosa', 'Fernández', 'Martínez', 'Lázaro', 'Mendoza', 'Muñoz', 'Romero', 'Ramoz', 'Benítez'
+];
 ?>
 
 <div class="alumno-form">
@@ -20,9 +37,17 @@ $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 
     <?= $form->field($model, 'alu_nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alu_appaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'alu_appaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosP,
+        'options' => ['placeholder' => 'Escriba su apellido paterno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
-    <?= $form->field($model, 'alu_apmaterno')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'alu_apmaterno')->widget(TypeaheadBasic::classname(), [
+        'data' => $apellidosM,
+        'options' => ['placeholder' => 'Escriba su apellido materno...'],
+        'pluginOptions' => ['highlight'=>true],
+    ]) ?>
 
     <?= $form->field($model, 'alu_reticula_id')->dropDownList($reticulas, ['prompt' => 'Seleccionar:']) ?>
 
