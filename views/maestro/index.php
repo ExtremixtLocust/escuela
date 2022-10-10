@@ -36,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'mae_id',
             //comentamos el campo que solo muestra ID
             //'mae_departamento_id',
-            'departamento',
             'mae_nombre',
             'mae_appaterno',
             'mae_apmaterno',
+            'departamento',
             //'mae_rfc',
             //'mae_telefono',
             //'mae_direccion',

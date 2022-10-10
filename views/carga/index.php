@@ -13,6 +13,7 @@ use app\models\Materia;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Cargas');
+$this->params['breadcrumbs'][] = ['label' => 'Retículas', 'url' => '/reticula/index'];
 $this->params['breadcrumbs'][] = $this->title;
 $reticulas = ArrayHelper::map(Materia::find()->all(), 'mat_id', 'mat_nombre');
 ?>
