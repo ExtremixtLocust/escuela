@@ -11,6 +11,9 @@ use app\models\Maestro;
  */
 class MaestroSearch extends Maestro
 {
+    //variable para añadir departemento al search
+    public $departamento;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class MaestroSearch extends Maestro
     {
         return [
             [['mae_id', 'mae_departamento_id'], 'integer'],
-            [['mae_nombre', 'mae_appaterno', 'mae_apmaterno', 'mae_rfc', 'mae_telefono', 'mae_direccion', 'mae_correo'], 'safe'],
+            [['mae_nombre', 'mae_appaterno', 'mae_apmaterno', 'mae_rfc', 'mae_telefono', 'mae_direccion', 'mae_correo','departamento'], 'safe'],
         ];
     }
 
@@ -40,12 +43,32 @@ class MaestroSearch extends Maestro
      */
     public function search($params)
     {
-        $query = Maestro::find();
+        //hacemos un Join
+        //$query = Maestro::find();
+        $query = Maestro::find()->joinWith(['maeDepartamento']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'departamento' => [
+                    'asc' => ['dep_nombre' => SORT_ASC],
+                    'desc' => ['dep_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'mae_nombre',
+                'mae_appaterno',
+                'mae_apmaterno',
+                'mae_rfc' ,
+                'mae_telefono',
+                'mae_direccion',
+                'mae_correo',
+            ]
         ]);
 
         $this->load($params);
@@ -62,7 +85,9 @@ class MaestroSearch extends Maestro
             'mae_departamento_id' => $this->mae_departamento_id,
         ]);
 
-        $query->andFilterWhere(['like', 'mae_nombre', $this->mae_nombre])
+        //añadimos los departamentos a los filtros
+        $query->andFilterWhere(['like', 'dep_nombre', $this->departamento])
+            ->andFilterWhere(['like', 'mae_nombre', $this->mae_nombre])
             ->andFilterWhere(['like', 'mae_appaterno', $this->mae_appaterno])
             ->andFilterWhere(['like', 'mae_apmaterno', $this->mae_apmaterno])
             ->andFilterWhere(['like', 'mae_rfc', $this->mae_rfc])

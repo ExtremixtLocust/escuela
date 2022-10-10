@@ -50,6 +50,8 @@ class Maestro extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            //añadimos departamentos al modelo presentable
+            'departamento' => Yii::t('app', 'Departamento'),
             'mae_id' => Yii::t('app', 'Id'),
             'mae_departamento_id' => Yii::t('app', 'Id departamento'),
             'mae_nombre' => Yii::t('app', 'Nombre'),

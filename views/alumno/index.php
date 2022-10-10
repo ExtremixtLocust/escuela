@@ -29,7 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn',
-                'header' => Html::a('<i class="fa fa-trash"></i>',['index'])
+                //se agrega un botón para limpiar el buscador (Cambiar por ícono)
+                'header' => Html::a('Limpiar',['index'])
             ],
 
             //no se muestra el ID

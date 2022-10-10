@@ -28,7 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn',
+                //se agrega un botón para limpiar el buscador (Cambiar por ícono)
+                'header' => Html::a('Limpiar',['index'])
+            ],
             //comentamos ID porque no necesitamos verlo
             //'mae_id',
             //comentamos el campo que solo muestra ID

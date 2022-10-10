@@ -5,6 +5,10 @@ use yii\bootstrap5\ActiveForm;
 use kartik\icons\Icon;
 use kartik\typeahead\TypeaheadBasic;
 
+//librerías para el array de departamentos
+use yii\helpers\ArrayHelper;
+use app\models\Departamento;
+
 //use kartik\typeahead\Typeahead;
 
 Icon::map($this);
@@ -12,6 +16,9 @@ Icon::map($this);
 /* @var $this yii\web\View */
 /* @var $model app\models\Administrativo */
 /* @var $form yii\widgets\ActiveForm */
+
+$departamentos = ArrayHelper::map(Departamento::find()->all(), 'dep_id', 'dep_nombre');
+
 $apellidosM = [
         'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
         'Gordillo', 'Gallardo', 'Arias', 'Alcudia', 'Baeza', 'Lara', 'Cabrera', 'Cabrales', 'Soberano', 'Jesús', 'Peralta', 'Morales', 'Villanueva',
@@ -31,7 +38,7 @@ $apellidosP = [
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'mae_departamento_id')->textInput() ?>
+    <?= $form->field($model, 'mae_departamento_id')->dropDownList($departamentos, ['prompt' => 'Seleccionar:']) ?>
 
     <?= $form->field($model, 'mae_nombre')->textInput(['maxlength' => true]) ?>
 
