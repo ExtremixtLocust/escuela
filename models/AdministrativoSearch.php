@@ -11,14 +11,19 @@ use app\models\Administrativo;
  */
 class AdministrativoSearch extends Administrativo
 {
+
+    //variable para añadir departemento al search
+    public $departamento;
+
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
+            //se añade la nueva variable para que sea segura
             [['adm_id', 'adm_departamento_id'], 'integer'],
-            [['adm_nombre', 'adm_appaterno', 'adm_apmaterno', 'adm_telefono', 'adm_direccion', 'adm_rfc', 'adm_correo'], 'safe'],
+            [['adm_nombre', 'adm_appaterno', 'adm_apmaterno', 'adm_telefono', 'adm_direccion', 'adm_rfc', 'adm_correo' , 'departamento'], 'safe'],
         ];
     }
 
@@ -40,12 +45,28 @@ class AdministrativoSearch extends Administrativo
      */
     public function search($params)
     {
-        $query = Administrativo::find();
+        //hacemos un Join
+        //$query = Administrativo::find();
+        $query = Administrativo::find()->joinWith(['admDepartamento']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'departamento' => [
+                    'asc' => ['dep_nombre' => SORT_ASC],
+                    'desc' => ['dep_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'adm_nombre',
+                'adm_appaterno',
+                'adm_apmaterno',
+            ]
         ]);
 
         $this->load($params);
@@ -68,7 +89,9 @@ class AdministrativoSearch extends Administrativo
             ->andFilterWhere(['like', 'adm_telefono', $this->adm_telefono])
             ->andFilterWhere(['like', 'adm_direccion', $this->adm_direccion])
             ->andFilterWhere(['like', 'adm_rfc', $this->adm_rfc])
-            ->andFilterWhere(['like', 'adm_correo', $this->adm_correo]);
+            ->andFilterWhere(['like', 'adm_correo', $this->adm_correo])
+            //añadimos el departamento a los filtros
+            ->andFilterWhere(['like', 'dep_nombre', $this->departamento]);
 
         return $dataProvider;
     }

@@ -49,7 +49,8 @@ class Administrativo extends \yii\db\ActiveRecord
     {
         return [
             'adm_id' => Yii::t('app', 'Id'),
-            'adm_departamento_id' => Yii::t('app', 'Departamento'),
+            //añadimos el campo personalizado al idioma
+            'departamento' => Yii::t('app', 'Departamento'),
             'adm_nombre' => Yii::t('app', 'Nombre'),
             'adm_appaterno' => Yii::t('app', 'Apellido Paterno'),
             'adm_apmaterno' => Yii::t('app', 'Apellido Materno'),
@@ -68,5 +69,11 @@ class Administrativo extends \yii\db\ActiveRecord
     public function getAdmDepartamento()
     {
         return $this->hasOne(Departamento::className(), ['dep_id' => 'adm_departamento_id']);
+    }
+
+    //creamos el método que traerá el nombre de los departamentos
+    public function getDepartamento()
+    {
+        return $this->admDepartamento->dep_nombre;
     }
 }
