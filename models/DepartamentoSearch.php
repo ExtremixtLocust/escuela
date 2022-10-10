@@ -11,6 +11,10 @@ use app\models\Departamento;
  */
 class DepartamentoSearch extends Departamento
 {
+
+    //variable para añadir proveedor al search
+    public $proveedor;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +22,8 @@ class DepartamentoSearch extends Departamento
     {
         return [
             [['dep_id', 'dep_proveedor_id'], 'integer'],
-            [['dep_nombre'], 'safe'],
+            //añadimos la variable creada para que sea segura
+            [['dep_nombre' , 'proveedor'], 'safe'],
         ];
     }
 
@@ -40,12 +45,26 @@ class DepartamentoSearch extends Departamento
      */
     public function search($params)
     {
-        $query = Departamento::find();
+        //hacemos un Join
+        //$query = Maestro::find();
+        $query = Departamento::find()->joinWith(['depProveedor']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'proveedor' => [
+                    'asc' => ['pro_nombre' => SORT_ASC],
+                    'desc' => ['pro_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'dep_nombre',
+            ]
         ]);
 
         $this->load($params);
@@ -62,7 +81,8 @@ class DepartamentoSearch extends Departamento
             'dep_proveedor_id' => $this->dep_proveedor_id,
         ]);
 
-        $query->andFilterWhere(['like', 'dep_nombre', $this->dep_nombre]);
+        $query->andFilterWhere(['like', 'dep_nombre', $this->dep_nombre])
+        ->andFilterWhere(['like', 'pro_nombre', $this->proveedor]);
 
         return $dataProvider;
     }
