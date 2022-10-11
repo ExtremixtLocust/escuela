@@ -6,7 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Administrativo */
 
-$this->title = $model->adm_id;
+//hacemos que la página tenga de título
+//el nombre del administrativo
+$this->title = $model->adm_nombre;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Administrativos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

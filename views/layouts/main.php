@@ -35,7 +35,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
     <div class="container">
         <?php if (!empty($this->params['breadcrumbs'])): ?>
             <?= Breadcrumbs::widget([
-                'homeLink' => ['label' => 'Inicio', 'url' => '/site/index'],
+                'homeLink' => ['label' => Yii::t('app', 'Inicio'), 'url' => '/site/index'],
                 'links' => $this->params['breadcrumbs'
             ]]) ?>
         <?php endif ?>

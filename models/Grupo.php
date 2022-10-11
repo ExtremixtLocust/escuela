@@ -48,9 +48,12 @@ class Grupo extends \yii\db\ActiveRecord
     {
         return [
             'gru_id' => Yii::t('app', 'Id'),
-            'gru_materia_id' => Yii::t('app', 'Id materia'),
-            'gru_maestro_id' => Yii::t('app', 'Id maestro'),
-            'gru_aula_id' => Yii::t('app', 'Id aula'),
+            'gru_materia_id' => Yii::t('app', 'Materia'),
+            'gru_maestro_id' => Yii::t('app', 'Maestro'),
+            'gru_aula_id' => Yii::t('app', 'Aula'),
+            'materia' => Yii::t('app', 'Materia'),
+            'maestro' => Yii::t('app', 'Maestro'),
+            'aula' => Yii::t('app', 'Aula'),
         ];
     }
 
@@ -103,7 +106,10 @@ class Grupo extends \yii\db\ActiveRecord
     //obtenemos el nombre del maestro
     public function getMaestro()
     {
-        return $this->gruMaestro->mae_nombre;
+        $nombre = $this->gruMaestro->mae_nombre;
+        $nombre .= ' ';
+        $nombre .=$this->gruMaestro->mae_appaterno;
+        return $nombre;
     }
 
     //obtenemos el número de aula

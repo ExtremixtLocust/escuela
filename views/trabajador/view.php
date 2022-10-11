@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Trabajador */
 
-$this->title = $model->tra_id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trabajadors'), 'url' => ['index']];
+$this->title = $model->tra_nombre;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Trabajadores'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -30,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'tra_id',
-            'tra_departamento_id',
+            //'tra_departamento_id',
+            'departamento',
             'tra_nombre',
             'tra_appaterno',
             'tra_apmaterno',

@@ -50,14 +50,16 @@ class Trabajador extends \yii\db\ActiveRecord
     {
         return [
             'tra_id' => Yii::t('app', 'Id'),
-            'tra_departamento_id' => Yii::t('app', 'Id departamento'),
+            'tra_departamento_id' => Yii::t('app', 'Departamento'),
             'tra_nombre' => Yii::t('app', 'Nombre'),
             'tra_appaterno' => Yii::t('app', 'Apellido Paterno'),
             'tra_apmaterno' => Yii::t('app', 'Apellido Materno'),
             'tra_rfc' => Yii::t('app', 'RFC'),
-            'tra_direccion' => Yii::t('app', 'Direccion'),
+            'tra_direccion' => Yii::t('app', 'Dirección'),
             'tra_telefono' => Yii::t('app', 'Teléfono'),
             'tra_correo' => Yii::t('app', 'Correo'),
+            //añadimos departamentos al modelo presentable
+            'departamento' => Yii::t('app', 'Departamento'),
         ];
     }
 
@@ -69,5 +71,11 @@ class Trabajador extends \yii\db\ActiveRecord
     public function getTraDepartamento()
     {
         return $this->hasOne(Departamento::className(), ['dep_id' => 'tra_departamento_id']);
+    }
+
+    //creamos el método que nos devolverá el nombre del departamento traído de la BD
+    public function getDepartamento()
+    {
+        return $this->traDepartamento->dep_nombre;
     }
 }

@@ -46,7 +46,7 @@ class Proveedor extends \yii\db\ActiveRecord
             'pro_id' => Yii::t('app', 'Id'),
             'pro_nombre' => Yii::t('app', 'Nombre'),
             'pro_fechaAsoc' => Yii::t('app', 'Fecha de Asociación'),
-            'pro_direccion' => Yii::t('app', 'Direccion'),
+            'pro_direccion' => Yii::t('app', 'Dirección'),
             'pro_correo' => Yii::t('app', 'Correo'),
             'pro_telefono' => Yii::t('app', 'Teléfono'),
         ];

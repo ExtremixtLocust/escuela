@@ -17,6 +17,12 @@ Icon::map($this);
 /* @var $model app\models\Administrativo */
 /* @var $form yii\widgets\ActiveForm */
 
+//se crean varaibles que almacenen el texto que se traducirá
+$seleccionar = Yii::t('app', 'Seleccionar').':';
+$seleccionarApellidoPaterno = Yii::t('app', 'Escriba su apellido paterno').'...';
+$seleccionarApellidoMaterno = Yii::t('app', 'Escriba su apellido materno').'...';
+
+//variable que trae los departamentos
 $departamentos = ArrayHelper::map(Departamento::find()->all(), 'dep_id', 'dep_nombre');
 
 $apellidosM = [
@@ -37,20 +43,20 @@ $apellidosP = [
 <div class="maestro-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'mae_departamento_id')->dropDownList($departamentos, ['prompt' => 'Seleccionar:']) ?>
+    
+    <?= $form->field($model, 'mae_departamento_id')->dropDownList($departamentos, ['prompt' => $seleccionar]) ?>
 
     <?= $form->field($model, 'mae_nombre')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'mae_appaterno')->widget(TypeaheadBasic::classname(), [
         'data' => $apellidosP,
-        'options' => ['placeholder' => 'Escriba su apellido paterno...'],
+        'options' => ['placeholder' => $seleccionarApellidoPaterno],
         'pluginOptions' => ['highlight'=>true],
     ]) ?>
 
     <?= $form->field($model, 'mae_apmaterno')->widget(TypeaheadBasic::classname(), [
         'data' => $apellidosM,
-        'options' => ['placeholder' => 'Escriba su apellido materno...'],
+        'options' => ['placeholder' => $seleccionarApellidoMaterno],
         'pluginOptions' => ['highlight'=>true],
     ]) ?>
 

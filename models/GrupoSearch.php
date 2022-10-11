@@ -11,6 +11,10 @@ use app\models\Grupo;
  */
 class GrupoSearch extends Grupo
 {
+    //variables para los campos personalizados
+    public $maestro;
+    public $aula;
+    public $materia;
     /**
      * {@inheritdoc}
      */
@@ -18,6 +22,7 @@ class GrupoSearch extends Grupo
     {
         return [
             [['gru_id', 'gru_materia_id', 'gru_maestro_id', 'gru_aula_id'], 'integer'],
+            [['materia', 'maestro', 'aula'], 'safe'],
         ];
     }
 
@@ -39,12 +44,39 @@ class GrupoSearch extends Grupo
      */
     public function search($params)
     {
-        $query = Grupo::find();
+        $query = Grupo::find()->joinWith(['gruMaestro']);
+        $query = Grupo::find()->joinWith(['gruMaestro']);
+        $query = Grupo::find()->joinWith(['gruMateria']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'gru_id',
+                'gru_materia_id',
+                'gru_maestro_id',
+                'gru_aula_id',
+                'materia' => [
+                    'asc' => ['mat_nombre' => SORT_ASC],
+                    'desc' => ['mat_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'maestro'=> [  
+                    'asc' => ['mae_nombre' => SORT_ASC],
+                    'desc' => ['mae_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'aula'=> [  
+                    'asc' => ['aul_numero' => SORT_ASC],
+                    'desc' => ['aul_numero' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+            ]
         ]);
 
         $this->load($params);
@@ -62,6 +94,10 @@ class GrupoSearch extends Grupo
             'gru_maestro_id' => $this->gru_maestro_id,
             'gru_aula_id' => $this->gru_aula_id,
         ]);
+
+        $query->andFilterWhere(['like', 'mat_nombre', $this->materia])
+        ->andFilterWhere(['like', 'mae_nombre', $this->maestro])
+        ->andFilterWhere(['like', 'aul_numero', $this->aula]);
 
         return $dataProvider;
     }

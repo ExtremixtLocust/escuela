@@ -49,7 +49,7 @@ class Departamento extends \yii\db\ActiveRecord
             //añadimos el campo para el idioma
             'proveedor' => Yii::t('app', 'Proveedor'),
             'dep_id' => Yii::t('app', 'Id'),
-            'dep_proveedor_id' => Yii::t('app', 'Id proveedor'),
+            'dep_proveedor_id' => Yii::t('app', 'Proveedor'),
             'dep_nombre' => Yii::t('app', 'Nombre del departamento'),
         ];
     }

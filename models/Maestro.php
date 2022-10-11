@@ -53,13 +53,13 @@ class Maestro extends \yii\db\ActiveRecord
             //añadimos departamentos al modelo presentable
             'departamento' => Yii::t('app', 'Departamento'),
             'mae_id' => Yii::t('app', 'Id'),
-            'mae_departamento_id' => Yii::t('app', 'Id departamento'),
+            'mae_departamento_id' => Yii::t('app', 'Departamento'),
             'mae_nombre' => Yii::t('app', 'Nombre'),
             'mae_appaterno' => Yii::t('app', 'Apellido Paterno'),
             'mae_apmaterno' => Yii::t('app', 'Apellido Materno'),
             'mae_rfc' => Yii::t('app', 'RFC'),
             'mae_telefono' => Yii::t('app', 'Teléfono'),
-            'mae_direccion' => Yii::t('app', 'Direccion'),
+            'mae_direccion' => Yii::t('app', 'Dirección'),
             'mae_correo' => Yii::t('app', 'Correo'),
         ];
     }

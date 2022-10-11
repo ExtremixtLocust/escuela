@@ -6,7 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Departamento */
 
-$this->title = $model->dep_id;
+//hacemos que la página tenga de título
+//el nombre del departamento
+$this->title = $model->dep_nombre;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Departamentos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

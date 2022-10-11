@@ -51,6 +51,7 @@ class Administrativo extends \yii\db\ActiveRecord
             'adm_id' => Yii::t('app', 'Id'),
             //añadimos el campo personalizado al idioma
             'departamento' => Yii::t('app', 'Departamento'),
+            'adm_departamento_id' => Yii::t('app', 'Departamento'),
             'adm_nombre' => Yii::t('app', 'Nombre'),
             'adm_appaterno' => Yii::t('app', 'Apellido Paterno'),
             'adm_apmaterno' => Yii::t('app', 'Apellido Materno'),

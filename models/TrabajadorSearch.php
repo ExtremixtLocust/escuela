@@ -11,6 +11,9 @@ use app\models\Trabajador;
  */
 class TrabajadorSearch extends Trabajador
 {
+    //variable para añadir departemento al search
+    public $departamento;
+
     /**
      * {@inheritdoc}
      */
@@ -18,7 +21,7 @@ class TrabajadorSearch extends Trabajador
     {
         return [
             [['tra_id', 'tra_departamento_id'], 'integer'],
-            [['tra_nombre', 'tra_appaterno', 'tra_apmaterno', 'tra_rfc', 'tra_direccion', 'tra_telefono', 'tra_correo'], 'safe'],
+            [['tra_nombre', 'tra_appaterno', 'tra_apmaterno', 'tra_rfc', 'tra_direccion', 'tra_telefono', 'tra_correo' , 'departamento'], 'safe'],
         ];
     }
 
@@ -40,12 +43,32 @@ class TrabajadorSearch extends Trabajador
      */
     public function search($params)
     {
-        $query = Trabajador::find();
+        //$query = Trabajador::find();
+        //hacemos in Join
+        $query = Trabajador::find()->joinWith(['traDepartamento']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        //se genera el sort para campos personalizados
+        $dataProvider->setSort([
+            'attributes' => [
+                'departamento' => [
+                    'asc' => ['dep_nombre' => SORT_ASC],
+                    'desc' => ['dep_nombre' => SORT_DESC],
+                    'default' => SORT_ASC
+                ],
+                'tra_nombre',
+                'tra_appaterno',
+                'tra_apmaterno',
+                'tra_rfc' ,
+                'tra_telefono',
+                'tra_direccion',
+                'tra_correo',
+            ]
         ]);
 
         $this->load($params);
@@ -68,7 +91,8 @@ class TrabajadorSearch extends Trabajador
             ->andFilterWhere(['like', 'tra_rfc', $this->tra_rfc])
             ->andFilterWhere(['like', 'tra_direccion', $this->tra_direccion])
             ->andFilterWhere(['like', 'tra_telefono', $this->tra_telefono])
-            ->andFilterWhere(['like', 'tra_correo', $this->tra_correo]);
+            ->andFilterWhere(['like', 'tra_correo', $this->tra_correo])
+            ->andFilterWhere(['like', 'dep_nombre', $this->departamento]);
 
         return $dataProvider;
     }

@@ -1,18 +1,31 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
+
+//librerías para el array de departamentos
+use yii\helpers\ArrayHelper;
+use app\models\Departamento;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Trabajador */
 /* @var $form yii\widgets\ActiveForm */
+
+//se crean varaibles que almacenen el texto que se traducirá
+$seleccionar = Yii::t('app', 'Seleccionar').':';
+$seleccionarApellidoPaterno = Yii::t('app', 'Escriba su apellido paterno').'...';
+$seleccionarApellidoMaterno = Yii::t('app', 'Escriba su apellido materno').'...';
+
+//variable que trae los departamentos
+$departamentos = ArrayHelper::map(Departamento::find()->all(), 'dep_id', 'dep_nombre');
+
 ?>
 
 <div class="trabajador-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tra_departamento_id')->textInput() ?>
+    <?= $form->field($model, 'tra_departamento_id')->dropDownList($departamentos, ['prompt' => $seleccionar]) ?>
 
     <?= $form->field($model, 'tra_nombre')->textInput(['maxlength' => true]) ?>
 

@@ -15,6 +15,7 @@ Icon::map($this);
 /* @var $form yii\widgets\ActiveForm */
 
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
+$seleccionar = Yii::t('app', 'Seleccionar').':';
 
 $apellidosM = [
     'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
@@ -49,7 +50,7 @@ $apellidosP = [
         'pluginOptions' => ['highlight'=>true],
     ]) ?>
 
-    <?= $form->field($model, 'alu_reticula_id')->dropDownList($reticulas, ['prompt' => 'Seleccionar:']) ?>
+    <?= $form->field($model, 'alu_reticula_id')->dropDownList($reticulas, ['prompt' => $seleccionar]) ?>
 
     <?= $form->field($model, 'alu_nocontrol')->textInput(['maxlength' => true]) ?>
 

@@ -6,7 +6,9 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Maestro */
 
-$this->title = $model->mae_id;
+//hacemos que la página tenga de título
+//el nombre del maestro
+$this->title = $model->mae_nombre;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Maestros'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
