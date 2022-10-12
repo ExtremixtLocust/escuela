@@ -11,6 +11,7 @@ use app\models\Carga;
  */
 class CargaSearch extends Carga
 {
+    public $materia;
     /**
      * {@inheritdoc}
      */
