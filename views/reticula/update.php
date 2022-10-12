@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Actualizar información de:').' '.$model->ret_carr
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Retículas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->ret_carrera, 'url' => ['view', 'ret_id' => $model->ret_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Modificar');
 ?>
 <div class="reticula-update">
 

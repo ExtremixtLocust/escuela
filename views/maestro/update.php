@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Actualizar información de:').' '.$model->mae_nomb
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Maestros'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->mae_nombre, 'url' => ['view', 'mae_id' => $model->mae_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Modificar');
 ?>
 <div class="maestro-update">
 

@@ -6,7 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Grupo */
 
-$this->title = $model->gru_id;
+//$this->title = $model->gru_id;
+$this->title = Yii::t('app', 'Grupo:').' '.$model->gru_id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Grupos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,8 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'gru_id' => $model->gru_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'gru_id' => $model->gru_id], [
+        <?= Html::a(Yii::t('app', 'Modificar'), ['update', 'gru_id' => $model->gru_id], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'gru_id' => $model->gru_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),

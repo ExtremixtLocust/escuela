@@ -42,7 +42,7 @@ $departamentos = ArrayHelper::map(Departamento::find()->all(), 'dep_id', 'dep_no
     <?= $form->field($model, 'tra_correo')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

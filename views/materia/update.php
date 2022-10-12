@@ -13,7 +13,7 @@ $this->title = Yii::t('app', 'Actualizar información de:').' '.$model->mat_nomb
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Materias'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->mat_nombre, 'url' => ['view', 'mat_id' => $model->mat_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Modificar');
 ?>
 <div class="materia-update">
 

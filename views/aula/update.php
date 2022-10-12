@@ -10,7 +10,7 @@ $this->title = Yii::t('app', 'Update Aula: {name}', [
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Aulas'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->aul_id, 'url' => ['view', 'aul_id' => $model->aul_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Modificar');
 ?>
 <div class="aula-update">
 

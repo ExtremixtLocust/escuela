@@ -15,7 +15,10 @@ Icon::map($this);
 /* @var $form yii\widgets\ActiveForm */
 
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
+//variables para texto
 $seleccionar = Yii::t('app', 'Seleccionar').':';
+$escribirApPaterno = Yii::t('app' , 'Escriba su apellido paterno').'...';
+$escribirApMaterno = Yii::t('app' , 'Escriba su apellido materno').'...';
 
 $apellidosM = [
     'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
@@ -40,13 +43,13 @@ $apellidosP = [
 
     <?= $form->field($model, 'alu_appaterno')->widget(TypeaheadBasic::classname(), [
         'data' => $apellidosP,
-        'options' => ['placeholder' => 'Escriba su apellido paterno...'],
+        'options' => ['placeholder' => $escribirApPaterno],
         'pluginOptions' => ['highlight'=>true],
     ]) ?>
 
     <?= $form->field($model, 'alu_apmaterno')->widget(TypeaheadBasic::classname(), [
         'data' => $apellidosM,
-        'options' => ['placeholder' => 'Escriba su apellido materno...'],
+        'options' => ['placeholder' => $escribirApMaterno],
         'pluginOptions' => ['highlight'=>true],
     ]) ?>
 

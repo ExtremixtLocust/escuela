@@ -11,9 +11,9 @@ use yii\helpers\Html;
 //cambiamos el código para concatenar texto y variable nombre
 $this->title = Yii::t('app', 'Actualizar información de:').' '.$model->pro_nombre;
 
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Proveedors'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Proveedores'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->pro_nombre, 'url' => ['view', 'pro_id' => $model->pro_id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Modificar');
 ?>
 <div class="proveedor-update">
 

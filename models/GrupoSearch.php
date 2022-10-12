@@ -44,9 +44,10 @@ class GrupoSearch extends Grupo
      */
     public function search($params)
     {
-        $query = Grupo::find()->joinWith(['gruMaestro']);
-        $query = Grupo::find()->joinWith(['gruMaestro']);
-        $query = Grupo::find()->joinWith(['gruMateria']);
+        //triple inner join (me dolió hacerlo)
+        $query = Grupo::find()->joinWith(['gruMateria', 'gruMaestro', 'gruAula']);
+        /*$query = Grupo::find()->joinWith(['gruMaestro']);
+        $query = Grupo::find()->joinWith(['gruMateria']);*/
 
         // add conditions that should always apply here
 

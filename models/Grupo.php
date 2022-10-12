@@ -106,10 +106,9 @@ class Grupo extends \yii\db\ActiveRecord
     //obtenemos el nombre del maestro
     public function getMaestro()
     {
-        $nombre = $this->gruMaestro->mae_nombre;
-        $nombre .= ' ';
-        $nombre .=$this->gruMaestro->mae_appaterno;
-        return $nombre;
+        //return $this->gruMaestro->mae_nombre;
+        return $nombreCompleto=$this->gruMaestro->mae_nombre.' '.$this->gruMaestro->mae_appaterno.' '.$this->gruMaestro->mae_apmaterno;
+        //método modificado para obtener el nombre completo del profesor
     }
 
     //obtenemos el número de aula

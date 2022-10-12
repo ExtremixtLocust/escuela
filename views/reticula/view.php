@@ -20,15 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'ret_id' => $model->ret_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'ret_id' => $model->ret_id], [
+        <?= Html::a(Yii::t('app', 'Modificar'), ['update', 'ret_id' => $model->ret_id], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'ret_id' => $model->ret_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'View subjects'), ['/carga/index', 'CargaSearch[car_reticula_id]' => $model->ret_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Ver Materias'), ['/carga/index', 'CargaSearch[car_reticula_id]' => $model->ret_id], ['class' => 'btn btn-info']) ?>
 
     </p>
 

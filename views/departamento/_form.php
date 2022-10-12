@@ -26,7 +26,7 @@ $proveedor = ArrayHelper::map(Proveedor::find()->all(), 'pro_id', 'pro_nombre');
     <?= $form->field($model, 'dep_nombre')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
