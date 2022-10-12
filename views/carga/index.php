@@ -36,7 +36,7 @@ $reticulas = ArrayHelper::map(Materia::find()->all(), 'mat_id', 'mat_nombre');
 
             //no necesitamos ver el id
             //'car_id',
-            'car_reticula_id',
+            //'car_reticula_id',
             //comentamos el id de la materia
             //'car_materia_id',
             //añadimos el método para ver el nombre de la materia
