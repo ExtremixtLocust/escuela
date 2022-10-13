@@ -14,8 +14,8 @@ class grad
 	function CoonsPatchMesh($x, $y, $w, $h, $patch_array = array(), $x_min = 0, $x_max = 1, $y_min = 0, $y_max = 1, $colspace = 'RGB', $return = false)
 	{
 		$s = ' q ';
-		$s.=sprintf(' %.3F %.3F %.3F %.3F re W n ', $x * _MPDFK, ($this->mpdf->h - $y) * _MPDFK, $w * _MPDFK, -$h * _MPDFK);
-		$s.=sprintf(' %.3F 0 0 %.3F %.3F %.3F cm ', $w * _MPDFK, $h * _MPDFK, $x * _MPDFK, ($this->mpdf->h - ($y + $h)) * _MPDFK);
+		$s .= sprintf(' %.3F %.3F %.3F %.3F re W n ', $x * _MPDFK, ($this->mpdf->h - $y) * _MPDFK, $w * _MPDFK, -$h * _MPDFK);
+		$s .= sprintf(' %.3F 0 0 %.3F %.3F %.3F cm ', $w * _MPDFK, $h * _MPDFK, $x * _MPDFK, ($this->mpdf->h - ($y + $h)) * _MPDFK);
 		$n = count($this->mpdf->gradients) + 1;
 		$this->mpdf->gradients[$n]['type'] = 6; //coons patch mesh
 		$this->mpdf->gradients[$n]['colorspace'] = $colspace; //coons patch mesh
@@ -23,7 +23,7 @@ class grad
 		$trans = false;
 		$this->mpdf->gradients[$n]['stream'] = '';
 		for ($i = 0; $i < count($patch_array); $i++) {
-			$this->mpdf->gradients[$n]['stream'].=chr($patch_array[$i]['f']); //start with the edge flag as 8 bit
+			$this->mpdf->gradients[$n]['stream'] .= chr($patch_array[$i]['f']); //start with the edge flag as 8 bit
 			for ($j = 0; $j < count($patch_array[$i]['points']); $j++) {
 				//each point as 16 bit
 				if (($j % 2) == 1) { // Y coordinate (adjusted as input is From top left)
@@ -36,28 +36,28 @@ class grad
 					$patch_array[$i]['points'][$j] = 0;
 				if ($patch_array[$i]['points'][$j] > $bpcd)
 					$patch_array[$i]['points'][$j] = $bpcd;
-				$this->mpdf->gradients[$n]['stream'].=chr(floor($patch_array[$i]['points'][$j] / 256));
-				$this->mpdf->gradients[$n]['stream'].=chr(floor($patch_array[$i]['points'][$j] % 256));
+				$this->mpdf->gradients[$n]['stream'] .= chr(floor($patch_array[$i]['points'][$j] / 256));
+				$this->mpdf->gradients[$n]['stream'] .= chr(floor($patch_array[$i]['points'][$j] % 256));
 			}
 			for ($j = 0; $j < count($patch_array[$i]['colors']); $j++) {
 				//each color component as 8 bit
 				if ($colspace == 'RGB') {
-					$this->mpdf->gradients[$n]['stream'].=($patch_array[$i]['colors'][$j][1]);
-					$this->mpdf->gradients[$n]['stream'].=($patch_array[$i]['colors'][$j][2]);
-					$this->mpdf->gradients[$n]['stream'].=($patch_array[$i]['colors'][$j][3]);
+					$this->mpdf->gradients[$n]['stream'] .= ($patch_array[$i]['colors'][$j][1]);
+					$this->mpdf->gradients[$n]['stream'] .= ($patch_array[$i]['colors'][$j][2]);
+					$this->mpdf->gradients[$n]['stream'] .= ($patch_array[$i]['colors'][$j][3]);
 					if (isset($patch_array[$i]['colors'][$j][4]) && ord($patch_array[$i]['colors'][$j][4]) < 100) {
 						$trans = true;
 					}
 				} else if ($colspace == 'CMYK') {
-					$this->mpdf->gradients[$n]['stream'].=chr(ord($patch_array[$i]['colors'][$j][1]) * 2.55);
-					$this->mpdf->gradients[$n]['stream'].=chr(ord($patch_array[$i]['colors'][$j][2]) * 2.55);
-					$this->mpdf->gradients[$n]['stream'].=chr(ord($patch_array[$i]['colors'][$j][3]) * 2.55);
-					$this->mpdf->gradients[$n]['stream'].=chr(ord($patch_array[$i]['colors'][$j][4]) * 2.55);
+					$this->mpdf->gradients[$n]['stream'] .= chr(ord($patch_array[$i]['colors'][$j][1]) * 2.55);
+					$this->mpdf->gradients[$n]['stream'] .= chr(ord($patch_array[$i]['colors'][$j][2]) * 2.55);
+					$this->mpdf->gradients[$n]['stream'] .= chr(ord($patch_array[$i]['colors'][$j][3]) * 2.55);
+					$this->mpdf->gradients[$n]['stream'] .= chr(ord($patch_array[$i]['colors'][$j][4]) * 2.55);
 					if (isset($patch_array[$i]['colors'][$j][5]) && ord($patch_array[$i]['colors'][$j][5]) < 100) {
 						$trans = true;
 					}
 				} else if ($colspace == 'Gray') {
-					$this->mpdf->gradients[$n]['stream'].=($patch_array[$i]['colors'][$j][1]);
+					$this->mpdf->gradients[$n]['stream'] .= ($patch_array[$i]['colors'][$j][1]);
 					if ($patch_array[$i]['colors'][$j][2] == 1) {
 						$trans = true;
 					} // transparency converted from rgba or cmyka()
@@ -68,20 +68,20 @@ class grad
 		if ($trans) {
 			$this->mpdf->gradients[$n]['stream_trans'] = '';
 			for ($i = 0; $i < count($patch_array); $i++) {
-				$this->mpdf->gradients[$n]['stream_trans'].=chr($patch_array[$i]['f']);
+				$this->mpdf->gradients[$n]['stream_trans'] .= chr($patch_array[$i]['f']);
 				for ($j = 0; $j < count($patch_array[$i]['points']); $j++) {
 					//each point as 16 bit
-					$this->mpdf->gradients[$n]['stream_trans'].=chr(floor($patch_array[$i]['points'][$j] / 256));
-					$this->mpdf->gradients[$n]['stream_trans'].=chr(floor($patch_array[$i]['points'][$j] % 256));
+					$this->mpdf->gradients[$n]['stream_trans'] .= chr(floor($patch_array[$i]['points'][$j] / 256));
+					$this->mpdf->gradients[$n]['stream_trans'] .= chr(floor($patch_array[$i]['points'][$j] % 256));
 				}
 				for ($j = 0; $j < count($patch_array[$i]['colors']); $j++) {
 					//each color component as 8 bit // OPACITY
 					if ($colspace == 'RGB') {
-						$this->mpdf->gradients[$n]['stream_trans'].=chr(intval(ord($patch_array[$i]['colors'][$j][4]) * 2.55));
+						$this->mpdf->gradients[$n]['stream_trans'] .= chr(intval(ord($patch_array[$i]['colors'][$j][4]) * 2.55));
 					} else if ($colspace == 'CMYK') {
-						$this->mpdf->gradients[$n]['stream_trans'].=chr(intval(ord($patch_array[$i]['colors'][$j][5]) * 2.55));
+						$this->mpdf->gradients[$n]['stream_trans'] .= chr(intval(ord($patch_array[$i]['colors'][$j][5]) * 2.55));
 					} else if ($colspace == 'Gray') {
-						$this->mpdf->gradients[$n]['stream_trans'].=chr(intval(ord($patch_array[$i]['colors'][$j][3]) * 2.55));
+						$this->mpdf->gradients[$n]['stream_trans'] .= chr(intval(ord($patch_array[$i]['colors'][$j][3]) * 2.55));
 					}
 				}
 			}
@@ -159,30 +159,26 @@ class grad
 						$coords[2] = 2;
 					else
 						$coords[2] = 1;
-				}
-				else if ($angle == 90) {
+				} else if ($angle == 90) {
 					$coords[2] = $coords[0];
 					$coords[3] = 1;
 					if ($coords[1] == 1)
 						$coords[3] = 2;
 					else
 						$coords[3] = 1;
-				}
-				else if ($angle == 180) {
+				} else if ($angle == 180) {
 					if ($coords[4] == 0)
 						$coords[2] = -1;
 					else
 						$coords[2] = 0;
 					$coords[3] = $coords[1];
-				}
-				else if ($angle == 270) {
+				} else if ($angle == 270) {
 					$coords[2] = $coords[0];
 					if ($coords[1] == 0)
 						$coords[3] = -1;
 					else
 						$coords[3] = 0;
-				}
-				else {
+				} else {
 					$endx = 1;
 					$endy = 1;
 					if ($angle <= 90) {
@@ -504,11 +500,11 @@ class grad
 		for ($i = 0; $i < count($stops); $i++) {
 			// mPDF 5.3.74
 			if ($colorspace == 'CMYK') {
-				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F %.3F %.3F %.3F', (ord($stops[$i]['col']{1}) / 100), (ord($stops[$i]['col']{2}) / 100), (ord($stops[$i]['col']{3}) / 100), (ord($stops[$i]['col']{4}) / 100));
+				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F %.3F %.3F %.3F', (ord($stops[$i]['col'][1]) / 100), (ord($stops[$i]['col'][2]) / 100), (ord($stops[$i]['col'][3]) / 100), (ord($stops[$i]['col'][4]) / 100));
 			} else if ($colorspace == 'Gray') {
-				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F', (ord($stops[$i]['col']{1}) / 255));
+				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F', (ord($stops[$i]['col'][1]) / 255));
 			} else {
-				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F %.3F %.3F', (ord($stops[$i]['col']{1}) / 255), (ord($stops[$i]['col']{2}) / 255), (ord($stops[$i]['col']{3}) / 255));
+				$this->mpdf->gradients[$n]['stops'][$i]['col'] = sprintf('%.3F %.3F %.3F', (ord($stops[$i]['col'][1]) / 255), (ord($stops[$i]['col'][2]) / 255), (ord($stops[$i]['col'][3]) / 255));
 			}
 			if (!isset($stops[$i]['opacity'])) {
 				$stops[$i]['opacity'] = 1;
@@ -558,7 +554,7 @@ class grad
 					} else {
 						$this->mpdf->gradients[$n]['stops'][(($ns * $gp) + $i)]['offset'] = 1;
 						$inside = false;
-						break(2);
+						break (2);
 					}
 				}
 			}
@@ -713,18 +709,18 @@ class grad
 				} else {
 					$stop['col'] = $col = $this->mpdf->ConvertColor(255);
 				}
-				if ($col{0} == 1)
+				if ($col[0] == 1)
 					$g['colorspace'] = 'Gray';
-				else if ($col{0} == 4 || $col{0} == 6)
+				else if ($col[0] == 4 || $col[0] == 6)
 					$g['colorspace'] = 'CMYK';
-				if ($col{0} == 5) {
-					$stop['opacity'] = ord($col{4}) / 100;
+				if ($col[0] == 5) {
+					$stop['opacity'] = ord($col[4]) / 100;
 				} // transparency from rgba()
-				else if ($col{0} == 6) {
-					$stop['opacity'] = ord($col{5}) / 100;
+				else if ($col[0] == 6) {
+					$stop['opacity'] = ord($col[5]) / 100;
 				} // transparency from cmyka()
-				else if ($col{0} == 1 && $col{2} == 1) {
-					$stop['opacity'] = ord($col{3}) / 100;
+				else if ($col[0] == 1 && $col[2] == 1) {
+					$stop['opacity'] = ord($col[3]) / 100;
 				} // transparency converted from rgba or cmyka()
 
 				if (isset($el[1]) && preg_match('/(\d+)[%]/', $el[1], $m)) {
@@ -893,18 +889,18 @@ class grad
 				} else {
 					$stop['col'] = $col = $this->mpdf->ConvertColor(255);
 				}
-				if ($col{0} == 1)
+				if ($col[0] == 1)
 					$g['colorspace'] = 'Gray';
-				else if ($col{0} == 4 || $col{0} == 6)
+				else if ($col[0] == 4 || $col[0] == 6)
 					$g['colorspace'] = 'CMYK';
-				if ($col{0} == 5) {
-					$stop['opacity'] = ord($col{4}) / 100;
+				if ($col[0] == 5) {
+					$stop['opacity'] = ord($col[4]) / 100;
 				} // transparency from rgba()
-				else if ($col{0} == 6) {
-					$stop['opacity'] = ord($col{5}) / 100;
+				else if ($col[0] == 6) {
+					$stop['opacity'] = ord($col[5]) / 100;
 				} // transparency from cmyka()
-				else if ($col{0} == 1 && $col{2} == 1) {
-					$stop['opacity'] = ord($col{3}) / 100;
+				else if ($col[0] == 1 && $col[2] == 1) {
+					$stop['opacity'] = ord($col[3]) / 100;
 				} // transparency converted from rgba or cmyka()
 
 				if (isset($el[1]) && preg_match('/(\d+)[%]/', $el[1], $m)) {
@@ -950,9 +946,9 @@ class grad
 			$g['colorspace'] = 'RGB';
 			// mPDF 5.3.74
 			$cor = $this->mpdf->ConvertColor($bgr[1]);
-			if ($cor{0} == 1)
+			if ($cor[0] == 1)
 				$g['colorspace'] = 'Gray';
-			else if ($cor{0} == 4 || $cor{0} == 6)
+			else if ($cor[0] == 4 || $cor[0] == 6)
 				$g['colorspace'] = 'CMYK';
 			if ($cor) {
 				$g['col'] = $cor;
@@ -971,5 +967,4 @@ class grad
 		}
 		return false;
 	}
-
 }

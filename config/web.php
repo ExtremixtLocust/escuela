@@ -1,5 +1,7 @@
 <?php
 
+use kartik\mpdf\Pdf;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -57,22 +59,41 @@ $config = [
 
         'i18n' => [
             'translations' => [
-            'app*' => [
-            'class' => 'yii\i18n\PhpMessageSource',
-            //'basePath' => '@app/messages',
-            //'sourceLanguage' => 'en-US',
-            'fileMap' => [
-            'app' => 'app.php',
-            'app/error' => 'error.php',
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '@app/messages',
+                    //'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
                     ],
-                 ],       
-             ],      
-         ],
+                ],
+            ],
+        ],
+
+        //MPDF
+        $pdf = [
+            'mode' => Pdf::MODE_CORE,
+            'class' => Pdf::classname(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+            'options' => ['title' => 'Título del Reporte'],
+            'methods' => [
+
+                'SetHeader' => ['Encabezado del Reporte||Alumnos'],
+                'SetFooter' => ['{DATE j-m-Y}||Página {PAGENO}'],
+
+            ]
+        ],
+
     ],
     'params' => $params,
     'on beforeRequest' => function ($event) {
         Yii::$app->language = Yii::$app->session->get('language', 'en-USA');
-        },
+    },
 ];
 
 if (YII_ENV_DEV) {

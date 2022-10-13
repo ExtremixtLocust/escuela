@@ -197,7 +197,7 @@ class Tag
 						$p['L']['font-style'] = 'B';
 					}
 					if (isset($properties['FONT-STYLE']) && $properties['FONT-STYLE'] == 'italic') {
-						$p['L']['font-style'] .='I';
+						$p['L']['font-style'] .= 'I';
 					}
 					if (isset($properties['COLOR'])) {
 						$p['L']['color'] = $properties['COLOR'];
@@ -332,7 +332,7 @@ class Tag
 
 
 
-			/* -- TOC -- */
+				/* -- TOC -- */
 			case 'TOC': //added custom-tag - set Marker for insertion later of ToC
 				if (!class_exists('tocontents', false)) {
 					include(_MPDF_PATH . 'classes/tocontents.php');
@@ -357,8 +357,8 @@ class Tag
 				if (!isset($attr['RESETPAGENUM']) || $attr['RESETPAGENUM'] < 1) {
 					$attr['RESETPAGENUM'] = 1;
 				} // mPDF 6
-			// No break - continues as PAGEBREAK...
-			/* -- END TOC -- */
+				// No break - continues as PAGEBREAK...
+				/* -- END TOC -- */
 
 
 			case 'PAGE_BREAK': //custom-tag
@@ -470,10 +470,12 @@ class Tag
 					$pagebreaktype = 'cloneall';
 				}
 				// Any change in headers/footers (may need to _getHtmlHeight), or page size/orientation, @page selector, or margins - force cloneall
-				else if ($mgr !== '' || $mgl !== '' || $mgt !== '' || $mgb !== '' || $mgh !== '' || $mgf !== '' ||
+				else if (
+					$mgr !== '' || $mgl !== '' || $mgt !== '' || $mgb !== '' || $mgh !== '' || $mgf !== '' ||
 					$ohname !== '' || $ehname !== '' || $ofname !== '' || $efname !== '' ||
 					$ohvalue || $ehvalue || $ofvalue || $efvalue ||
-					$orient != $this->mpdf->CurOrientation || $newformat || $pagesel) {
+					$orient != $this->mpdf->CurOrientation || $newformat || $pagesel
+				) {
 					$pagebreaktype = 'cloneall';
 				}
 
@@ -537,7 +539,7 @@ class Tag
 				break;
 
 
-			/* -- TOC -- */
+				/* -- TOC -- */
 			case 'TOCENTRY':
 				if (isset($attr['CONTENT']) && $attr['CONTENT']) {
 					$objattr = array();
@@ -563,9 +565,9 @@ class Tag
 					} // *TABLES*
 				}
 				break;
-			/* -- END TOC -- */
+				/* -- END TOC -- */
 
-			/* -- INDEX -- */
+				/* -- INDEX -- */
 			case 'INDEXENTRY':
 				if (isset($attr['CONTENT']) && $attr['CONTENT']) {
 					if (isset($attr['XREF']) && $attr['XREF']) {
@@ -611,9 +613,9 @@ class Tag
 				$this->mpdf->InsertIndex($usedivletters, $links, $indexCollationLocale, $indexCollationGroup);
 
 				break;
-			/* -- END INDEX -- */
+				/* -- END INDEX -- */
 
-			/* -- WATERMARK -- */
+				/* -- WATERMARK -- */
 
 			case 'WATERMARKTEXT':
 				if (isset($attr['CONTENT']) && $attr['CONTENT']) {
@@ -659,9 +661,9 @@ class Tag
 				}
 				$this->mpdf->SetWatermarkImage($src, $alpha, $size, $pos);
 				break;
-			/* -- END WATERMARK -- */
+				/* -- END WATERMARK -- */
 
-			/* -- BOOKMARKS -- */
+				/* -- BOOKMARKS -- */
 			case 'BOOKMARK':
 				if (isset($attr['CONTENT'])) {
 					$objattr = array();
@@ -681,9 +683,9 @@ class Tag
 					} // *TABLES*
 				}
 				break;
-			/* -- END BOOKMARKS -- */
+				/* -- END BOOKMARKS -- */
 
-			/* -- ANNOTATIONS -- */
+				/* -- ANNOTATIONS -- */
 			case 'ANNOTATION':
 
 				//if (isset($attr['CONTENT']) && !$this->mpdf->writingHTMLheader && !$this->mpdf->writingHTMLfooter) {	// Stops annotations in FixedPos
@@ -771,10 +773,10 @@ class Tag
 					$this->mpdf->textbuffer[] = array($e);
 				} // *TABLES*
 				break;
-			/* -- END ANNOTATIONS -- */
+				/* -- END ANNOTATIONS -- */
 
 
-			/* -- COLUMNS -- */
+				/* -- COLUMNS -- */
 			case 'COLUMNS': //added custom-tag
 				if (isset($attr['COLUMN-COUNT']) && ($attr['COLUMN-COUNT'] || $attr['COLUMN-COUNT'] === '0')) {
 					// Close any open block tags
@@ -812,7 +814,7 @@ class Tag
 				$this->mpdf->ColumnAdjust = false; // disables all column height adjustment for the page.
 				break;
 
-			/* -- END COLUMNS -- */
+				/* -- END COLUMNS -- */
 
 
 			case 'TTZ':
@@ -842,7 +844,7 @@ class Tag
 
 
 
-			// INLINE PHRASES OR STYLES
+				// INLINE PHRASES OR STYLES
 			case 'SUB':
 			case 'SUP':
 			case 'ACRONYM':
@@ -962,7 +964,7 @@ class Tag
 						$bdf = 0x2068;
 						$popd = 'FSIPDI';
 					} // U+2068 FSI
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'bidi-override') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'bidi-override') {
 					if ($currdir == 'rtl') {
 						$bdf = 0x202E;
 						$popd = 'RLOPDF';
@@ -971,7 +973,7 @@ class Tag
 						$bdf = 0x202D;
 						$popd = 'LROPDF';
 					} // U+202D LRO
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'embed') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'embed') {
 					if ($currdir == 'rtl') {
 						$bdf = 0x202B;
 						$popd = 'RLEPDF';
@@ -980,7 +982,7 @@ class Tag
 						$bdf = 0x202A;
 						$popd = 'LREPDF';
 					} // U+202A LRE
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'isolate') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'isolate') {
 					if ($currdir == 'rtl') {
 						$bdf = 0x2067;
 						$popd = 'RLIPDI';
@@ -989,7 +991,7 @@ class Tag
 						$bdf = 0x2066;
 						$popd = 'LRIPDI';
 					} // U+2066 LRI
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'isolate-override') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'isolate-override') {
 					if ($currdir == 'rtl') {
 						$bdf = 0x2067;
 						$bdf2 = 0x202E;
@@ -1000,7 +1002,7 @@ class Tag
 						$bdf2 = 0x202D;
 						$popd = 'LRILROPDFPDI';
 					} // U+2066 LRI  // U+202D LRO
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'plaintext') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'plaintext') {
 					$bdf = 0x2068;
 					$popd = 'FSIPDI'; // U+2068 FSI
 				} else {
@@ -1159,7 +1161,7 @@ class Tag
 				$objattr['border_right']['w'] = 0;
 
 				$properties = $this->mpdf->cssmgr->MergeCSS('INLINE', $tag, $attr);
-				if (isset($properties ['DISPLAY']) && strtolower($properties ['DISPLAY']) == 'none') {
+				if (isset($properties['DISPLAY']) && strtolower($properties['DISPLAY']) == 'none') {
 					return;
 				}
 				$objattr['visibility'] = 'visible';
@@ -1341,8 +1343,8 @@ class Tag
 				$inlinepost = '';
 				$iBDF = array();
 				if (count($this->mpdf->InlineBDF)) {
-					foreach ($this->mpdf->InlineBDF AS $k => $ib) {
-						foreach ($ib AS $ib2) {
+					foreach ($this->mpdf->InlineBDF as $k => $ib) {
+						foreach ($ib as $ib2) {
 							$iBDF[$ib2[1]] = $ib2[0];
 						}
 					}
@@ -1388,7 +1390,7 @@ class Tag
 				break;
 
 
-			// *********** BLOCKS  ********************
+				// *********** BLOCKS  ********************
 
 
 			case 'PRE':
@@ -1572,7 +1574,7 @@ class Tag
 							$this->mpdf->listlvl++; // first depth level
 							$this->mpdf->listcounter[$this->mpdf->listlvl] = 0;
 						}
-						$this->mpdf->listcounter[$this->mpdf->listlvl] ++;
+						$this->mpdf->listcounter[$this->mpdf->listlvl]++;
 						$this->mpdf->listitem = array();
 						//if in table - output here as a tabletextbuffer
 						//position:inside OR position:outside (always output in table as position:inside)
@@ -1689,9 +1691,9 @@ class Tag
 
 				// mPDF 6 pagebreaktype - moved after pagebreak
 				$this->mpdf->blklvl++;
-				$currblk = & $this->mpdf->blk[$this->mpdf->blklvl];
+				$currblk = &$this->mpdf->blk[$this->mpdf->blklvl];
 				$this->mpdf->initialiseBlock($currblk);
-				$prevblk = & $this->mpdf->blk[$this->mpdf->blklvl - 1];
+				$prevblk = &$this->mpdf->blk[$this->mpdf->blklvl - 1];
 				$currblk['tag'] = $tag;
 				$currblk['attr'] = $attr;
 
@@ -1951,7 +1953,7 @@ class Tag
 				}
 				$cbti = $this->mpdf->ConvertSize($currblk['text_indent'], $this->mpdf->blk[$this->mpdf->blklvl]['inner_width'], $this->mpdf->FontSize, false);
 				if ($cbti < 0) {
-					$hangind = -($cbti);
+					$hangind = - ($cbti);
 					if (isset($currblk['direction']) && $currblk['direction'] == 'rtl') { // *OTL*
 						$currblk['padding_right'] = max($currblk['padding_right'], $hangind); // *OTL*
 					} // *OTL*
@@ -2018,7 +2020,7 @@ class Tag
 					$currblk['outer_right_margin'] = $prevblk['outer_right_margin'] + $currblk['margin_right'] + $prevblk['border_right']['w'] + $prevblk['padding_right'];
 					$currblk['width'] = $this->mpdf->pgwidth - ($currblk['outer_right_margin'] + $currblk['outer_left_margin']);
 					$currblk['inner_width'] = $this->mpdf->pgwidth - ($currblk['outer_right_margin'] + $currblk['outer_left_margin'] + $currblk['border_left']['w'] + $currblk['padding_left'] + $currblk['border_right']['w'] + $currblk['padding_right']);
-//		if ($currblk['inner_width'] < $mw) { throw new MpdfException("DIV is too narrow for text to fit!"); }
+					//		if ($currblk['inner_width'] < $mw) { throw new MpdfException("DIV is too narrow for text to fit!"); }
 				}
 
 				$this->mpdf->x = $this->mpdf->lMargin + $currblk['outer_left_margin'];
@@ -2128,7 +2130,7 @@ class Tag
 						$this->mpdf->listlvl++; // first depth level
 						$this->mpdf->listcounter[$this->mpdf->listlvl] = 0;
 					}
-					$this->mpdf->listcounter[$this->mpdf->listlvl] ++;
+					$this->mpdf->listcounter[$this->mpdf->listlvl]++;
 					$this->mpdf->listitem = array();
 
 					// Listitem-type
@@ -2155,7 +2157,7 @@ class Tag
 
 				// mPDF 6 bidi
 				// cf. http://www.w3.org/TR/css3-writing-modes/#unicode-bidi
-				if (isset($properties ['UNICODE-BIDI']) && (strtolower($properties ['UNICODE-BIDI']) == 'bidi-override' || strtolower($properties ['UNICODE-BIDI']) == 'isolate-override')) {
+				if (isset($properties['UNICODE-BIDI']) && (strtolower($properties['UNICODE-BIDI']) == 'bidi-override' || strtolower($properties['UNICODE-BIDI']) == 'isolate-override')) {
 					if ($currdir == 'rtl') {
 						$bdf = 0x202E;
 						$popd = 'RLOPDF';
@@ -2164,7 +2166,7 @@ class Tag
 						$bdf = 0x202D;
 						$popd = 'LROPDF';
 					} // U+202D LRO
-				} else if (isset($properties ['UNICODE-BIDI']) && strtolower($properties ['UNICODE-BIDI']) == 'plaintext') {
+				} else if (isset($properties['UNICODE-BIDI']) && strtolower($properties['UNICODE-BIDI']) == 'plaintext') {
 					$bdf = 0x2068;
 					$popd = 'FSIPDI'; // U+2068 FSI
 				}
@@ -2279,7 +2281,7 @@ class Tag
 				break;
 
 
-			/* -- BARCODES -- */
+				/* -- BARCODES -- */
 
 			case 'BARCODE':
 				$this->mpdf->ignorefollowingspaces = false;
@@ -2338,7 +2340,7 @@ class Tag
 						$objattr['pr_ratio'] = '';
 					}
 					$properties = $this->mpdf->cssmgr->MergeCSS('', $tag, $attr);
-					if (isset($properties ['DISPLAY']) && strtolower($properties ['DISPLAY']) == 'none') {
+					if (isset($properties['DISPLAY']) && strtolower($properties['DISPLAY']) == 'none') {
 						return;
 					}
 					if (isset($properties['MARGIN-TOP'])) {
@@ -2481,12 +2483,12 @@ class Tag
 					} // *TABLES*
 				}
 				break;
-			/* -- END BARCODES -- */
+				/* -- END BARCODES -- */
 
 
-			// *********** FORM ELEMENTS ********************
+				// *********** FORM ELEMENTS ********************
 
-			/* -- FORMS -- */
+				/* -- FORMS -- */
 			case 'SELECT':
 				$this->mpdf->lastoptionaltag = ''; // Save current HTML specified optional endtag
 				$this->mpdf->InlineProperties[$tag] = $this->mpdf->saveInlineProperties();
@@ -2684,7 +2686,7 @@ class Tag
 
 
 
-			// *********** FORM - INPUT ********************
+				// *********** FORM - INPUT ********************
 
 			case 'INPUT':
 				$this->mpdf->ignorefollowingspaces = false;
@@ -2811,7 +2813,7 @@ class Tag
 						$height = $this->mpdf->FontSize;
 						break;
 
-					/* -- IMAGES-CORE -- */
+						/* -- IMAGES-CORE -- */
 					case 'IMAGE': // Draw an Image button
 						if (isset($attr['SRC'])) {
 							$type = 'IMAGE';
@@ -2964,7 +2966,7 @@ class Tag
 							}
 							break;
 						}
-					/* -- END IMAGES-CORE -- */
+						/* -- END IMAGES-CORE -- */
 
 					case 'BUTTON': // Draw a button
 					case 'SUBMIT':
@@ -3063,10 +3065,10 @@ class Tag
 				unset($this->mpdf->InlineProperties[$tag]);
 
 				break; // END of INPUT
-			/* -- END FORMS -- */
+				/* -- END FORMS -- */
 
 
-			// *********** GRAPH  ********************
+				// *********** GRAPH  ********************
 			case 'JPGRAPH':
 				if (!$this->mpdf->useGraphs) {
 					break;
@@ -3107,8 +3109,8 @@ class Tag
 					break;
 				}
 
-			// *********** IMAGE  ********************
-			/* -- IMAGES-CORE -- */
+				// *********** IMAGE  ********************
+				/* -- IMAGES-CORE -- */
 			case 'IMG':
 				$this->mpdf->ignorefollowingspaces = false;
 				if ($this->mpdf->progressBar) {
@@ -3133,7 +3135,7 @@ class Tag
 					$srcpath = $attr['SRC'];
 					$orig_srcpath = (isset($attr['ORIG_SRC']) ? $attr['ORIG_SRC'] : '');
 					$properties = $this->mpdf->cssmgr->MergeCSS('', $tag, $attr);
-					if (isset($properties ['DISPLAY']) && strtolower($properties ['DISPLAY']) == 'none') {
+					if (isset($properties['DISPLAY']) && strtolower($properties['DISPLAY']) == 'none') {
 						return;
 					}
 					if (isset($properties['Z-INDEX']) && $this->mpdf->current_layer == 0) {
@@ -3446,10 +3448,10 @@ class Tag
 					/* -- END ANNOTATIONS -- */
 				}
 				break;
-			/* -- END IMAGES-CORE -- */
+				/* -- END IMAGES-CORE -- */
 
 
-			// *********** CIRCULAR TEXT = TEXTCIRCLE  ********************
+				// *********** CIRCULAR TEXT = TEXTCIRCLE  ********************
 			case 'TEXTCIRCLE':
 				$objattr = array();
 				$objattr['margin_top'] = 0;
@@ -3475,7 +3477,7 @@ class Tag
 				$this->mpdf->InlineProperties[$tag] = $this->mpdf->saveInlineProperties();
 				$properties = $this->mpdf->cssmgr->MergeCSS('INLINE', $tag, $attr);
 
-				if (isset($properties ['DISPLAY']) && strtolower($properties ['DISPLAY']) == 'none') {
+				if (isset($properties['DISPLAY']) && strtolower($properties['DISPLAY']) == 'none') {
 					return;
 				}
 				if (isset($attr['R'])) {
@@ -3641,7 +3643,7 @@ class Tag
 				break;
 
 
-			/* -- TABLES -- */
+				/* -- TABLES -- */
 
 			case 'TABLE': // TABLE-BEGIN
 				$this->mpdf->tdbegin = false;
@@ -3693,7 +3695,7 @@ class Tag
 				}
 
 				if (isset($this->mpdf->tbctr[$this->mpdf->tableLevel])) {
-					$this->mpdf->tbctr[$this->mpdf->tableLevel] ++;
+					$this->mpdf->tbctr[$this->mpdf->tableLevel]++;
 				} else {
 					$this->mpdf->tbctr[$this->mpdf->tableLevel] = 1;
 				}
@@ -3889,7 +3891,7 @@ class Tag
 				if (isset($properties['LANG']) && $properties['LANG']) {
 					if ($this->mpdf->autoLangToFont && !$this->mpdf->usingCoreFont) {
 						if ($properties['LANG'] != $this->mpdf->default_lang && $properties['LANG'] != 'UTF-8') {
-							list ($coreSuitable, $mpdf_pdf_unifont) = GetLangOpts($properties['LANG'], $this->mpdf->useAdobeCJK, $this->mpdf->fontdata);
+							list($coreSuitable, $mpdf_pdf_unifont) = GetLangOpts($properties['LANG'], $this->mpdf->useAdobeCJK, $this->mpdf->fontdata);
 							if ($mpdf_pdf_unifont) {
 								$properties['FONT-FAMILY'] = $mpdf_pdf_unifont;
 							}
@@ -4243,7 +4245,7 @@ class Tag
 				$this->mpdf->lastoptionaltag = $tag; // Save current HTML specified optional endtag
 				$this->mpdf->cssmgr->tbCSSlvl++;
 				$this->mpdf->row++;
-				$this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['nr'] ++;
+				$this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['nr']++;
 				$this->mpdf->col = -1;
 				$properties = $this->mpdf->cssmgr->MergeCSS('TABLE', $tag, $attr);
 
@@ -4320,11 +4322,13 @@ class Tag
 
 				$table = &$this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]];
 
-				$c = array('a' => false,
+				$c = array(
+					'a' => false,
 					'R' => false,
 					'nowrap' => false,
 					'bgcolor' => false,
-					'padding' => array('L' => false,
+					'padding' => array(
+						'L' => false,
 						'R' => false,
 						'T' => false,
 						'B' => false
@@ -4648,7 +4652,7 @@ class Tag
 				}
 				if ($w) {
 					if (strpos($w, '%') && !$this->mpdf->ignore_table_percents) {
-						$c['wpercent'] = $w + 0;
+						$c['wpercent'] = (float)$w + 0;
 					} // makes 80% -> 80
 					else if (!strpos($w, '%') && !$this->mpdf->ignore_table_widths) {
 						$c['w'] = $this->mpdf->ConvertSize($w, $this->mpdf->blk[$this->mpdf->blklvl]['inner_width'], $this->mpdf->FontSize, false);
@@ -4698,8 +4702,8 @@ class Tag
 				}
 				unset($table);
 				break;
-			/* -- END TABLES -- */
-		}//end of switch
+				/* -- END TABLES -- */
+		} //end of switch
 	}
 
 	function CloseTag($tag, &$ahtml, &$ihtml)
@@ -4720,7 +4724,8 @@ class Tag
 		}
 
 
-		if ($tag == 'FONT' || $tag == 'SPAN' || $tag == 'CODE' || $tag == 'KBD' || $tag == 'SAMP' || $tag == 'TT' || $tag == 'VAR' || $tag == 'INS' || $tag == 'STRONG' || $tag == 'CITE' || $tag == 'SUB' || $tag == 'SUP' || $tag == 'S' || $tag == 'STRIKE' || $tag == 'DEL' || $tag == 'Q' || $tag == 'EM' || $tag == 'B' || $tag == 'I' || $tag == 'U' | $tag == 'SMALL' || $tag == 'BIG' || $tag == 'ACRONYM' || $tag == 'MARK' || $tag == 'TIME' || $tag == 'PROGRESS' || $tag == 'METER' || $tag == 'BDO' || $tag == 'BDI'
+		if (
+			$tag == 'FONT' || $tag == 'SPAN' || $tag == 'CODE' || $tag == 'KBD' || $tag == 'SAMP' || $tag == 'TT' || $tag == 'VAR' || $tag == 'INS' || $tag == 'STRONG' || $tag == 'CITE' || $tag == 'SUB' || $tag == 'SUP' || $tag == 'S' || $tag == 'STRIKE' || $tag == 'DEL' || $tag == 'Q' || $tag == 'EM' || $tag == 'B' || $tag == 'I' || $tag == 'U' | $tag == 'SMALL' || $tag == 'BIG' || $tag == 'ACRONYM' || $tag == 'MARK' || $tag == 'TIME' || $tag == 'PROGRESS' || $tag == 'METER' || $tag == 'BDO' || $tag == 'BDI'
 		) {
 
 			$annot = false; // mPDF 6
@@ -4914,7 +4919,8 @@ class Tag
 
 		// *********** BLOCKS ********************
 		// mPDF 6  Lists
-		if ($tag == 'P' || $tag == 'DIV' || $tag == 'H1' || $tag == 'H2' || $tag == 'H3' || $tag == 'H4' || $tag == 'H5' || $tag == 'H6' || $tag == 'PRE' || $tag == 'FORM' || $tag == 'ADDRESS' || $tag == 'BLOCKQUOTE' || $tag == 'CENTER' || $tag == 'DT' || $tag == 'DD' || $tag == 'DL' || $tag == 'CAPTION' || $tag == 'FIELDSET' || $tag == 'UL' || $tag == 'OL' || $tag == 'LI' || $tag == 'ARTICLE' || $tag == 'ASIDE' || $tag == 'FIGURE' || $tag == 'FIGCAPTION' || $tag == 'FOOTER' || $tag == 'HEADER' || $tag == 'HGROUP' || $tag == 'MAIN' || $tag == 'NAV' || $tag == 'SECTION' || $tag == 'DETAILS' || $tag == 'SUMMARY'
+		if (
+			$tag == 'P' || $tag == 'DIV' || $tag == 'H1' || $tag == 'H2' || $tag == 'H3' || $tag == 'H4' || $tag == 'H5' || $tag == 'H6' || $tag == 'PRE' || $tag == 'FORM' || $tag == 'ADDRESS' || $tag == 'BLOCKQUOTE' || $tag == 'CENTER' || $tag == 'DT' || $tag == 'DD' || $tag == 'DL' || $tag == 'CAPTION' || $tag == 'FIELDSET' || $tag == 'UL' || $tag == 'OL' || $tag == 'LI' || $tag == 'ARTICLE' || $tag == 'ASIDE' || $tag == 'FIGURE' || $tag == 'FIGCAPTION' || $tag == 'FOOTER' || $tag == 'HEADER' || $tag == 'HGROUP' || $tag == 'MAIN' || $tag == 'NAV' || $tag == 'SECTION' || $tag == 'DETAILS' || $tag == 'SUMMARY'
 		) {
 
 			// mPDF 6 bidi
@@ -5339,7 +5345,7 @@ class Tag
 		if ($tag == 'TR' && $this->mpdf->tableLevel) {
 			// If Border set on TR - Update right border
 			if (isset($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['trborder-left'][$this->mpdf->row])) {
-				$c = & $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col];
+				$c = &$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col];
 				if ($c) {
 					if ($this->mpdf->packTableData) {
 						$cell = $this->mpdf->_unpackCellBorder($c['borderbin']);
@@ -5457,14 +5463,14 @@ class Tag
 			// Move table footer <tfoot> row to end of table
 			if (isset($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['is_tfoot']) && count($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['is_tfoot'])) {
 				$tfrows = array();
-				foreach ($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['is_tfoot'] AS $r => $val) {
+				foreach ($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['is_tfoot'] as $r => $val) {
 					if ($val) {
 						$tfrows[] = $r;
 					}
 				}
 				$temp = array();
 				$temptf = array();
-				foreach ($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['cells'] AS $k => $row) {
+				foreach ($this->mpdf->table[$this->mpdf->tableLevel][$this->mpdf->tbctr[$this->mpdf->tableLevel]]['cells'] as $k => $row) {
 					if (in_array($k, $tfrows)) {
 						$temptf[] = $row;
 					} else {
@@ -5477,7 +5483,7 @@ class Tag
 				}
 				// Update nestedpos row references
 				if (isset($this->mpdf->table[($this->mpdf->tableLevel + 1)]) && count($this->mpdf->table[($this->mpdf->tableLevel + 1)])) {
-					foreach ($this->mpdf->table[($this->mpdf->tableLevel + 1)] AS $nid => $nested) {
+					foreach ($this->mpdf->table[($this->mpdf->tableLevel + 1)] as $nid => $nested) {
 						$this->mpdf->table[($this->mpdf->tableLevel + 1)][$nid]['nestedpos'][0] -= count($temptf);
 					}
 				}
@@ -5675,7 +5681,7 @@ class Tag
 
 					list($parentrow, $parentcol, $parentnid) = $this->mpdf->table[$lvl][$nid]['nestedpos'];
 
-					$c = & $this->mpdf->table[($lvl - 1)][$parentnid]['cells'][$parentrow][$parentcol];
+					$c = &$this->mpdf->table[($lvl - 1)][$parentnid]['cells'][$parentrow][$parentcol];
 
 					if (isset($c['colspan']) && $c['colspan'] > 1) {
 						$parentwidth = 0;
@@ -5856,7 +5862,7 @@ class Tag
 							// HERE set child table width = cell width
 
 							list($parentrow, $parentcol, $parentnid) = $this->mpdf->table[$lvl][$nid]['nestedpos'];
-							$c = & $this->mpdf->table[($lvl - 1)][$parentnid]['cells'][$parentrow][$parentcol];
+							$c = &$this->mpdf->table[($lvl - 1)][$parentnid]['cells'][$parentrow][$parentcol];
 
 							if (isset($c['colspan']) && $c['colspan'] > 1) {
 								$parentwidth = 0;
@@ -6114,5 +6120,4 @@ class Tag
 		}
 		/* -- END TABLES -- */
 	}
-
 }

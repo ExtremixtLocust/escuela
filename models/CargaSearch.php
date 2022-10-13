@@ -11,6 +11,9 @@ use app\models\Carga;
  */
 class CargaSearch extends Carga
 {
+
+    public $materia;
+
     /**
      * {@inheritdoc}
      */
@@ -18,6 +21,7 @@ class CargaSearch extends Carga
     {
         return [
             [['car_id', 'car_reticula_id', 'car_materia_id'], 'integer'],
+            [['materia'], 'safe'],
         ];
     }
 

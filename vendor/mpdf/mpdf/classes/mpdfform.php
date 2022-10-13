@@ -424,7 +424,7 @@ class mpdfform
 			$this->SetJSButton($w, $h, $objattr['fieldname'], (isset($objattr['value']) ? $objattr['value'] : ''), $js, $objattr['ID'], $objattr['title'], $flags, (isset($objattr['Indexed']) ? $objattr['Indexed'] : false));
 		} else {
 			$this->mpdf->y = $objattr['INNER-Y'];
-			$this->mpdf->_out(sprintf("q %.3F 0 0 %.3F %.3F %.3F cm /I%d Do Q", $objattr['INNER-WIDTH'] * _MPDFK, $objattr['INNER-HEIGHT'] * _MPDFK, $objattr['INNER-X'] * _MPDFK, ($this->mpdf->h - ($objattr['INNER-Y'] + $objattr['INNER-HEIGHT'] )) * _MPDFK, $objattr['ID']));
+			$this->mpdf->_out(sprintf("q %.3F 0 0 %.3F %.3F %.3F cm /I%d Do Q", $objattr['INNER-WIDTH'] * _MPDFK, $objattr['INNER-HEIGHT'] * _MPDFK, $objattr['INNER-X'] * _MPDFK, ($this->mpdf->h - ($objattr['INNER-Y'] + $objattr['INNER-HEIGHT'])) * _MPDFK, $objattr['ID']));
 			if (isset($objattr['BORDER-WIDTH']) && $objattr['BORDER-WIDTH']) {
 				$this->mpdf->PaintImgBorder($objattr, $is_table);
 			}
@@ -594,7 +594,7 @@ class mpdfform
 		}
 	}
 
-// In _putpages
+	// In _putpages
 	function countPageForms($n, &$totaladdnum)
 	{
 		foreach ($this->forms as $form) {
@@ -627,11 +627,11 @@ class mpdfform
 						}
 					}
 					if ($form['subtype'] == 'radio') {
-						$totaladdnum+=2;
+						$totaladdnum += 2;
 					} else if ($form['subtype'] == 'checkbox' && $this->formUseZapD) {
 						$totaladdnum++;
 					} else if ($form['subtype'] == 'checkbox' && !$this->formUseZapD) {
-						$totaladdnum+=2;
+						$totaladdnum += 2;
 					}
 				}
 				if ($form['typ'] == 'Ch') {
@@ -643,7 +643,7 @@ class mpdfform
 		}
 	}
 
-// In _putpages
+	// In _putpages
 	function addFormIds($n, &$s, &$annotid)
 	{
 		foreach ($this->forms as $form) {
@@ -677,11 +677,11 @@ class mpdfform
 						}
 					}
 					if ($form['subtype'] == 'radio') {
-						$annotid+=2;
+						$annotid += 2;
 					} else if ($form['subtype'] == 'checkbox' && $this->formUseZapD) {
 						$annotid++;
 					} else if ($form['subtype'] == 'checkbox' && !$this->formUseZapD) {
-						$annotid+=2;
+						$annotid += 2;
 					}
 				}
 				if ($form['typ'] == 'Ch') {
@@ -693,7 +693,7 @@ class mpdfform
 		}
 	}
 
-// In _putannots
+	// In _putannots
 	function _putFormItems($n, $hPt)
 	{
 		foreach ($this->forms as $val) {
@@ -708,12 +708,12 @@ class mpdfform
 		}
 	}
 
-// In _putannots
+	// In _putannots
 	function _putRadioItems($n)
 	{
 		// Output Radio Groups
 		$key = 1;
-		foreach ($this->form_radio_groups AS $name => $frg) {
+		foreach ($this->form_radio_groups as $name => $frg) {
 			$this->mpdf->_newobj();
 			$this->pdf_acro_array .= $this->mpdf->n . ' 0 R ';
 			$this->mpdf->_out('<<');
@@ -732,7 +732,7 @@ class mpdfform
 			$this->mpdf->_out('/Ff ' . $this->_setflag($flags));
 			$kstr = '';
 			$optstr = '';
-			foreach ($frg['kids'] AS $kid) {
+			foreach ($frg['kids'] as $kid) {
 				$kstr .= $this->forms[$kid['n']]['obj'] . ' 0 R ';
 				//		$optstr .= ' '.$this->mpdf->_textstring($kid['OPT']).' ';
 			}
@@ -760,7 +760,7 @@ class mpdfform
 			$this->mpdf->_out('/Q 0');
 			$this->mpdf->_out('/Fields [' . $this->pdf_acro_array . ']');
 			$f = '';
-			foreach ($this->form_fonts AS $fn) {
+			foreach ($this->form_fonts as $fn) {
 				if (is_array($this->mpdf->fonts[$fn]['n'])) {
 					$this->mpdf->Error("Cannot use fonts with SMP or SIP characters for interactive Form elements");
 				}
@@ -864,7 +864,8 @@ class mpdfform
 		} else {
 			$bc_c = $this->form_border_color;
 		}
-		$f = array('n' => $this->formn,
+		$f = array(
+			'n' => $this->formn,
 			'typ' => 'Tx',
 			'page' => $this->mpdf->page,
 			'x' => $this->mpdf->x,
@@ -898,8 +899,10 @@ class mpdfform
 			$this->mpdf->HTMLheaderPageForms[] = $f;
 		} else {
 			if ($this->mpdf->ColActive) {
-				$this->mpdf->columnbuffer[] = array('s' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
-					'h' => $h);
+				$this->mpdf->columnbuffer[] = array(
+					's' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
+					'h' => $h
+				);
 				$this->mpdf->columnForms[$this->mpdf->CurrCol][INTVAL($this->mpdf->x)][INTVAL($this->mpdf->y)] = $this->formn;
 			}
 			$this->forms[$this->formn] = $f;
@@ -940,7 +943,8 @@ class mpdfform
 					$array['OPT'][$i] = $this->mpdf->UTF8ToUTF16BE($array['OPT'][$i], true);
 			}
 		}
-		$f = array('n' => $this->formn,
+		$f = array(
+			'n' => $this->formn,
 			'typ' => 'Ch',
 			'page' => $this->mpdf->page,
 			'x' => $this->mpdf->x,
@@ -970,8 +974,10 @@ class mpdfform
 			$this->mpdf->HTMLheaderPageForms[] = $f;
 		} else {
 			if ($this->mpdf->ColActive) {
-				$this->mpdf->columnbuffer[] = array('s' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
-					'h' => $h);
+				$this->mpdf->columnbuffer[] = array(
+					's' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
+					'h' => $h
+				);
 				$this->mpdf->columnForms[$this->mpdf->CurrCol][INTVAL($this->mpdf->x)][INTVAL($this->mpdf->y)] = $this->formn;
 			}
 			$this->forms[$this->formn] = $f;
@@ -1023,7 +1029,7 @@ class mpdfform
 		$this->mpdf->x += $w;
 	}
 
-	function SetFormSubmit($w, $h, $name, $value = 'Submit', $url, $title = '', $typ = 'html', $method = 'POST', $flags = array(), $background_col = false, $border_col = false, $noprint = false)
+	function SetFormSubmit($w, $h, $name, $value = 'Submit', $url = '', $title = '', $typ = 'html', $method = 'POST', $flags = array(), $background_col = false, $border_col = false, $noprint = false)
 	{
 		if (!$name) {
 			$name = 'Submit';
@@ -1043,8 +1049,7 @@ class mpdfform
 				$rc = $this->Win1252ToPDFDocEncoding($rc);
 			if ($ac)
 				$ac = $this->Win1252ToPDFDocEncoding($ac);
-		}
-		else {
+		} else {
 			if (isset($this->mpdf->CurrentFont['subset'])) {
 				$this->mpdf->UTF8StringToArray($ca, true); // Add characters to font subset
 			}
@@ -1135,7 +1140,8 @@ class mpdfform
 		} else {
 			$bc_c = $this->form_button_border_color;
 		}
-		$f = array('n' => $this->formn,
+		$f = array(
+			'n' => $this->formn,
 			'typ' => 'Bt',
 			'page' => $this->mpdf->page,
 			'subtype' => $type,
@@ -1170,8 +1176,10 @@ class mpdfform
 			$this->mpdf->HTMLheaderPageForms[] = $f;
 		} else {
 			if ($this->mpdf->ColActive) {
-				$this->mpdf->columnbuffer[] = array('s' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
-					'h' => $hh);
+				$this->mpdf->columnbuffer[] = array(
+					's' => 'ACROFORM', 'col' => $this->mpdf->CurrCol, 'x' => $this->mpdf->x, 'y' => $this->mpdf->y,
+					'h' => $hh
+				);
 				$this->mpdf->columnForms[$this->mpdf->CurrCol][INTVAL($this->mpdf->x)][INTVAL($this->mpdf->y)] = $this->formn;
 			}
 			$this->forms[$this->formn] = $f;
@@ -1189,15 +1197,20 @@ class mpdfform
 	function SetFormBorderWidth($string)
 	{
 		switch ($string) {
-			case 'S': $this->form_border_width = '1';
+			case 'S':
+				$this->form_border_width = '1';
 				break;
-			case 'M': $this->form_border_width = '2';
+			case 'M':
+				$this->form_border_width = '2';
 				break;
-			case 'B': $this->form_border_width = '3';
+			case 'B':
+				$this->form_border_width = '3';
 				break;
-			case '0': $this->form_border_width = '0';
+			case '0':
+				$this->form_border_width = '0';
 				break;
-			default: $this->form_border_width = '0';
+			default:
+				$this->form_border_width = '0';
 				break;
 		}
 	}
@@ -1205,17 +1218,23 @@ class mpdfform
 	function SetFormBorderStyle($string)
 	{
 		switch ($string) {
-			case 'S': $this->form_border_style = 'S';
+			case 'S':
+				$this->form_border_style = 'S';
 				break;
-			case 'D': $this->form_border_style = 'D /D [3]';
+			case 'D':
+				$this->form_border_style = 'D /D [3]';
 				break;
-			case 'B': $this->form_border_style = 'B';
+			case 'B':
+				$this->form_border_style = 'B';
 				break;
-			case 'I': $this->form_border_style = 'I';
+			case 'I':
+				$this->form_border_style = 'I';
 				break;
-			case 'U': $this->form_border_style = 'U';
+			case 'U':
+				$this->form_border_style = 'U';
 				break;
-			default: $this->form_border_style = 'B';
+			default:
+				$this->form_border_style = 'B';
 				break;
 		}
 	}
@@ -1267,7 +1286,7 @@ class mpdfform
 	{
 		if (isset($array['image_id'])) {
 			$info = false;
-			foreach ($this->mpdf->images AS $iid => $img) {
+			foreach ($this->mpdf->images as $iid => $img) {
 				if ($img['i'] == $array['image_id']) {
 					$info = $this->mpdf->images[$iid];
 					break;
@@ -1742,5 +1761,4 @@ f Q ';
 		}
 		return $n;
 	}
-
 }
