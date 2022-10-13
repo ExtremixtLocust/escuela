@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '03f2a7a04f8aaa3c57d889457f341568ab93a5f2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -252,6 +252,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'kartik-v/yii2-mpdf' => array(
+            'pretty_version' => 'v1.0.1',
+            'version' => '1.0.1.0',
+            'reference' => '17fda1cb084c58fee6014026d35af5faf73316ef',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-mpdf',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kartik-v/yii2-widget-datepicker' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
@@ -272,6 +281,15 @@
             'aliases' => array(
                 0 => '1.0.x-dev',
             ),
+            'dev_requirement' => false,
+        ),
+        'mpdf/mpdf' => array(
+            'pretty_version' => 'v6.1.3',
+            'version' => '6.1.3.0',
+            'reference' => '7f138bf7508eac895ac2c13d2509b056ac7e7e97',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mpdf/mpdf',
+            'aliases' => array(),
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(
@@ -649,6 +667,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'setasign/fpdi' => array(
+            'pretty_version' => '1.6.2',
+            'version' => '1.6.2.0',
+            'reference' => 'a6ad58897a6d97cc2d2cd2adaeda343b25a368ea',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../setasign/fpdi',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'symfony/browser-kit' => array(
             'pretty_version' => 'v6.0.11',
             'version' => '6.0.11.0',
@@ -863,9 +890,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '03f2a7a04f8aaa3c57d889457f341568ab93a5f2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
