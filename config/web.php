@@ -8,7 +8,7 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'escuela',
     'name' => 'Escuela',
-    'language' => 'en-USA',
+    'language' => 'en-MX',
     'timezone' => 'America/Mexico_City',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -26,8 +26,8 @@ $config = [
         ],
         'user' => [
             'class' => 'webvimark\modules\UserManagement\components\UserConfig',
-                // Comment this if you don't want to record user logins
-            'on afterLogin' => function($event) {
+            // Comment this if you don't want to record user logins
+            'on afterLogin' => function ($event) {
                 \webvimark\modules\UserManagement\models\UserVisitLog::newVisitor($event->identity->id);
             }
         ],
@@ -60,6 +60,7 @@ $config = [
             ],
         ],
 
+        //lenguaje
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -94,8 +95,12 @@ $config = [
 
     ],
     'params' => $params,
+    //idioma nueva version
+    'on beforeRequest' => function ($event) {
+        Yii::$app->language = Yii::$app->session->get('language', 'es-MX');
+    },
 
-    'modules'=>[
+    'modules' => [
         'user-management' => [
             'class' => 'webvimark\modules\UserManagement\UserManagementModule',
             // 'enableRegistration' => true,
@@ -110,8 +115,8 @@ $config = [
             //'passwordRegexp' => '^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$',
             // Here you can set your handler to change layout for any controller or action
             // Tip: you can use this event in any module
-            'on beforeAction'=>function(yii\base\ActionEvent $event) {
-                if ( $event->action->uniqueId == 'user-management/auth/login' ) {
+            'on beforeAction' => function (yii\base\ActionEvent $event) {
+                if ($event->action->uniqueId == 'user-management/auth/login') {
                     $event->action->controller->layout = 'loginLayout.php';
                 };
             },
