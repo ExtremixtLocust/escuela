@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var yii\web\View $this
  * @var array $permissionsByGroup
@@ -8,7 +9,7 @@
 use webvimark\modules\UserManagement\components\GhostHtml;
 use webvimark\modules\UserManagement\models\rbacDB\Role;
 use webvimark\modules\UserManagement\UserManagementModule;
-use yii\bootstrap\BootstrapPluginAsset;
+use yii\bootstrap5\BootstrapPluginAsset;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h2 class="lte-hide-title"><?= $this->title ?></h2>
 
-<?php if ( Yii::$app->session->hasFlash('success') ): ?>
+<?php if (Yii::$app->session->hasFlash('success')) : ?>
 	<div class="alert alert-success text-center">
 		<?= Yii::$app->session->getFlash('success') ?>
 	</div>
@@ -37,16 +38,16 @@ $this->params['breadcrumbs'][] = $this->title;
 			</div>
 			<div class="panel-body">
 
-				<?= Html::beginForm(['set-roles', 'id'=>$user->id]) ?>
+				<?= Html::beginForm(['set-roles', 'id' => $user->id]) ?>
 
-				<?php foreach (Role::getAvailableRoles() as $aRole): ?>
+				<?php foreach (Role::getAvailableRoles() as $aRole) : ?>
 					<label>
 						<?php $isChecked = in_array($aRole['name'], ArrayHelper::map(Role::getUserRoles($user->id), 'name', 'name')) ? 'checked' : '' ?>
 
-						<?php if ( Yii::$app->getModule('user-management')->userCanHaveMultipleRoles ): ?>
+						<?php if (Yii::$app->getModule('user-management')->userCanHaveMultipleRoles) : ?>
 							<input type="checkbox" <?= $isChecked ?> name="roles[]" value="<?= $aRole['name'] ?>">
 
-						<?php else: ?>
+						<?php else : ?>
 							<input type="radio" <?= $isChecked ?> name="roles" value="<?= $aRole['name'] ?>">
 
 						<?php endif; ?>
@@ -56,21 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
 					<?= GhostHtml::a(
 						'<span class="glyphicon glyphicon-edit"></span>',
-						['/user-management/role/view', 'id'=>$aRole['name']],
-						['target'=>'_blank']
+						['/user-management/role/view', 'id' => $aRole['name']],
+						['target' => '_blank']
 					) ?>
-					<br/>
+					<br />
 				<?php endforeach ?>
 
-				<br/>
+				<br />
 
-				<?php if ( Yii::$app->user->isSuperadmin OR Yii::$app->user->id != $user->id ): ?>
+				<?php if (Yii::$app->user->isSuperadmin or Yii::$app->user->id != $user->id) : ?>
 
 					<?= Html::submitButton(
 						'<span class="glyphicon glyphicon-ok"></span> ' . UserManagementModule::t('back', 'Save'),
-						['class'=>'btn btn-primary btn-sm']
+						['class' => 'btn btn-primary btn-sm']
 					) ?>
-				<?php else: ?>
+				<?php else : ?>
 					<div class="alert alert-warning well-sm text-center">
 						<?= UserManagementModule::t('back', 'You can not change own permissions') ?>
 					</div>
@@ -92,28 +93,28 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="panel-body">
 
 				<div class="row">
-					<?php foreach ($permissionsByGroup as $groupName => $permissions): ?>
+					<?php foreach ($permissionsByGroup as $groupName => $permissions) : ?>
 
 						<div class="col-sm-6">
 							<fieldset>
 								<legend><?= $groupName ?></legend>
 
 								<ul>
-									<?php foreach ($permissions as $permission): ?>
+									<?php foreach ($permissions as $permission) : ?>
 										<li>
 											<?= $permission->description ?>
 
 											<?= GhostHtml::a(
 												'<span class="glyphicon glyphicon-edit"></span>',
-												['/user-management/permission/view', 'id'=>$permission->name],
-												['target'=>'_blank']
+												['/user-management/permission/view', 'id' => $permission->name],
+												['target' => '_blank']
 											) ?>
 										</li>
 									<?php endforeach ?>
 								</ul>
 							</fieldset>
 
-							<br/>
+							<br />
 						</div>
 
 					<?php endforeach ?>
@@ -126,7 +127,8 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <?php
-$this->registerJs(<<<JS
+$this->registerJs(
+	<<<JS
 
 $('.role-help-btn').off('mouseover mouseleave')
 	.on('mouseover', function(){
