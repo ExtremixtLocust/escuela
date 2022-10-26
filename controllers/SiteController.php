@@ -6,10 +6,10 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use kartik\mpdf\Pdf;
+use app\models\DashboardSearch;
 
 
 class SiteController extends Controller
@@ -68,7 +68,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new DashboardSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', compact ('searchModel', 'dataProvider'));
     }
 
     /**
