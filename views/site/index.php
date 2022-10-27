@@ -18,11 +18,8 @@ $this->title = 'Escuela';
                 'itemView' => '_card',
                 'layout' => '{items}',
                 'options' => [
-                    //'tag' => 'div',
                     'class' => 'row row-cols-md-3 g-4',
-                    //'id' => 'list-wrapper',
                 ],
                 'summary' => false,
-                //'claseColumna' => 'col-md-4',
             ]); ?>
         </div>

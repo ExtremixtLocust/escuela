@@ -55,8 +55,10 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         'k' => 
         array (
             'kartik\\typeahead\\' => 17,
+            'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\mpdf\\' => 12,
             'kartik\\icons\\' => 13,
+            'kartik\\file\\' => 12,
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
@@ -200,6 +202,10 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-typeahead/src',
         ),
+        'kartik\\plugins\\fileinput\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/bootstrap-fileinput',
+        ),
         'kartik\\mpdf\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-mpdf',
@@ -207,6 +213,10 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         'kartik\\icons\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-icons/src',
+        ),
+        'kartik\\file\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-fileinput/src',
         ),
         'kartik\\date\\' => 
         array (

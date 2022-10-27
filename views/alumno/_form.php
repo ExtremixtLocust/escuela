@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Reticula;
 use kartik\icons\Icon;
 use kartik\typeahead\TypeaheadBasic;
+use kartik\file\FileInput;
 
 Icon::map($this);
 
@@ -58,6 +59,10 @@ $apellidosP = [
     <?= $form->field($model, 'alu_nocontrol')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'alu_semestre')->textInput() ?>
+
+    <?= $form->field($model, 'file')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'file/*'],
+    ]);?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

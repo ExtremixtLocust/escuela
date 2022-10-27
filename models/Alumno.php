@@ -23,6 +23,9 @@ class Alumno extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
+    public $file;
+
     public static function tableName()
     {
         return 'alumno';
@@ -38,6 +41,7 @@ class Alumno extends \yii\db\ActiveRecord
             [['alu_reticula_id', 'alu_semestre'], 'integer'],
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
+            [['file'], 'file', 'extensions' => 'png', 'maxFiles' => '1'],
         ];
     }
 
@@ -56,6 +60,8 @@ class Alumno extends \yii\db\ActiveRecord
             'alu_semestre' => Yii::t('app', 'Semestre'),
             //añadimos el campo personalizado al idioma
             'reticula' => Yii::t('app', 'Retícula'),
+
+            'file' => Yii::t('app', 'Foto'),
         ];
     }
 
