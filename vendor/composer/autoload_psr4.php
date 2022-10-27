@@ -24,6 +24,8 @@ return array(
     'webvimark\\components\\' => array($vendorDir . '/webvimark/components'),
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'kartik\\typeahead\\' => array($vendorDir . '/kartik-v/yii2-widget-typeahead/src'),
+    'kartik\\switchinput\\' => array($vendorDir . '/kartik-v/yii2-widget-switchinput'),
+    'kartik\\select2\\' => array($vendorDir . '/kartik-v/yii2-widget-select2/src'),
     'kartik\\plugins\\fileinput\\' => array($vendorDir . '/kartik-v/bootstrap-fileinput'),
     'kartik\\mpdf\\' => array($vendorDir . '/kartik-v/yii2-mpdf'),
     'kartik\\icons\\' => array($vendorDir . '/kartik-v/yii2-icons/src'),

@@ -55,6 +55,8 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         'k' => 
         array (
             'kartik\\typeahead\\' => 17,
+            'kartik\\switchinput\\' => 19,
+            'kartik\\select2\\' => 15,
             'kartik\\plugins\\fileinput\\' => 25,
             'kartik\\mpdf\\' => 12,
             'kartik\\icons\\' => 13,
@@ -201,6 +203,14 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         'kartik\\typeahead\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-typeahead/src',
+        ),
+        'kartik\\switchinput\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-switchinput',
+        ),
+        'kartik\\select2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-select2/src',
         ),
         'kartik\\plugins\\fileinput\\' => 
         array (

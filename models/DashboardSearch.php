@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Dashboard;
@@ -41,6 +42,19 @@ class DashboardSearch extends Dashboard
     public function search($params)
     {
         $query = Dashboard::find();
+
+        //if para que el superadmin pueda ver el dashboard
+        if (!Yii::$app->user->isSuperAdmin) {
+            //Filtrando los botones activos con "das_estatus"
+            $query = $query->where(['dash_estatus' => 1]);
+            //Filtrando los botones por roles con "das_roles"
+            $roles = Yii::$app->user->identity->roles;
+            foreach ($roles as $rol) {
+                $query = $query->andWhere(['like', 'dash_roles', $rol->name]);
+            }
+            //Ordenando los botones con "das_orden"
+            $query = $query->orderBy(['dash_orden' => SORT_ASC]);
+        }
 
         // add conditions that should always apply here
 

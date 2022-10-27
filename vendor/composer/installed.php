@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-roles&permisos',
+        'version' => 'dev-roles&permisos',
+        'reference' => '2f0fb78c8d936c4bab578ceea1a189662d2fcdef',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -298,6 +298,28 @@
             'install_path' => __DIR__ . '/../kartik-v/yii2-widget-fileinput',
             'aliases' => array(
                 0 => '1.1.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/yii2-widget-select2' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'f74f2cfbd5b4628ea578735890c39f9a8e4ed062',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-widget-select2',
+            'aliases' => array(
+                0 => '2.2.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'kartik-v/yii2-widget-switchinput' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '10afe2ac8274da9371b43aaf69e99fc553f1b947',
+            'type' => 'yii2-extension',
+            'install_path' => __DIR__ . '/../kartik-v/yii2-widget-switchinput',
+            'aliases' => array(
+                0 => '9999999-dev',
             ),
             'dev_requirement' => false,
         ),
@@ -696,6 +718,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'select2/select2' => array(
+            'pretty_version' => '4.0.13',
+            'version' => '4.0.13.0',
+            'reference' => '45f2b83ceed5231afa7b3d5b12b58ad335edd82e',
+            'type' => 'component',
+            'install_path' => __DIR__ . '/../select2/select2',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'setasign/fpdi' => array(
             'pretty_version' => '1.6.2',
             'version' => '1.6.2.0',
@@ -991,9 +1022,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-roles&permisos',
+            'version' => 'dev-roles&permisos',
+            'reference' => '2f0fb78c8d936c4bab578ceea1a189662d2fcdef',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

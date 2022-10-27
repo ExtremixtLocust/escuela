@@ -17,6 +17,8 @@ use Yii;
  */
 class Dashboard extends \yii\db\ActiveRecord
 {
+    public $archivo_imagen;
+    public $lista_roles;
     /**
      * {@inheritdoc}
      */
@@ -38,6 +40,9 @@ class Dashboard extends \yii\db\ActiveRecord
             [['dash_descripcion', 'dash_roles'], 'string', 'max' => 255],
             [['dash_url'], 'string', 'max' => 100],
             [['dash_id'], 'unique'],
+            [['archivo_imagen', 'lista_roles'], 'safe'],
+            [['archivo_imagen'], 'file', 'extensions' => 'png'],
+            [['archivo_imagen'], 'file', 'maxSize' => '1000000'],
         ];
     }
 
@@ -54,6 +59,8 @@ class Dashboard extends \yii\db\ActiveRecord
             'dash_url' => Yii::t('app', 'Url'),
             'dash_estatus' => Yii::t('app', 'Estatus'),
             'dash_roles' => Yii::t('app', 'Roles'),
+            'archivo_imagen' => Yii::t('app', 'Imagen'),
+            'lista_roles' => Yii::t('app', 'Roles'),
         ];
     }
 }

@@ -23,7 +23,9 @@
         "kartik-v/yii2-widget-typeahead": "dev-master",
         "kartik-v/yii2-mpdf": "^1.0",
         "webvimark/module-user-management": "^1.0",
-        "kartik-v/yii2-widget-fileinput": "@dev"
+        "kartik-v/yii2-widget-fileinput": "dev-master",
+        "kartik-v/yii2-widget-switchinput": "dev-master",
+        "kartik-v/yii2-widget-select2": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
