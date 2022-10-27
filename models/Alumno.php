@@ -61,7 +61,7 @@ class Alumno extends \yii\db\ActiveRecord
             //añadimos el campo personalizado al idioma
             'reticula' => Yii::t('app', 'Retícula'),
 
-            'file' => Yii::t('app', 'Foto'),
+            'file' => 'Foto',
         ];
     }
 

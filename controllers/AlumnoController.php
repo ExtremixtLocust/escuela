@@ -69,7 +69,41 @@ class AlumnoController extends Controller
     {
         $model = new Alumno();
 
+        $modeluser = new \webvimark\modules\UserManagement\models\User();
+        
         if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $modeluser->load($this->request->post())) {
+
+
+                $avatar = \yii\web\UploadedFile::getInstance($model, 'file');
+                if (!is_null($avatar)) {
+                    $name = explode('.', $avatar->name);
+                    $ext = end($name);
+                    $model->avatar = Yii::$app->security->generateRandomString() . ".{$ext}";
+                    $resource = Yii::$app->basePath . '@web/img/';	//<--Recuerda que "avatar/" es el nombre de la carpeta donde se guardan las imagenes
+                    $path = $resource . $model->avatar;
+                    if ($avatar->saveAs($path)) {
+                        if ($modeluser->save()) {
+                            $model->fkuser = $modeluser->alu_id;
+                            $modeluser::assignRole($modeluser->alu_id, 'Alumno');
+                            if ($model->save()) {
+                                return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('create', [
+                    'model' => $model,
+                    'modeluser' => $modeluser,
+        ]);
+    }
+
+        /*if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'alu_id' => $model->alu_id]);
             }
@@ -79,8 +113,8 @@ class AlumnoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-        ]);
-    }
+        ]);*/
+    //}
 
     /**
      * Updates an existing Alumno model.

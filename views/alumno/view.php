@@ -37,6 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'alu_nocontrol',
             'alu_semestre',
             'reticula',
+            ['attribute' => 'alu_foto',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::img(yii\helpers\Url::to("img/".$model->avatar));
+                }],
         ],
     ]) ?>
 
