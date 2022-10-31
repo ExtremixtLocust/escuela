@@ -17,6 +17,7 @@ use Yii;
  */
 class Dashboard extends \yii\db\ActiveRecord
 {
+    //variables para la imagen
     public $archivo_imagen;
     public $lista_roles;
     /**

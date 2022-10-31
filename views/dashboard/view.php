@@ -29,6 +29,24 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'das_id',
+            'das_orden',
+            [ 'attribute' => 'das_imagen',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "{$model->das_imagen}<br><div style='width: 30%;'>{$model->img}</div>";
+                }
+            ],
+            'das_titulo',
+            'das_url',
+            [ 'attribute' => 'das_estatus',
+            'format' => 'raw',
+            'value' => function ($model) {
+            return "<div style='width: 30%;'>{$model->sta}</div>";
+            }
+            ],
+            'das_roles',
+            /* codigo anterior
             'dash_id',
             'dash_titulo',
             'dash_img',
@@ -36,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dash_url:url',
             'dash_estatus',
             'dash_roles',
+            */
         ],
     ]) ?>
 

@@ -1,7 +1,9 @@
 <?php
 
+//use app\models\User;
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use webvimark\modules\UserManagement\models\User;
 
 /** @var yii\web\View $this */
 
@@ -12,7 +14,7 @@ $this->title = 'Escuela';
     <div class="body-content">
 
         <div class="container">
-
+            
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
                 'itemView' => '_card',

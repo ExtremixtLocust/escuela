@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Dashboard;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DashboardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,7 +29,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            'das_id',
+            'das_orden',
+            [ 'attribute' => 'das_imagen',
+            'format' => 'raw',
+            'value' => function ($model) {
+            return "<center>{$model->das_imagen}<br>{$model->img}</center>";
+            }
+            ],
+            'das_titulo',
+            'das_url',
+            [ 'attribute' => 'das_estatus',
+            'format' => 'raw',
+            'value' => function ($model) {
+            return $model->sta;
+            }
+            ],
+            'das_roles',
+            [ 'class' => ActionColumn::className(),
+            'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
+            return Url::toRoute([$action, 'das_id' => $model->das_id]);
+            },
+            'contentOptions' => ['style' => 'width: 80px;']
+            ],
+/* código anterior
             'dash_id',
             'dash_titulo',
             'dash_img',
@@ -42,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Url::toRoute([$action, 'dash_id' => $model->dash_id]);
                  }
             ],
+*/
         ],
     ]); ?>
 

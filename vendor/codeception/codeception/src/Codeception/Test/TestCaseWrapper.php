@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Codeception\Test;
 
 use Codeception\Exception\UselessTestException;
-use Codeception\ResultAggregator;
 use Codeception\Test\Interfaces\Dependent;
 use Codeception\Test\Interfaces\Descriptive;
 use Codeception\Test\Interfaces\Reported;
@@ -14,7 +13,6 @@ use Codeception\TestInterface;
 use Codeception\Util\Annotation;
 use Codeception\Util\ReflectionHelper;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\ErrorTestCase;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Metadata\Api\CodeCoverage;
 use PHPUnit\Runner\Version as PHPUnitVersion;
@@ -28,7 +26,10 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
 {
     private Metadata $metadata;
 
-    private ?ResultAggregator $resultAggregator = null;
+    /**
+     * @var array<string, mixed>
+     */
+    private static array $testResults = [];
 
     /**
      * @param string[] $beforeClassMethods
@@ -42,7 +43,11 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
         $this->metadata = new Metadata();
         $metadata = $this->metadata;
 
-        $methodName = $testCase->getName(false);
+        if (PHPUnitVersion::series() < 10) {
+            $methodName = $testCase->getName(false);
+        } else {
+            $methodName = $testCase->name();
+        }
         $metadata->setName($methodName);
         $metadata->setFilename((new ReflectionClass($testCase))->getFileName());
 
@@ -50,11 +55,6 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
             $metadata->setIndex($testCase->dataName());
         }
 
-        $methodName = $testCase->getName(false);
-
-        if ($testCase instanceof ErrorTestCase) {
-            return;
-        }
         $classAnnotations = Annotation::forClass($testCase);
         $metadata->setParamsFromAnnotations($classAnnotations->raw());
         $metadata->setParamsFromAttributes($classAnnotations->attributes());
@@ -77,20 +77,6 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
         return $this->metadata;
     }
 
-    public function getResultAggregator(): ResultAggregator
-    {
-        if ($this->resultAggregator === null) {
-            throw new \LogicException('ResultAggregator is not set');
-        }
-        return $this->resultAggregator;
-    }
-
-    public function setResultAggregator(?ResultAggregator $resultAggregator): void
-    {
-        $this->resultAggregator = $resultAggregator;
-    }
-
-
     public function fetchDependencies(): array
     {
         $names = [];
@@ -109,13 +95,13 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
     public function getReportFields(): array
     {
         return [
-            'name'    => $this->testCase->getName(true),
+            'name'    => $this->getNameWithDataSet(),
             'class'   => $this->testCase::class,
             'file'    => $this->metadata->getFilename()
         ];
     }
 
-    public function getLinesToBeCovered(): array
+    public function getLinesToBeCovered(): array|bool
     {
         $class = $this->testCase::class;
         $method = $this->metadata->getName();
@@ -139,7 +125,18 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
 
     public function test(): void
     {
+        $dependencyInput = [];
+        foreach ($this->fetchDependencies() as $dependency) {
+            $dependencyInput[] = self::$testResults[$dependency] ?? null;
+        }
+        $this->testCase->setDependencyInput($dependencyInput);
         $this->testCase->runBare();
+
+        if (PHPUnitVersion::series() < 10) {
+            self::$testResults[$this->getSignature()] = $this->testCase->getResult();
+        } else {
+            self::$testResults[$this->getSignature()] = $this->testCase->result();
+        }
 
         $numberOfAssertionsPerformed = Assert::getCount();
         if (
@@ -158,7 +155,7 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
 
     public function toString(): string
     {
-        $text = Descriptor::getTestCaseNameAsString($this->testCase->getName(true));
+        $text = Descriptor::getTestCaseNameAsString($this->getNameWithDataSet());
         return ReflectionHelper::getClassShortName($this->testCase) . ': ' . $text;
     }
 
@@ -170,5 +167,14 @@ class TestCaseWrapper extends Test implements Reported, Dependent, StrictCoverag
     public function getSignature(): string
     {
         return $this->testCase::class . ':' . $this->metadata->getName();
+    }
+
+    private function getNameWithDataSet(): string
+    {
+        if (PHPUnitVersion::series() < 10) {
+            return $this->testCase->getName(true);
+        }
+
+        return $this->testCase->nameWithDataSet();
     }
 }
