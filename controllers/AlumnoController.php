@@ -7,6 +7,7 @@ use app\models\AlumnoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * AlumnoController implements the CRUD actions for Alumno model.
@@ -18,17 +19,11 @@ class AlumnoController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
-                ],
-            ]
-        );
+        return [
+            'ghost-access' => [
+                'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
+            ],
+        ];
     }
 
     /**
@@ -70,7 +65,7 @@ class AlumnoController extends Controller
         $model = new Alumno();
 
         $modeluser = new \webvimark\modules\UserManagement\models\User();
-        
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $modeluser->load($this->request->post())) {
 
@@ -80,7 +75,7 @@ class AlumnoController extends Controller
                     $name = explode('.', $avatar->name);
                     $ext = end($name);
                     $model->avatar = Yii::$app->security->generateRandomString() . ".{$ext}";
-                    $resource = Yii::$app->basePath . '@web/img/';	//<--Recuerda que "avatar/" es el nombre de la carpeta donde se guardan las imagenes
+                    $resource = Yii::$app->basePath . '@web/img/';    //<--Recuerda que "avatar/" es el nombre de la carpeta donde se guardan las imagenes
                     $path = $resource . $model->avatar;
                     if ($avatar->saveAs($path)) {
                         if ($modeluser->save()) {
@@ -98,12 +93,12 @@ class AlumnoController extends Controller
         }
 
         return $this->render('create', [
-                    'model' => $model,
-                    'modeluser' => $modeluser,
+            'model' => $model,
+            'modeluser' => $modeluser,
         ]);
     }
 
-        /*if ($this->request->isPost) {
+    /*if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'alu_id' => $model->alu_id]);
             }

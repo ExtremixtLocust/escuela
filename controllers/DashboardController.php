@@ -6,6 +6,7 @@ use app\models\Dashboard;
 use app\models\DashboardSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use Yii;
 
 
 /**
@@ -19,7 +20,7 @@ class DashboardController extends Controller
     public function behaviors()
     {
         return [
-            'ghost-access'=> [
+            'ghost-access' => [
                 'class' => 'webvimark\modules\UserManagement\components\GhostAccessControl',
             ],
         ];

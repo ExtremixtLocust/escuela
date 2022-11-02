@@ -1,4 +1,5 @@
 <?php
+
 namespace webvimark\modules\UserManagement\models\rbacDB;
 
 use webvimark\modules\UserManagement\components\AuthHelper;
@@ -59,7 +60,7 @@ abstract class AbstractItem extends ActiveRecord
 
 		$item->type = static::ITEM_TYPE;
 		$item->name = $name;
-		$item->description = ( $description === null AND static::ITEM_TYPE != static::TYPE_ROUTE ) ? Inflector::titleize($name) : $description;
+		$item->description = ($description === null and static::ITEM_TYPE != static::TYPE_ROUTE) ? Inflector::titleize($name) : $description;
 		$item->rule_name = $ruleName;
 		$item->group_code = $groupCode;
 		$item->data = $data;
@@ -81,25 +82,20 @@ abstract class AbstractItem extends ActiveRecord
 	 */
 	public static function addChildren($parentName, $childrenNames, $throwException = false)
 	{
-		$parent = (object)['name'=>$parentName];
+		$parent = (object)['name' => $parentName];
 
 		$childrenNames = (array) $childrenNames;
 
 		$dbManager = Yii::$app->authManager instanceof DbManager ? Yii::$app->authManager : new DbManager();
 
 		static::beforeAddChildren($parentName, $childrenNames, $throwException = false);
-		foreach ($childrenNames as $childName)
-		{
-			$child = (object)['name'=>$childName];
+		foreach ($childrenNames as $childName) {
+			$child = (object)['name' => $childName];
 
-			try
-			{
+			try {
 				$dbManager->addChild($parent, $child);
-			}
-			catch (\Exception $e)
-			{
-				if ( $throwException )
-				{
+			} catch (\Exception $e) {
+				if ($throwException) {
 					throw $e;
 				}
 			}
@@ -117,8 +113,7 @@ abstract class AbstractItem extends ActiveRecord
 		$childrenNames = (array) $childrenNames;
 
 		static::beforeRemoveChildren($parentName, $childrenNames);
-		foreach ($childrenNames as $childName)
-		{
+		foreach ($childrenNames as $childName) {
 			Yii::$app->db->createCommand()
 				->delete(Yii::$app->getModule('user-management')->auth_item_child_table, ['parent' => $parentName, 'child' => $childName])
 				->execute();
@@ -136,8 +131,7 @@ abstract class AbstractItem extends ActiveRecord
 	{
 		$model = static::findOne($condition);
 
-		if ( $model )
-		{
+		if ($model) {
 			$model->delete();
 
 			return true;
@@ -172,17 +166,17 @@ abstract class AbstractItem extends ActiveRecord
 		return [
 			[['name', 'rule_name', 'description', 'group_code'], 'trim'],
 
-			['description', 'required', 'on'=>'webInput'],
+			['description', 'required', 'on' => 'webInput'],
 			['description', 'string', 'max' => 255],
 
 			['name', 'required'],
 			['name', 'validateUniqueName'],
 			[['name', 'rule_name', 'group_code'], 'string', 'max' => 64],
 
-			[['rule_name', 'description', 'group_code', 'data'], 'default', 'value'=>null],
+			[['rule_name', 'description', 'group_code', 'data'], 'default', 'value' => null],
 
 			['type', 'integer'],
-			['type', 'in', 'range'=>[static::TYPE_ROLE, static::TYPE_PERMISSION, static::TYPE_ROUTE]],
+			['type', 'in', 'range' => [static::TYPE_ROLE, static::TYPE_PERMISSION, static::TYPE_ROUTE]],
 		];
 	}
 
@@ -191,10 +185,8 @@ abstract class AbstractItem extends ActiveRecord
 	 */
 	public function validateUniqueName($attribute)
 	{
-		if ( $this->isNewRecord || ( $this->oldAttributes['name'] && $this->oldAttributes['name'] !== $this->name ) )
-		{
-			if ( Role::find()->where(['name'=>$this->name])->exists() )
-			{
+		if ($this->isNewRecord || ($this->oldAttributes['name'] && $this->oldAttributes['name'] !== $this->name)) {
+			if (Role::find()->where(['name' => $this->name])->exists()) {
 				$this->addError('name', Yii::t('yii', '{attribute} "{value}" has already been taken.', [
 					'attribute' => $this->getAttributeLabel($attribute),
 					'value'     => $this->$attribute,
@@ -209,7 +201,7 @@ abstract class AbstractItem extends ActiveRecord
 	 */
 	public static function find()
 	{
-		return parent::find()->andWhere([Yii::$app->getModule('user-management')->auth_item_table . '.type'=>static::ITEM_TYPE]);
+		return parent::find()->andWhere([Yii::$app->getModule('user-management')->auth_item_table . '.type' => static::ITEM_TYPE]);
 	}
 
 	/**
@@ -265,9 +257,9 @@ abstract class AbstractItem extends ActiveRecord
 		$event->trigger(get_called_class(), self::EVENT_BEFORE_ADD_CHILDREN, $event);
 	}
 
-	public static function beforeRemoveChildren($parentName, $childrenNames)
+	public static function beforeRemoveChildren($parentName, $childrenNames, $throwException = false)
 	{
 		$event = new AbstractItemEvent(compact('parentName', 'childrenNames', 'throwException'));
 		$event->trigger(get_called_class(), self::EVENT_BEFORE_REMOVE_CHILDREN, $event);
 	}
-} 
+}
