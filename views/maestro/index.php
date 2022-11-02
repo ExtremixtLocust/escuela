@@ -6,6 +6,8 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Maestro;
+use webvimark\modules\UserManagement\models\User;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\MaestroSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,40 +20,52 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Crear Maestro'), ['create'], ['class' => 'btn btn-success']) ?>
+        <!--If para decidir quienes pueden ver el botón crear-->
+        <?= User::hasRole(['Administrativo']) ? Html::a(Yii::t('app', 'Crear Maestro'), ['create'], ['class' => 'btn btn-success']) : '' ?>
     </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn',
-                //se agrega un botón para limpiar el buscador (Cambiar por ícono)
-                'header' => Html::a('Limpiar',['index'])
+    <?php if(User::hasRole('Alumno')){?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn',
+                    //se agrega un botón para limpiar el buscador (Cambiar por ícono)
+                    'header' => Html::a('Limpiar',['index'])
+                ],
+                'mae_nombre',
+                'mae_appaterno',
+                'mae_apmaterno',
+                'departamento',
             ],
-            //comentamos ID porque no necesitamos verlo
-            //'mae_id',
-            //comentamos el campo que solo muestra ID
-            //'mae_departamento_id',
-            'mae_nombre',
-            'mae_appaterno',
-            'mae_apmaterno',
-            'departamento',
-            //'mae_rfc',
-            //'mae_telefono',
-            //'mae_direccion',
-            //'mae_correo',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Maestro $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'mae_id' => $model->mae_id]);
-                 }
+        ]);
+        ?>
+    <?php }elseif(User::hasRole('Administrativo')){ ?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn',
+                    //se agrega un botón para limpiar el buscador (Cambiar por ícono)
+                    'header' => Html::a('Limpiar',['index'])
+                ],
+                'mae_nombre',
+                'mae_appaterno',
+                'mae_apmaterno',
+                'departamento',
+                [
+                    'class' => ActionColumn::className(),
+                    'urlCreator' => function ($action, Maestro $model, $key, $index, $column) {
+                        return Url::toRoute([$action, 'mae_id' => $model->mae_id]);
+                     }
+                ],
             ],
-        ],
-    ]); ?>
+        ]);
+        ?>
+    <?php } ?>
 
     <?php Pjax::end(); ?>
 
