@@ -26,13 +26,18 @@ $reticulas = ArrayHelper::map(Materia::find()->all(), 'mat_id', 'mat_nombre');
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                //se agrega un botón para limpiar el buscador
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
+            ],
 
             //no necesitamos ver el id
             //'car_id',
@@ -45,7 +50,7 @@ $reticulas = ArrayHelper::map(Materia::find()->all(), 'mat_id', 'mat_nombre');
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Carga $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'car_id' => $model->car_id]);
-                 }
+                }
             ],
         ],
     ]); ?>

@@ -25,16 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
-    <?php if(User::hasRole('Alumno')){?>
+    <?php if (User::hasRole('Alumno')) { ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn',
-                    //se agrega un botón para limpiar el buscador (Cambiar por ícono)
-                    'header' => Html::a('Limpiar',['index'])
+                [
+                    'class' => 'yii\grid\SerialColumn',
+                    //se agrega un botón para limpiar el buscador
+                    'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
                 ],
                 'mae_nombre',
                 'mae_appaterno',
@@ -43,14 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]);
         ?>
-    <?php }elseif(User::hasRole('Administrativo')){ ?>
+    <?php } elseif (User::hasRole('Administrativo')) { ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn',
+                [
+                    'class' => 'yii\grid\SerialColumn',
                     //se agrega un botón para limpiar el buscador (Cambiar por ícono)
-                    'header' => Html::a('Limpiar',['index'])
+                    'header' => Html::a('Limpiar', ['index'])
                 ],
                 'mae_nombre',
                 'mae_appaterno',
@@ -60,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => ActionColumn::className(),
                     'urlCreator' => function ($action, Maestro $model, $key, $index, $column) {
                         return Url::toRoute([$action, 'mae_id' => $model->mae_id]);
-                     }
+                    }
                 ],
             ],
         ]);

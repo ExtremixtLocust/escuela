@@ -1,10 +1,11 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use app\models\Curso;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CursoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,13 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                //se agrega un botón para limpiar el buscador
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
+            ],
 
             'cur_id',
             'cur_alumno_id',
@@ -36,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Curso $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'cur_id' => $model->cur_id]);
-                 }
+                }
             ],
         ],
     ]); ?>

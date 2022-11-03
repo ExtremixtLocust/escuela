@@ -23,13 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                //se agrega un botón para limpiar el buscador
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
+            ],
 
             //'ret_id',
             'ret_carrera',
@@ -37,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
-                 }
+                }
             ],
         ],
     ]); ?>

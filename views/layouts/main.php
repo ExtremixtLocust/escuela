@@ -20,35 +20,40 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
+
 <head>
+    <!--librería para los íconos de bootstrap-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
+
 <body class="d-flex flex-column h-100">
-<?php $this->beginBody() ?>
+    <?php $this->beginBody() ?>
 
-<header id="header">
-    <?= $this->render('navbar') ?>
-</header>
+    <header id="header">
+        <?= $this->render('navbar') ?>
+    </header>
 
-<main id="main" class="flex-shrink-0" role="main">
-    <div class="container">
-        <?php if (!empty($this->params['breadcrumbs'])): ?>
-            <?= Breadcrumbs::widget([
-                'homeLink' => ['label' => Yii::t('app', 'Inicio'), 'url' => '/site/index'],
-                'links' => $this->params['breadcrumbs'
-            ]]) ?>
-        <?php endif ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
-</main>
+    <main id="main" class="flex-shrink-0" role="main">
+        <div class="container">
+            <?php if (!empty($this->params['breadcrumbs'])) : ?>
+                <?= Breadcrumbs::widget([
+                    'homeLink' => ['label' => Yii::t('app', 'Inicio'), 'url' => '/site/index'],
+                    'links' => $this->params['breadcrumbs']
+                ]) ?>
+            <?php endif ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
+        </div>
+    </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
-    <?= $this->render('footer') ?>
-</footer>
+    <footer id="footer" class="mt-auto py-3 bg-light">
+        <?= $this->render('footer') ?>
+    </footer>
 
-<?php $this->endBody() ?>
+    <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

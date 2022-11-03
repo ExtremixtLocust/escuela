@@ -22,37 +22,45 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'das_id',
-            'das_orden',
-            [ 'attribute' => 'das_imagen',
-            'format' => 'raw',
-            'value' => function ($model) {
-            return "<center>{$model->das_imagen}<br>{$model->img}</center>";
-            }
+            [
+                'class' => 'yii\grid\SerialColumn',
+                //se agrega un botón para limpiar el buscador
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
             ],
-            'das_titulo',
-            'das_url',
-            [ 'attribute' => 'das_estatus',
-            'format' => 'raw',
-            'value' => function ($model) {
-            return $model->sta;
-            }
+            'dash_id',
+            'dash_orden',
+            [
+                'attribute' => 'das_imagen',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "<center>{$model->dash_imagen}<br>{$model->img}</center>";
+                }
             ],
-            'das_roles',
-            [ 'class' => ActionColumn::className(),
-            'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
-            return Url::toRoute([$action, 'das_id' => $model->das_id]);
-            },
-            'contentOptions' => ['style' => 'width: 80px;']
+            'dash_titulo',
+            'dash_url',
+            [
+                'attribute' => 'dash_estatus',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->sta;
+                }
             ],
-/* código anterior
+            'dash_roles',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'dash_id' => $model->das_id]);
+                },
+                'contentOptions' => ['style' => 'width: 80px;']
+            ],
+            /* código anterior
             'dash_id',
             'dash_titulo',
             'dash_img',

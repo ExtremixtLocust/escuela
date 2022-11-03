@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                //se agrega un botón para limpiar el buscador (Cambiar por ícono)
-                'header' => Html::a('Limpiar', ['index'])
+                //se agrega un botón para limpiar el buscador
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
             ],
 
             //'mat_id',
