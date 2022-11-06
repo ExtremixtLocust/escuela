@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
 
-    <?php if (User::hasRole('Alumno')) { ?>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -36,24 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'yii\grid\SerialColumn',
                     //se agrega un botón para limpiar el buscador
-                    'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
-                ],
-                'mae_nombre',
-                'mae_appaterno',
-                'mae_apmaterno',
-                'departamento',
-            ],
-        ]);
-        ?>
-    <?php } elseif (User::hasRole('Administrativo')) { ?>
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'filterModel' => $searchModel,
-            'columns' => [
-                [
-                    'class' => 'yii\grid\SerialColumn',
-                    //se agrega un botón para limpiar el buscador (Cambiar por ícono)
-                    'header' => Html::a('Limpiar', ['index'])
+                    'header' => Html::a('<i class="bi bi-recycle"></i>', ['index']),
+                    //se añade codigo para centrar el boton de limpiar
+                    'headerOptions' => [
+                        'style' => 'text-align:center'
+                    ],
+                    //centramos el contenido de ids
+                    'contentOptions' => function ($model, $key, $index, $column) {
+                        return ['style' => 'text-align:center'];
+                    }
                 ],
                 'mae_nombre',
                 'mae_appaterno',
@@ -63,12 +53,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'class' => ActionColumn::className(),
                     'urlCreator' => function ($action, Maestro $model, $key, $index, $column) {
                         return Url::toRoute([$action, 'mae_id' => $model->mae_id]);
-                    }
+                    },
+                    //sentencia para que solo administrativos
+                    //puedan ver las acciones
+                    'visible' => User::hasRole(['Administrativo']),
                 ],
             ],
         ]);
         ?>
-    <?php } ?>
 
     <?php Pjax::end(); ?>
 

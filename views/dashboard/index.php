@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dash_id',
             'dash_orden',
             [
-                'attribute' => 'das_imagen',
+                'attribute' => 'dash_imagen',
                 'format' => 'raw',
                 'value' => function ($model) {
                     return "<center>{$model->dash_imagen}<br>{$model->img}</center>";

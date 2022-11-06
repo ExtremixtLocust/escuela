@@ -34,7 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\SerialColumn',
                 //se agrega un botón para limpiar el buscador
-                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
+                'header' => Html::a('<i class="bi bi-recycle"></i>', ['index']),
+                //se añade codigo para centrar el boton de limpiar
+                'headerOptions' => [
+                    'style' => 'text-align:center'
+                ],
+                //centramos el contenido de ids
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['style' => 'text-align:center'];
+                }
             ],
 
             //'mat_id',
@@ -43,6 +51,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Materia $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'mat_id' => $model->mat_id]);
+                },
+                //sentencias para que solo administrativos
+                //puedan editar y borrar
+                'visibleButtons' => [
+                    'update' => User::hasRole(['Administrativo']),
+                    //\Yii::$app->user->can('update')
+                    'delete' => User::hasRole(['Administrativo']),
+                ],
+                //contenido centrado
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['style' => 'text-align:center'];
                 }
             ],
         ],
