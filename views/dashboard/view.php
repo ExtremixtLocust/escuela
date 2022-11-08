@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Dashboard */
 
-$this->title = $model->dash_id;
+$this->title = $model->dash_titulo;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Dashboards'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'dash_id' => $model->dash_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'dash_id' => $model->dash_id], [
+        <?= Html::a(Yii::t('app', 'Modificar'), ['update', 'dash_id' => $model->dash_id], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'dash_id' => $model->dash_id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('app', '¿Está seguro de borrar este elemento?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,23 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'das_id',
-            'das_orden',
-            [ 'attribute' => 'das_imagen',
+            'dash_id',
+            'dash_orden',
+            [ 'attribute' => 'dash_img',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return "{$model->das_imagen}<br><div style='width: 30%;'>{$model->img}</div>";
+                    return "{$model->dash_img}<br><div style='width: 30%;'>{$model->img}</div>";
                 }
             ],
-            'das_titulo',
-            'das_url',
-            [ 'attribute' => 'das_estatus',
+            'dash_titulo',
+            'dash_url',
+            [ 'attribute' => 'dash_estatus',
             'format' => 'raw',
             'value' => function ($model) {
             return "<div style='width: 30%;'>{$model->sta}</div>";
             }
             ],
-            'das_roles',
+            'dash_roles',
             /* codigo anterior
             'dash_id',
             'dash_titulo',

@@ -10,10 +10,10 @@ use webvimark\modules\UserManagement\models\rbacDB\Role;
 
 Icon::map($this);
 /* @var $this yii\web\View */
-/* @var $model app\models\Dashboard */
+/* @var $model app\models\Dashhboard */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<div class="dashboard-form">
+<div class="dashhboard-form">
     <center>
         <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
         <div class="row">
@@ -33,10 +33,10 @@ Icon::map($this);
             </div>
 
             <div class="col-md-2">
-                <?= $form->field($model, 'das_orden')->textInput() ?>
+                <?= $form->field($model, 'dash_orden')->textInput() ?>
             </div>
             <div class="col-md-2">
-                <?= $form->field($model, 'das_estatus')->widget(SwitchInput::classname(), [
+                <?= $form->field($model, 'dash_estatus')->widget(SwitchInput::classname(), [
                     'pluginOptions' => [
                         'onText' => Yii::t('app', 'Activo'),
                         'offText' => Yii::t('app', 'Inactivo'),
@@ -44,13 +44,13 @@ Icon::map($this);
                 ]) ?>
             </div>
             <div class="col-md-4">
-                <?= $form->field($model, 'das_titulo')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'dash_titulo')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
-                <?= $form->field($model, 'das_url')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'dash_url')->textInput(['maxlength' => true]) ?>
             </div>
             <div class="col-md-4">
-                <?= $form->field($model, 'das_imagen')->textInput() ?>
+                <?= $form->field($model, 'dash_img')->textInput() ?>
             </div>
             <div class="col-md-8">
                 <?= $form->field($model, 'lista_roles')->widget(Select2::classname(), [
@@ -59,9 +59,12 @@ Icon::map($this);
                     'pluginOptions' => ['allowClear' => true, 'multiple' => true],
                 ]) ?>
             </div>
+            <div class="col-md-4">
+                <?= $form->field($model, 'dash_descripcion')->textInput() ?>
+            </div>
         </div>
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success', 'style' => 'width: 60%;']) ?>
+            <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success', 'style' => 'width: 60%;']) ?>
         </div>
     </center>
     <?php ActiveForm::end(); ?>

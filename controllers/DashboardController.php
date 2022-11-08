@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\Dashboard;
-use app\models\DashboardSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use Yii;
+use yii\web\Controller;
+use app\models\Dashboard;
+use yii\web\UploadedFile;
+use app\models\DashboardSearch;
+use yii\web\NotFoundHttpException;
 
 
 /**
@@ -64,9 +65,17 @@ class DashboardController extends Controller
     {
         $model = new Dashboard();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'dash_id' => $model->dash_id]);
+        if ($this->request->isPost){
+            if ($model->load($this->request->post())) {
+                $this->guardarImagen($model);
+                $model->dash_roles = join(',', $model->lista_roles);
+                if ($model->save()) {
+                    return $this->redirect(['view', 'dash_id' => $model->dash_id]);
+                }
+                echo "<pre>";
+                var_dump($model->errors);
+                echo "</pre>";
+                die;
             }
         } else {
             $model->loadDefaultValues();
@@ -88,15 +97,33 @@ class DashboardController extends Controller
     {
         $model = $this->findModel($dash_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'dash_id' => $model->dash_id]);
-        }
+        if ($this->request->isPost && $model->load($this->request->post())) {
+                $this->guardarImagen($model);
+                $model->dash_roles = join(',', $model->lista_roles);
+                if ($model->save()) {
+                    return $this->redirect(['view', 'dash_id' => $model->dash_id]);
+                }
+            }
+            $model->archivo_imagen = "/img/dashboard/{$model->dash_img}.png";
+            $model->lista_roles = explode(',', $model->dash_roles);
 
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
+    //método creado para
+    //guardar la imagen
+    private function guardarImagen($model)
+    {
+        $objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
+        if (!is_null($objeto_imagen)) {
+            $nombre = $model->dash_img; //reset(explode(".", $objeto_imagen->name));
+            $extension = 'png'; //end((explode(".", $objeto_imagen->name)));
+            $destino = Yii::$app->basePath . "/web/img/dashboard/{$nombre}.{$extension}";
+            $objeto_imagen->saveAs($destino);
+        }
+    }
     /**
      * Deletes an existing Dashboard model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

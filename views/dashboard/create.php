@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Dashboard */
 
-$this->title = Yii::t('app', 'Create Dashboard');
+$this->title = Yii::t('app', 'Crear Dashboard');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Dashboards'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

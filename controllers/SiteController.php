@@ -66,6 +66,16 @@ class SiteController extends Controller
      *
      * @return string
      */
+
+    //funciones nuevas
+    public function actionIndex()
+    {
+        $searchModel = new DashboardSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('index', compact('searchModel','dataProvider'));
+    }
+/*
     public function actionIndex()
     {
         $searchModel = new DashboardSearch();
@@ -73,7 +83,7 @@ class SiteController extends Controller
 
         return $this->render('index', compact ('searchModel', 'dataProvider'));
     }
-
+**/
     /**
      * Login action.
      *

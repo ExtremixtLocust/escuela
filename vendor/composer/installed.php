@@ -3,7 +3,7 @@
         'name' => 'yiisoft/yii2-app-basic',
         'pretty_version' => 'dev-roles&permisos',
         'version' => 'dev-roles&permisos',
-        'reference' => 'e2e32d3661146bd48621303874718a6053c74431',
+        'reference' => '2146972e44fd908436459291b9010327dc8b7c02',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -242,12 +242,14 @@
             'dev_requirement' => false,
         ),
         'kartik-v/bootstrap-fileinput' => array(
-            'pretty_version' => 'v5.5.2',
-            'version' => '5.5.2.0',
-            'reference' => '35c29cd9fd5bc47eae5238feaabee95b2d7efe3c',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '8af6df403f4c37a6e497361eb9c3caafb8ec4d82',
             'type' => 'library',
             'install_path' => __DIR__ . '/../kartik-v/bootstrap-fileinput',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '5.5.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-icons' => array(
@@ -979,7 +981,7 @@
         'yiisoft/yii2-app-basic' => array(
             'pretty_version' => 'dev-roles&permisos',
             'version' => 'dev-roles&permisos',
-            'reference' => 'e2e32d3661146bd48621303874718a6053c74431',
+            'reference' => '2146972e44fd908436459291b9010327dc8b7c02',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

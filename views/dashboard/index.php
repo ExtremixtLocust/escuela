@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Dashboard'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Crear Dashboard'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -34,13 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 //se agrega un botón para limpiar el buscador
                 'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
             ],
-            'dash_id',
+            //'dash_id',
             'dash_orden',
             [
-                'attribute' => 'dash_imagen',
+                'attribute' => 'dash_img',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return "<center>{$model->dash_imagen}<br>{$model->img}</center>";
+                    return "<center>{$model->dash_img}<br>{$model->img}</center>";
                 }
             ],
             'dash_titulo',
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'dash_id' => $model->das_id]);
+                    return Url::toRoute([$action, 'dash_id' => $model->dash_id]);
                 },
                 'contentOptions' => ['style' => 'width: 80px;']
             ],
