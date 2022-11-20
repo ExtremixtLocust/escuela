@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 02/11/2022 09:12:10
+ Date: 19/11/2022 19:23:16
 */
 
 SET NAMES utf8mb4;
@@ -98,6 +98,7 @@ CREATE TABLE `auth_assignment`  (
 -- ----------------------------
 -- Records of auth_assignment
 -- ----------------------------
+INSERT INTO `auth_assignment` VALUES ('Administrativo', 3, 1667766936);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 4, 1667247225);
 
 -- ----------------------------
@@ -319,6 +320,7 @@ INSERT INTO `auth_item` VALUES ('/user-management/user/toggle-attribute', 3, NUL
 INSERT INTO `auth_item` VALUES ('/user-management/user/update', 3, NULL, NULL, NULL, 1426062189, 1426062189, NULL);
 INSERT INTO `auth_item` VALUES ('/user-management/user/view', 3, NULL, NULL, NULL, 1426062189, 1426062189, NULL);
 INSERT INTO `auth_item` VALUES ('Admin', 1, 'Admin', NULL, NULL, 1426062189, 1426062189, NULL);
+INSERT INTO `auth_item` VALUES ('Administrativo', 1, 'Administrativo', NULL, NULL, 1667766904, 1667766904, NULL);
 INSERT INTO `auth_item` VALUES ('Alumno', 1, 'Alumno', NULL, NULL, 1666806991, 1666806991, NULL);
 INSERT INTO `auth_item` VALUES ('assignRolesToUsers', 2, 'Assign roles to users', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('bindUserToIp', 2, 'Bind user to IP', NULL, NULL, 1426062189, 1426062189, 'userManagement');
@@ -329,6 +331,7 @@ INSERT INTO `auth_item` VALUES ('createUsers', 2, 'Create users', NULL, NULL, 14
 INSERT INTO `auth_item` VALUES ('deleteUsers', 2, 'Delete users', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('editUserEmail', 2, 'Edit user email', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('editUsers', 2, 'Edit users', NULL, NULL, 1426062189, 1426062189, 'userManagement');
+INSERT INTO `auth_item` VALUES ('PermisodeAdministrativo', 2, 'Permiso de Administrativo', NULL, NULL, 1667766745, 1667766745, 'GrupodeEscuela');
 INSERT INTO `auth_item` VALUES ('PermisodeAlumno', 2, 'Permiso de Alumno', NULL, NULL, 1667247414, 1667247414, 'GrupodeEscuela');
 INSERT INTO `auth_item` VALUES ('viewRegistrationIp', 2, 'View registration IP', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('viewUserEmail', 2, 'View user email', NULL, NULL, 1426062189, 1426062189, 'userManagement');
@@ -359,6 +362,7 @@ INSERT INTO `auth_item_child` VALUES ('Admin', 'createUsers');
 INSERT INTO `auth_item_child` VALUES ('Admin', 'deleteUsers');
 INSERT INTO `auth_item_child` VALUES ('Admin', 'editUsers');
 INSERT INTO `auth_item_child` VALUES ('Admin', 'viewUsers');
+INSERT INTO `auth_item_child` VALUES ('Administrativo', 'PermisodeAdministrativo');
 INSERT INTO `auth_item_child` VALUES ('Alumno', 'changeOwnPassword');
 INSERT INTO `auth_item_child` VALUES ('Alumno', 'PermisodeAlumno');
 INSERT INTO `auth_item_child` VALUES ('assignRolesToUsers', '/user-management/user-permission/set');
@@ -378,8 +382,46 @@ INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/bulk-a
 INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/bulk-deactivate');
 INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/update');
 INSERT INTO `auth_item_child` VALUES ('editUsers', 'viewUsers');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/grupo/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/grupo/delete');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/grupo/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/grupo/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/grupo/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/maestro/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/maestro/delete');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/maestro/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/maestro/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/maestro/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/materia/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/materia/delete');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/materia/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/materia/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/materia/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/proveedor/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/proveedor/delete');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/proveedor/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/proveedor/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/proveedor/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/site/about');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/site/captcha');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/site/contact');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/site/error');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/trabajador/create');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/trabajador/delete');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/trabajador/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/trabajador/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/trabajador/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/carga/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/maestro/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/materia/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/materia/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/reticula/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/reticula/view');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/about');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/captcha');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/contact');
@@ -484,20 +526,21 @@ CREATE TABLE `dashboard`  (
   `dash_roles` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Roles',
   `dash_orden` int(2) NOT NULL COMMENT 'Orden',
   PRIMARY KEY (`dash_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dashboard
 -- ----------------------------
-INSERT INTO `dashboard` VALUES (1, 'Alumnos', 'alumnos', 'Acceder al menú de los alumnos', '/alumno/index', 1, 'Todos', 1);
-INSERT INTO `dashboard` VALUES (2, 'Maestros', 'maestros', 'Acceder al menú de los maestros', '/maestro/index', 1, 'Alumno', 2);
-INSERT INTO `dashboard` VALUES (3, 'Administrativos', 'administrativos', 'Acceder al menú del personal Administrativo', '/administrativo/index', 1, 'Todos', 3);
-INSERT INTO `dashboard` VALUES (4, 'Retículas', 'reticulas', 'Acceder al menú de las retículas', '/reticula/index', 1, 'Todos', 4);
-INSERT INTO `dashboard` VALUES (5, 'Departamentos', 'departamentos', 'Acceder al menú de los departamentos', '/departamento/index', 1, 'Todos', 5);
-INSERT INTO `dashboard` VALUES (6, 'Trabajador', 'trabajadores', 'Acceder al menú de los trabajadores', '/trabajador/index', 1, 'Todos', 6);
-INSERT INTO `dashboard` VALUES (7, 'Inventario', 'inventario', 'Acceder al menú del inventario', '/inventario/index', 1, 'Todos', 7);
-INSERT INTO `dashboard` VALUES (8, 'Proveedores', 'proveedores', 'Acceder al menú de los proveedores', '/proveedor/index', 1, 'Todos', 8);
-INSERT INTO `dashboard` VALUES (9, 'Materia', 'materias', 'Acceder al menú de las materias', '/materia/index', 1, 'Alumno', 9);
+INSERT INTO `dashboard` VALUES (1, 'Alumnos', 'alumnos', 'Acceder al menú de los alumnos', '/alumno/index', 1, 'Administrativo', 1);
+INSERT INTO `dashboard` VALUES (2, 'Maestros', 'maestros', 'Acceder al menú de los maestros', '/maestro/index', 1, 'Administrativo,Alumno', 2);
+INSERT INTO `dashboard` VALUES (3, 'Administrativos', 'administrativos', 'Acceder al menú del personal Administrativo', '/administrativo/index', 1, 'Administrativo', 3);
+INSERT INTO `dashboard` VALUES (4, 'Retículas', 'reticulas', 'Acceder al menú de las retículas', '/reticula/index', 1, 'Administrativo,Alumno', 4);
+INSERT INTO `dashboard` VALUES (5, 'Departamentos', 'departamentos', 'Acceder al menú de los departamentos', '/departamento/index', 1, 'Administrativo', 5);
+INSERT INTO `dashboard` VALUES (6, 'Trabajador', 'trabajadores', 'Acceder al menú de los trabajadores', '/trabajador/index', 1, 'Administrativo', 6);
+INSERT INTO `dashboard` VALUES (7, 'Inventario', 'inventario', 'Acceder al menú del inventario', '/inventario/index', 1, 'Administrativo', 7);
+INSERT INTO `dashboard` VALUES (8, 'Proveedores', 'proveedores', 'Acceder al menú de los proveedores', '/proveedor/index', 1, 'Administrativo', 8);
+INSERT INTO `dashboard` VALUES (9, 'Materia', 'materias', 'Acceder al menú de las materias', '/materia/index', 1, 'Administrativo,Alumno', 9);
+INSERT INTO `dashboard` VALUES (11, 'Dashboard', 'dashboard', 'Administrar dashboard', '/dashboard/index', 1, 'Admin', 10);
 
 -- ----------------------------
 -- Table structure for departamento
@@ -573,7 +616,7 @@ CREATE TABLE `maestro`  (
   PRIMARY KEY (`mae_id`) USING BTREE,
   INDEX `fk_maestro_departamento_1`(`mae_departamento_id`) USING BTREE,
   CONSTRAINT `fk_maestro_departamento_1` FOREIGN KEY (`mae_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of maestro
@@ -581,6 +624,7 @@ CREATE TABLE `maestro`  (
 INSERT INTO `maestro` VALUES (1, 1, 'Alberto', 'Chablé', 'Rodríguez', 'Cha112233', '9933226597', 'Industrial Indeco', 'chablé@gmail.com');
 INSERT INTO `maestro` VALUES (2, 1, 'Jose Angel', 'Magaña', 'Lopez', 'Mag121265', '9966536598', 'Altos hornos', 'magaña@gmail.com');
 INSERT INTO `maestro` VALUES (3, 1, 'Jorge', 'Cein', 'Villanueva', 'Cei1265988', '9932665987', 'ITVH', 'cein@gmail.com');
+INSERT INTO `maestro` VALUES (4, 1, 'Maria', 'Antonieta', 'De las Nieves', 'MAD1956523', '993659861', 'Indeco villahermosa', 'delasnieves@gmail.com');
 
 -- ----------------------------
 -- Table structure for materia
@@ -709,7 +753,7 @@ CREATE TABLE `user_visit_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_visit_log
@@ -724,5 +768,23 @@ INSERT INTO `user_visit_log` VALUES (7, '63602c63d7c59', '127.0.0.1', 'es', 'Moz
 INSERT INTO `user_visit_log` VALUES (8, '63602caa7da8f', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26', 4, 1667247274, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (9, '63602e1e1697e', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26', 4, 1667247646, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (10, '636030f64a058', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26', 4, 1667248374, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (11, '63632ed4be408', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26', 1, 1667444436, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (12, '63632ed6e1d30', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.26', 4, 1667444438, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (13, '636749fcb2bb5', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 4, 1667713532, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (14, '63674d71c8503', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1667714417, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (15, '636819aed3986', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1667766702, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (16, '63681b1502936', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 3, 1667767061, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (17, '636872d5ad192', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1667789525, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (18, '6368739c04cba', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 3, 1667789724, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (19, '636ab94423439', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1667938628, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (20, '636ab94f51995', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 4, 1667938639, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (21, '636ac9ba55260', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 4, 1667942842, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (22, '636af4c345749', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1667953859, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (23, '636af4ece6f38', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 4, 1667953900, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (24, '636c05aa61222', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 1, 1668023722, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (25, '636c06d88d994', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.35', 4, 1668024024, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (26, '637581808e0ff', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.42', 1, 1668645248, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (27, '63758390e0942', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.42', 4, 1668645776, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (28, '6375bb1ced705', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.42', 4, 1668659996, 'Chrome', 'Windows');
 
 SET FOREIGN_KEY_CHECKS = 1;
