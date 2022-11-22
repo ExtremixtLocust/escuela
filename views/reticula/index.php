@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Reticula;
+use app\widgetsPersonalizados\TablaConPermisos;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ReticulaSearch */
@@ -39,10 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'ret_id',
             'ret_carrera',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
-                }
+                //'class' => ActionColumn::className(),
+                //'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
+                   // return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
+                //}
+                TablaConPermisos::widget([
+                    'botonera' => ['Alumno'],
+                ])
+
             ],
         ],
     ]); ?>

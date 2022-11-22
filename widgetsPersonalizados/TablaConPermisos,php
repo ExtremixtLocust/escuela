@@ -1,0 +1,39 @@
+<?php
+
+namespace app\widgetsPersonalizados;
+
+use Yii;
+
+use yii\base\Widget;
+use yii\grid\ActionColumn;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use app\models\Reticula;
+
+
+
+class TablaConPermisos extends Widget
+{
+    public $botonera=[];
+
+
+    public function init()
+    {
+        parent::init();
+        if ($this->botonera === null) {
+            $this->botonera = ['Hello World'];
+        }
+    }
+
+    public function run()
+    {
+        //return Html::encode($this->message);
+        $this->botonera = [
+            'class' => ActionColumn::className(),
+            'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
+                return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
+            }
+        ];
+        return $this->botonera;
+    }
+}
