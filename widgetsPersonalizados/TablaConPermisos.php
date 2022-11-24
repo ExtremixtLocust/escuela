@@ -5,16 +5,17 @@ namespace app\widgetsPersonalizados;
 use Yii;
 
 use yii\base\Widget;
-use yii\grid\ActionColumn;
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use app\models\Reticula;
+use yii\grid\ActionColumn;
+use webvimark\modules\UserManagement\models\User;
 
 
 
 class TablaConPermisos extends Widget
 {
-    public $botonera=[];
+    public $botonera = [];
 
 
     public function init()
@@ -29,10 +30,9 @@ class TablaConPermisos extends Widget
     {
         //return Html::encode($this->message);
         $this->botonera = [
-            'class' => ActionColumn::className(),
-            'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
-                return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
-            }
+            'update' => User::hasRole(['Administrativo']),
+            //\Yii::$app->user->can('update')
+            'delete' => User::hasRole(['Administrativo']),
         ];
         return $this->botonera;
     }

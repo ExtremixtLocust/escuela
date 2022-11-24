@@ -1,12 +1,13 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
 use app\models\Reticula;
+use yii\grid\ActionColumn;
 use app\widgetsPersonalizados\TablaConPermisos;
+use webvimark\modules\UserManagement\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ReticulaSearch */
@@ -40,14 +41,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'ret_id',
             'ret_carrera',
             [
-                //'class' => ActionColumn::className(),
-                //'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
-                   // return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
-                //}
-                TablaConPermisos::widget([
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
+                },
+                //cambios no efectivos
+                /*   TablaConPermisos::widget([
                     'botonera' => ['Alumno'],
                 ])
-
+                */
+                /*  'visibleButtons' => TablaConPermisos::widget([
+                    'botonera' => ['Alumno'],
+                ]),*/
             ],
         ],
     ]); ?>
