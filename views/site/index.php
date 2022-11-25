@@ -1,9 +1,6 @@
 <?php
 
-//use app\models\User;
-use yii\helpers\Html;
 use yii\widgets\ListView;
-use webvimark\modules\UserManagement\models\User;
 
 /** @var yii\web\View $this */
 

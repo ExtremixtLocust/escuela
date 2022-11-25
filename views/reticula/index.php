@@ -38,21 +38,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
             ],
 
-            //'ret_id',
             'ret_carrera',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
                 },
-                //cambios no efectivos
-                /*   TablaConPermisos::widget([
-                    'botonera' => ['Alumno'],
-                ])
-                */
-                /*  'visibleButtons' => TablaConPermisos::widget([
-                    'botonera' => ['Alumno'],
-                ]),*/
+                //sentencias para que solo administrativos
+                //puedan editar y borrar
+                'visibleButtons' => [
+                    'update' => User::hasRole(['Administrativo']),
+                    //\Yii::$app->user->can('update')
+                    'delete' => User::hasRole(['Administrativo']),
+                ],
+                //contenido centrado
+                'contentOptions' => function ($model, $key, $index, $column) {
+                    return ['style' => 'text-align:center'];
+                },
             ],
         ],
     ]); ?>
