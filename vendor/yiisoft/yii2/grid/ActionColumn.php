@@ -10,6 +10,7 @@ namespace yii\grid;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\widgets\BotoneraPersonalizada;
 
 /**
  * ActionColumn is a column for the [[GridView]] widget that displays buttons for viewing and manipulating the items.
@@ -195,6 +196,10 @@ class ActionColumn extends Column
                     'title' => $title,
                     'aria-label' => $title,
                     'data-pjax' => '0',
+                    //'style' => 'margin: 5% auto;',
+                    'class' => BotoneraPersonalizada::widget([
+                        'type' => $name
+                    ])
                 ], $additionalOptions, $this->buttonOptions);
                 $icon = isset($this->icons[$iconName])
                     ? $this->icons[$iconName]

@@ -6,6 +6,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Alumno;
+use app\widgets\BotoneraPersonalizada;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AlumnoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -34,23 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 //se agrega un botón para limpiar el buscador
                 'header' => Html::a('<i class="bi bi-recycle"></i>', ['index'])
             ],
-
-            //no se muestra el ID
-            //'alu_id',
             'alu_nombre',
             'alu_appaterno',
             'alu_apmaterno',
             //añadimos el campo que creamos (así se llama el método)
             'reticula',
-            //'alu_reticula_id',
-            //'alu_nocontrol',
-            //'alu_semestre',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Alumno $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'alu_id' => $model->alu_id]);
                 }
+                
             ],
+
         ],
     ]); ?>
 
