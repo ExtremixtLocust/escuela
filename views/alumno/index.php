@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'urlCreator' => function ($action, Alumno $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'alu_id' => $model->alu_id]);
                 }
-                
             ],
 
         ],

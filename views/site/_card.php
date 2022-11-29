@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 ?>
 
-<center>
+<center class="dashboard">
     <!--Centra los elementos-->
     <h2><?= Html::a(Yii::t('app', $model->dash_titulo)) ?></h2>
     <?php echo Html::img("@web/img/dashboard/{$model->dash_img}.png", ['style' => 'height: 10rem;']) ?>

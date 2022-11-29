@@ -83,6 +83,18 @@ a.desc:after {
     outline: none;
 }
 
+.acciones-centradas{
+    text-align: center;
+}
+
 .botoneraPersonalizada{
     margin: 5% auto;
+}
+
+.dashboard{
+    transition: background-color 0.5s;
+}
+
+.dashboard:hover{
+   background-color: #e9e9e9;
 }
