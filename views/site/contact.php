@@ -7,11 +7,22 @@
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\captcha\Captcha;
-
-$this->title = 'Contact';
+use dosamigos\google\maps\Map;
+use dosamigos\google\maps\LatLng;
+$this->title = Yii::t('app', 'Contacto');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-contact">
+    <?php
+      $coord = new LatLng(['lat' => 18.023244933091046, 'lng' => -92.90368321800027]);
+      $map = new Map([
+      'center' => $coord,
+      'zoom' => 14,
+      ]);
+    ?>
+    <?php echo $map->display();?>
+
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
@@ -38,7 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
             Thank you.
         </p>
 
-        <div class="row">
+        <div class="row row-cols-md-2">
+            <br>
             <div class="col-lg-5">
 
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>

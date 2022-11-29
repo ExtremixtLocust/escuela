@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
         'name' => 'yiisoft/yii2-app-basic',
-        'pretty_version' => 'dev-roles&permisos',
-        'version' => 'dev-roles&permisos',
-        'reference' => '2146972e44fd908436459291b9010327dc8b7c02',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        '2amigos/yii2-google-maps-library' => array(
+            'pretty_version' => '1.0.0',
+            'version' => '1.0.0.0',
+            'reference' => 'da10da7ffeb65e97008f683bc8949e6b346a5108',
+            'type' => 'yii-extension',
+            'install_path' => __DIR__ . '/../2amigos/yii2-google-maps-library',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'behat/gherkin' => array(
             'pretty_version' => 'v4.9.0',
             'version' => '4.9.0.0',
@@ -223,6 +232,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'guzzlehttp/guzzle' => array(
+            'pretty_version' => '4.2.4',
+            'version' => '4.2.4.0',
+            'reference' => '13a8e5acff26b0a87d353042170b48976da004a1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../guzzlehttp/guzzle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'guzzlehttp/psr7' => array(
             'pretty_version' => '2.4.3',
             'version' => '2.4.3.0',
@@ -231,6 +249,15 @@
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'guzzlehttp/streams' => array(
+            'pretty_version' => '2.1.0',
+            'version' => '2.1.0.0',
+            'reference' => 'f91b721d73f0e561410903b3b3c90a5d0e40b534',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../guzzlehttp/streams',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'ikimea/browser' => array(
             'pretty_version' => '1.12.0',
@@ -979,9 +1006,9 @@
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-app-basic' => array(
-            'pretty_version' => 'dev-roles&permisos',
-            'version' => 'dev-roles&permisos',
-            'reference' => '2146972e44fd908436459291b9010327dc8b7c02',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

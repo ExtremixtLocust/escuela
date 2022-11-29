@@ -3,8 +3,9 @@
 /** @var yii\web\View $this */
 
 use yii\helpers\Html;
+use yii\widgets\ListView;
 
-$this->title = 'About';
+$this->title = Yii::t('app', 'Acerca De');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
@@ -20,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <br>
         <!--Contenedor historia y collapse-->
         <div class="row row-cols-md-2">
+
+          
 
             <!--historia-->
             <div >

@@ -21,7 +21,9 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'e3b2795a8a512b6083af088fb53afe6c' => __DIR__ . '/..' . '/codeception/codeception/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
+        'fad373d645dd668e85d44ccf3c38fbd6' => __DIR__ . '/..' . '/guzzlehttp/streams/src/functions.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '154e0d165f5fe76e8e9695179d0a7345' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions.php',
         '77e7c5c0b74965caa0fbb0a094b7713f' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/bootstrap.php',
     );
 
@@ -60,6 +62,10 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
+        'd' => 
+        array (
+            'dosamigos\\google\\maps\\' => 22,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -97,7 +103,9 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         ),
         'G' => 
         array (
+            'GuzzleHttp\\Stream\\' => 18,
             'GuzzleHttp\\Psr7\\' => 16,
+            'GuzzleHttp\\' => 11,
         ),
         'F' => 
         array (
@@ -221,6 +229,10 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
+        'dosamigos\\google\\maps\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-google-maps-library',
+        ),
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
@@ -326,9 +338,17 @@ class ComposerStaticInit341ed9eaf022a0a84b46c5d50fea32eb
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'GuzzleHttp\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/streams/src',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
+        ),
+        'GuzzleHttp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
         'Faker\\' => 
         array (
