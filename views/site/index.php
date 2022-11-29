@@ -1,7 +1,7 @@
 <?php
 
 use yii\widgets\ListView;
-
+use app\widgets\BotonesIconos;
 /** @var yii\web\View $this */
 
 $this->title = 'Escuela';
@@ -20,5 +20,9 @@ $this->title = 'Escuela';
                     'class' => 'row row-cols-md-3 g-4',
                 ],
                 'summary' => false,
+                
             ]); ?>
+            <?= BotonesIconos::widget();
+            ?>
+            
         </div>
