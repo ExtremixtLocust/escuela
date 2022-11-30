@@ -17,7 +17,7 @@ class BotonesIconos extends Widget{
     public function run()
     {
         //return Html::img("/img/{$this->imagen}", $this->options);
-        return Html::a(Yii::t('app', 'Centro de Servicios'), ['http://itvillahermosa.edu.mx/site/sys.jsp?view=alumnos'], ['class' => 'btn btn-primary']);
+        return Html::a(Yii::t('app', 'Centro de Servicios'), 'http://itvillahermosa.edu.mx/site/sys.jsp?view=alumnos', ['class' => 'btn btn-primary']);
     }
 }
 
