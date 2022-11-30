@@ -11,6 +11,7 @@ $this->title = 'Escuela';
     <div class="body-content">
 
         <div class="container">
+            <br>
             
             <?= ListView::widget([
                 'dataProvider' => $dataProvider,
