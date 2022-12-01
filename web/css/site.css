@@ -118,7 +118,7 @@ a.desc:after {
     background: #00ffe5;
     box-shadow: 0 0 10px #00ffe5, 0 0 40px
     #00ffe5, 0 0 80px #00ffe5;
-    transition-delay: 0.2s;
+    transition-delay: 0.1s;
     color: #212529;
     }
 
@@ -138,6 +138,6 @@ a.desc:after {
     background: #00ffe5;
     box-shadow: 0 0 10px #00ffe5, 0 0 40px
     #00ffe5, 0 0 80px #00ffe5;
-    transition-delay: 0.2s;
+    transition-delay: 0.1s;
     color: #212529;
     }
