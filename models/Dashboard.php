@@ -37,7 +37,7 @@ class Dashboard extends \yii\db\ActiveRecord
     {
         return [
             [['dash_orden', 'dash_titulo', 'dash_img', 'dash_descripcion', 'dash_url', 'dash_estatus', 'dash_roles'], 'required'],
-            [[ 'dash_estatus','dash_orden'], 'integer'],
+            [['dash_estatus','dash_orden'], 'integer'],
             [['dash_titulo'], 'string', 'max' => 50],
             [['dash_img'], 'string', 'max' => 25],
             [['dash_descripcion', 'dash_roles'], 'string', 'max' => 255],

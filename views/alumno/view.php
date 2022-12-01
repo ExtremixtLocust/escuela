@@ -29,6 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            ['attribute' => 'alu_img',
+                'format' => 'raw',
+                'value' => function($model){
+                    return "{$model->alu_img}<br><div style='width: 30%;'>{$model->img}</div>";
+                }],
             'alu_id',
             'alu_nombre',
             'alu_appaterno',
@@ -37,11 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'alu_nocontrol',
             'alu_semestre',
             'reticula',
-            ['attribute' => 'alu_foto',
-                'format' => 'raw',
-                'value' => function($model){
-                    return Html::img(yii\helpers\Url::to("img/".$model->avatar));
-                }],
         ],
     ]) ?>
 

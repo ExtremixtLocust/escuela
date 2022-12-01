@@ -38,7 +38,7 @@ $apellidosP = [
 
 <div class="alumno-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'alu_nombre')->textInput(['maxlength' => true]) ?>
 
@@ -60,12 +60,22 @@ $apellidosP = [
 
     <?= $form->field($model, 'alu_semestre')->textInput() ?>
 
-    <?= $form->field($model, 'file')->widget(FileInput::classname(), [
+    <?= //codigo para la foto del alumno
+     $form->field($model, 'archivo_imagen')->widget(FileInput::classname(), [
         'options' => ['accept' => 'file/*'],
+        'pluginOptions' => [
+            'allowedFileExtensions' => ['png'],
+            'showUpload' => false,
+            'showRemove' => false,
+            'initialPreview' => [$model->archivo_imagen],
+            'initialPreviewAsData' => true,
+            'initialCaption' => Yii::t('app', 'Imagen del alumno: ' . $model->archivo_imagen),
+            'overwriteInitial' => false,
+        ],
     ]);?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
