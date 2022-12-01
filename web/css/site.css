@@ -102,3 +102,42 @@ a.desc:after {
     box-shadow:.2rem .2rem 1rem #fff
 }
 
+.facebook{
+    background-color: darkgrey;
+    display: inline-block;
+    padding: 8px 20px;
+    color:#fff;
+    letter-spacing: 4px;
+    font-size: 24px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.2s;
+    }
+.facebook:hover{
+      
+    background: #00ffe5;
+    box-shadow: 0 0 10px #00ffe5, 0 0 40px
+    #00ffe5, 0 0 80px #00ffe5;
+    transition-delay: 0.2s;
+    color: #212529;
+    }
+
+.twitter{
+    background-color: darkgrey;
+    display: inline-block;
+    padding: 8px 20px;
+    color:#fff;
+    letter-spacing: 4px;
+    font-size: 24px;
+    text-decoration: none;
+    overflow: hidden;
+    transition: 0.2s;
+    }
+.twitter:hover{
+          
+    background: #00ffe5;
+    box-shadow: 0 0 10px #00ffe5, 0 0 40px
+    #00ffe5, 0 0 80px #00ffe5;
+    transition-delay: 0.2s;
+    color: #212529;
+    }

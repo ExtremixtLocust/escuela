@@ -1,7 +1,9 @@
 <?php
 
 use yii\widgets\ListView;
-use app\widgets\BotonesIconos;
+use app\widgets\facebook;
+use app\widgets\twitter;
+
 /** @var yii\web\View $this */
 
 $this->title = 'Escuela';
@@ -23,7 +25,11 @@ $this->title = 'Escuela';
                 'summary' => false,
                 
             ]); ?>
-            <?= BotonesIconos::widget();
+            <br>
+            <br>
+            <?= facebook::widget();
+            ?>
+            <?= twitter::widget();
             ?>
             
         </div>
