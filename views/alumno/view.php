@@ -29,11 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            ['attribute' => 'alu_img',
+            [
+                'attribute' => 'img',
                 'format' => 'raw',
-                'value' => function($model){
-                    return "{$model->alu_img}<br><div style='width: 30%;'>{$model->img}</div>";
-                }],
+                'value' => function ($model) {
+                    return "{$model->alu_nocontrol}<br><div style='width: 30%;'>{$model->img}</div>";
+                }
+            ],
             'alu_id',
             'alu_nombre',
             'alu_appaterno',

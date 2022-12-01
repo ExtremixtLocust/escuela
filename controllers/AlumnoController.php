@@ -143,7 +143,7 @@ class AlumnoController extends Controller
                 return $this->redirect(['view', 'alu_id' => $model->alu_id]);
             }
         }
-        $model->archivo_imagen = "/img/alumno/{$model->alu_img}.png";
+        $model->archivo_imagen = "/img/alumno/{$model->alu_nocontrol}.png";
 
         return $this->render('update', [
             'model' => $model,
@@ -192,5 +192,4 @@ class AlumnoController extends Controller
             $objeto_imagen->saveAs($destino);
         }
     }
-
 }

@@ -20,7 +20,7 @@ class AlumnoSearch extends Alumno
     {
         return [
             [['alu_id', 'alu_reticula_id', 'alu_semestre'], 'integer'],
-            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol', 'alu_img', 'reticula'], 'safe'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol', 'reticula'], 'safe'],
         ];
     }
 
@@ -57,9 +57,9 @@ class AlumnoSearch extends Alumno
                 'alu_appaterno',
                 'alu_apmaterno',
                 'alu_reticula_id',
-                'alu_nocontrol' ,
+                'alu_nocontrol',
                 'alu_semestre',
-                'reticula'=> [  
+                'reticula' => [
                     'asc' => ['ret_carrera' => SORT_ASC],
                     'desc' => ['ret_carrera' => SORT_DESC],
                     'default' => SORT_ASC
@@ -86,7 +86,6 @@ class AlumnoSearch extends Alumno
             ->andFilterWhere(['like', 'alu_appaterno', $this->alu_appaterno])
             ->andFilterWhere(['like', 'alu_apmaterno', $this->alu_apmaterno])
             ->andFilterWhere(['like', 'alu_nocontrol', $this->alu_nocontrol])
-            ->andFilterWhere(['like', 'alu_img', $this->alu_img])
             ->andFilterWhere(['like', 'ret_carrera', $this->reticula]);
 
         return $dataProvider;
