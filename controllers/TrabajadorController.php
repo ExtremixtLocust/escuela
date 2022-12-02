@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Trabajador;
 use app\models\TrabajadorSearch;
+use webvimark\modules\UserManagement\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -50,9 +51,15 @@ class TrabajadorController extends Controller
      */
     public function actionView($tra_id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($tra_id),
-        ]);
+        $model = $this->findModel($tra_id);
+
+        if ($model->tra_fkuser == Yii::$app->user->id || Yii::$app->user->isSuperAdmin){
+            return $this->render('view', [
+                'model' => $model,
+            ]); 
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**
@@ -65,8 +72,11 @@ class TrabajadorController extends Controller
         $model = new Trabajador();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'tra_id' => $model->tra_id]);
+            if ($model->load($this->request->post())) {
+                $model->tra_fkuser=1;
+                if ($model->save()) {
+                    return $this->redirect(['view', 'tra_id' => $model->tra_id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -88,13 +98,17 @@ class TrabajadorController extends Controller
     {
         $model = $this->findModel($tra_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'tra_id' => $model->tra_id]);
+        if (User::hasRole(['Administrativo']) || $model->tra_fkuser == Yii::$app->user->id){
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'tra_id' => $model->tra_id]);
+            }
+    
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**
