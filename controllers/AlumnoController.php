@@ -7,6 +7,8 @@ use app\models\AlumnoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
 use Yii;
 
 /**
@@ -67,6 +69,8 @@ class AlumnoController extends Controller
         $modeluser = new \webvimark\modules\UserManagement\models\User();
 
         if ($this->request->isPost) {
+            /*
+            //codigo anterior
             if ($model->load($this->request->post()) && $modeluser->load($this->request->post())) {
 
 
@@ -87,6 +91,17 @@ class AlumnoController extends Controller
                         }
                     }
                 }
+            
+            }*/
+            if ($model->load($this->request->post())) {
+                $this->guardarImagen($model);
+                if ($model->save()) {
+                    return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+                }
+                echo "<pre>";
+                var_dump($model->errors);
+                echo "</pre>";
+                die;
             }
         } else {
             $model->loadDefaultValues();
@@ -122,9 +137,13 @@ class AlumnoController extends Controller
     {
         $model = $this->findModel($alu_id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $this->guardarImagen($model);
+            if ($model->save()) {
+                return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+            }
         }
+        $model->archivo_imagen = "/img/alumno/{$model->alu_nocontrol}.png";
 
         return $this->render('update', [
             'model' => $model,
@@ -159,5 +178,18 @@ class AlumnoController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    //método creado para
+    //guardar la imagen
+    private function guardarImagen($model)
+    {
+        $objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
+        if (!is_null($objeto_imagen)) {
+            $nombre = $model->alu_nocontrol; //reset(explode(".", $objeto_imagen->name));
+            $extension = 'png'; //end((explode(".", $objeto_imagen->name)));
+            $destino = Yii::$app->basePath . "/web/img/alumno/{$nombre}.{$extension}";
+            $objeto_imagen->saveAs($destino);
+        }
     }
 }

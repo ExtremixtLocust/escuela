@@ -57,9 +57,9 @@ class AlumnoSearch extends Alumno
                 'alu_appaterno',
                 'alu_apmaterno',
                 'alu_reticula_id',
-                'alu_nocontrol' ,
+                'alu_nocontrol',
                 'alu_semestre',
-                'reticula'=> [  
+                'reticula' => [
                     'asc' => ['ret_carrera' => SORT_ASC],
                     'desc' => ['ret_carrera' => SORT_DESC],
                     'default' => SORT_ASC

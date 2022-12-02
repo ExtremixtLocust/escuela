@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\helpers\Html;
 use Yii;
 
 /**
@@ -24,7 +25,7 @@ class Alumno extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
-    public $file;
+    public $archivo_imagen;
 
     public static function tableName()
     {
@@ -37,11 +38,16 @@ class Alumno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre'], 'required'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre',], 'required'],
             [['alu_reticula_id', 'alu_semestre'], 'integer'],
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
-            [['file'], 'file', 'extensions' => 'png', 'maxFiles' => '1'],
+            //reglas nuevas de control
+            // [['alu_img'], 'string', 'max' => 25],
+            // [['alu_img'], 'unique'],
+            [['archivo_imagen'], 'safe'],
+            [['archivo_imagen'], 'file', 'extensions' => 'png'],
+            [['archivo_imagen'], 'file', 'maxSize' => '1000000'],
         ];
     }
 
@@ -60,8 +66,10 @@ class Alumno extends \yii\db\ActiveRecord
             'alu_semestre' => Yii::t('app', 'Semestre'),
             //añadimos el campo personalizado al idioma
             'reticula' => Yii::t('app', 'Retícula'),
-
-            'file' => 'Foto',
+            //parámetros para guardar imágenes
+            'archivo_imagen' => Yii::t('app', 'Imagen'),
+            //'alu_img' => Yii::t('app', 'Imagen'),
+            'img' => Yii::t('app', 'Imagen'),
         ];
     }
 
@@ -90,5 +98,14 @@ class Alumno extends \yii\db\ActiveRecord
     public function getReticula()
     {
         return $this->aluReticula->ret_carrera;
+    }
+
+    //funciones para buscar imagenes
+    public function getImg()
+    {
+        return Html::img(
+            "/img/alumno/{$this->alu_nocontrol}.png",
+            ['alt' => Yii::t('app', $this->alu_nocontrol), 'style' => 'width: 70%;']
+        );
     }
 }
