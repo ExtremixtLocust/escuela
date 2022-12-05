@@ -104,27 +104,36 @@ a.desc:after {
 }
 
 .facebook{
-    background-color: darkgrey;
+    width: 15rem;
+    height: 15rem;
+    margin: 15px 10px 10px 10px;
+    text-align: center;
+    background-color: #212529;
     display: inline-block;
     padding: 8px 20px;
     color:#fff;
     letter-spacing: 4px;
     font-size: 24px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-decoration: none;
     overflow: hidden;
     transition: 0.2s;
     }
 .facebook:hover{
       
-    background: #00ffe5;
-    box-shadow: 0 0 10px #00ffe5, 0 0 40px
-    #00ffe5, 0 0 80px #00ffe5;
+    background: #1877F2;
+    box-shadow: 0 0 10px #1877F2, 0 0 40px
+    #1877F2, 0 0 80px #1877F2;
     transition-delay: 0.1s;
     color: #212529;
     }
 
 .twitter{
-    background-color: darkgrey;
+    width: 15rem;
+    height: 15rem;
+    margin: 15px 10px 10px 10px;
+    text-align: center;
+    background-color: #212529;
     display: inline-block;
     padding: 8px 20px;
     color:#fff;
@@ -136,9 +145,9 @@ a.desc:after {
     }
 .twitter:hover{
           
-    background: #00ffe5;
-    box-shadow: 0 0 10px #00ffe5, 0 0 40px
-    #00ffe5, 0 0 80px #00ffe5;
+    background: #1D9BF0;
+    box-shadow: 0 0 10px #1D9BF0, 0 0 40px
+    #1D9BF0, 0 0 80px #1D9BF0;
     transition-delay: 0.1s;
     color: #212529;
     }

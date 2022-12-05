@@ -9,6 +9,9 @@ use yii\bootstrap5\Html;
 use yii\captcha\Captcha;
 use dosamigos\google\maps\Map;
 use dosamigos\google\maps\LatLng;
+use app\widgets\facebook;
+use app\widgets\twitter;
+
 $this->title = Yii::t('app', 'Contacto');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -70,6 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php ActiveForm::end(); ?>
 
             </div>
+            <br>
+            <?= facebook::widget();
+            ?>
+            <?= twitter::widget();
+            ?>
         </div>
 
     <?php endif; ?>
