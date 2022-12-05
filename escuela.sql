@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 03/12/2022 18:50:35
+ Date: 04/12/2022 20:02:08
 */
 
 SET NAMES utf8mb4;
@@ -34,14 +34,15 @@ CREATE TABLE `administrativo`  (
   `adm_fkuser` int NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`adm_id`) USING BTREE,
   INDEX `fk_administrativo_departamento_1`(`adm_departamento_id`) USING BTREE,
+  INDEX `adm_fkuser`(`adm_fkuser`) USING BTREE,
+  CONSTRAINT `administrativo_ibfk_1` FOREIGN KEY (`adm_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_administrativo_departamento_1` FOREIGN KEY (`adm_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of administrativo
 -- ----------------------------
-INSERT INTO `administrativo` VALUES (1, 1, 'Lucila', 'Jauregui', 'Wade', '9966326598', 'Indeco', 'Wad136598', 'wade@gmail.com', 0);
-INSERT INTO `administrativo` VALUES (2, 1, 'Margarita', 'Martínez', 'Manzano', '9932548791', 'Altos hornos', 'Mzn986532', 'manzano@gmail.com', 0);
+INSERT INTO `administrativo` VALUES (3, 1, 'Bryan Alejandro', 'Zavala', 'García', '9933757716', 'C Francisco Villa Col Vicente Guerrero 2nda Etapa', 'ZAGB00HTCVRRA308', 'alex.zavala.b@gmail.com', 3);
 
 -- ----------------------------
 -- Table structure for alumno
@@ -58,15 +59,15 @@ CREATE TABLE `alumno`  (
   `alu_fkuser` int NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`alu_id`) USING BTREE,
   INDEX `fk_alumno_reticula_1`(`alu_reticula_id`) USING BTREE,
+  INDEX `alu_fkuser`(`alu_fkuser`) USING BTREE,
+  CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`alu_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_alumno_reticula_1` FOREIGN KEY (`alu_reticula_id`) REFERENCES `reticula` (`ret_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of alumno
 -- ----------------------------
-INSERT INTO `alumno` VALUES (1, 'Eusebio Angel', 'Sanchez', 'Rincon', 1, '18301276', 9, 0);
-INSERT INTO `alumno` VALUES (2, 'Juan Rafael', 'Figueroa', 'Dzul', 1, '18301222', 9, 0);
-INSERT INTO `alumno` VALUES (3, 'Bryan Alejandro', 'Zavala', 'García', 1, '18301280', 9, 0);
+INSERT INTO `alumno` VALUES (1, 'Eusebio Angel', 'Sanchez', 'Rincon', 1, '18301276', 9, 4);
 
 -- ----------------------------
 -- Table structure for aula
@@ -102,6 +103,7 @@ CREATE TABLE `auth_assignment`  (
 -- ----------------------------
 INSERT INTO `auth_assignment` VALUES ('Administrativo', 3, 1667766936);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 4, 1667247225);
+INSERT INTO `auth_assignment` VALUES ('Trabajador', 5, 1670198481);
 
 -- ----------------------------
 -- Table structure for auth_item
@@ -333,8 +335,12 @@ INSERT INTO `auth_item` VALUES ('createUsers', 2, 'Create users', NULL, NULL, 14
 INSERT INTO `auth_item` VALUES ('deleteUsers', 2, 'Delete users', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('editUserEmail', 2, 'Edit user email', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('editUsers', 2, 'Edit users', NULL, NULL, 1426062189, 1426062189, 'userManagement');
+INSERT INTO `auth_item` VALUES ('Maestro', 1, 'Maestro', NULL, NULL, 1670191831, 1670191831, NULL);
 INSERT INTO `auth_item` VALUES ('PermisodeAdministrativo', 2, 'Permiso de Administrativo', NULL, NULL, 1667766745, 1667766745, 'GrupodeEscuela');
 INSERT INTO `auth_item` VALUES ('PermisodeAlumno', 2, 'Permiso de Alumno', NULL, NULL, 1667247414, 1667247414, 'GrupodeEscuela');
+INSERT INTO `auth_item` VALUES ('PermisodeMaestro', 2, 'Permiso de Maestro', NULL, NULL, 1670192147, 1670192217, 'GrupodeEscuela');
+INSERT INTO `auth_item` VALUES ('PermisodeTrabajador', 2, 'Permiso de Trabajador', NULL, NULL, 1670198371, 1670198371, 'GrupodeEscuela');
+INSERT INTO `auth_item` VALUES ('Trabajador', 1, 'Trabajador', NULL, NULL, 1670191845, 1670191845, NULL);
 INSERT INTO `auth_item` VALUES ('viewRegistrationIp', 2, 'View registration IP', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('viewUserEmail', 2, 'View user email', NULL, NULL, 1426062189, 1426062189, 'userManagement');
 INSERT INTO `auth_item` VALUES ('viewUserRoles', 2, 'View user roles', NULL, NULL, 1426062189, 1426062189, 'userManagement');
@@ -430,6 +436,13 @@ INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/contact');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/error');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/language');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/inventario/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/inventario/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/proveedor/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/proveedor/view');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/*');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/trabajador/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/trabajador/view');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/grid-page-size');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/index');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/view');
@@ -452,6 +465,7 @@ CREATE TABLE `auth_item_group`  (
 -- ----------------------------
 -- Records of auth_item_group
 -- ----------------------------
+INSERT INTO `auth_item_group` VALUES ('GrupodeAlumnos', 'Grupo de Alumnos', 1670191902, 1670191941);
 INSERT INTO `auth_item_group` VALUES ('GrupodeEscuela', 'Grupo de Escuela', 1667247380, 1667247380);
 INSERT INTO `auth_item_group` VALUES ('userCommonPermissions', 'User common permission', 1426062189, 1426062189);
 INSERT INTO `auth_item_group` VALUES ('userManagement', 'User management', 1426062189, 1426062189);
@@ -618,16 +632,15 @@ CREATE TABLE `maestro`  (
   `mae_fkuser` int NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`mae_id`) USING BTREE,
   INDEX `fk_maestro_departamento_1`(`mae_departamento_id`) USING BTREE,
-  CONSTRAINT `fk_maestro_departamento_1` FOREIGN KEY (`mae_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `mae_fkuser`(`mae_fkuser`) USING BTREE,
+  CONSTRAINT `fk_maestro_departamento_1` FOREIGN KEY (`mae_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `maestro_ibfk_1` FOREIGN KEY (`mae_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of maestro
 -- ----------------------------
-INSERT INTO `maestro` VALUES (1, 1, 'Alberto', 'Chablé', 'Rodríguez', 'Cha112233', '9933226597', 'Industrial Indeco', 'chablé@gmail.com', 0);
-INSERT INTO `maestro` VALUES (2, 1, 'Jose Angel', 'Magaña', 'Lopez', 'Mag121265', '9966536598', 'Altos hornos', 'magaña@gmail.com', 0);
-INSERT INTO `maestro` VALUES (3, 1, 'Jorge', 'Cein', 'Villanueva', 'Cei1265988', '9932665987', 'ITVH', 'cein@gmail.com', 0);
-INSERT INTO `maestro` VALUES (4, 1, 'Maria', 'Antonieta', 'De las Nieves', 'MAD1956523', '993659861', 'Indeco villahermosa', 'delasnieves@gmail.com', 0);
+INSERT INTO `maestro` VALUES (3, 1, 'Jorge', 'Cein', 'Villanueva', 'Cei1265988', '9932665987', 'ITVH', 'cein@gmail.com', 7);
 
 -- ----------------------------
 -- Table structure for materia
@@ -704,13 +717,15 @@ CREATE TABLE `trabajador`  (
   `tra_fkuser` int NOT NULL COMMENT 'Id User\r\n',
   PRIMARY KEY (`tra_id`) USING BTREE,
   INDEX `fk_trabajador_departamento_1`(`tra_departamento_id`) USING BTREE,
-  CONSTRAINT `fk_trabajador_departamento_1` FOREIGN KEY (`tra_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  INDEX `tra_fkuser`(`tra_fkuser`) USING BTREE,
+  CONSTRAINT `fk_trabajador_departamento_1` FOREIGN KEY (`tra_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `trabajador_ibfk_1` FOREIGN KEY (`tra_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of trabajador
 -- ----------------------------
-INSERT INTO `trabajador` VALUES (1, 1, 'Jaimito', 'El', 'Carterito', 'Jai659823', 'Indeco', '9966326598', 'jaimito@gmail.com', 0);
+INSERT INTO `trabajador` VALUES (1, 1, 'Jaimito', 'El', 'Carterito', 'Jai659823', 'Indeco', '9966326598', 'jaimito@gmail.com', 5);
 
 -- ----------------------------
 -- Table structure for user
@@ -731,7 +746,7 @@ CREATE TABLE `user`  (
   `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email_confirmed` smallint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
@@ -739,6 +754,8 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (1, 'superadmin', 'kz2px152FAWlkHbkZoCiXgBAd-S8SSjF', '$2y$13$MhlYe12xkGFnSeK0sO2up.Y9kAD9Ct6JS1i9VLP7YAqd1dFsSylz2', NULL, 1, 1, 1426062188, 1426062188, NULL, NULL, NULL, 0);
 INSERT INTO `user` VALUES (3, 'Bryan', 'JDykEffZcYtqBHsIsbc6b1ucUKvw2WSs', '$2y$13$WSiG7qvI0cvgabJJLkXlFOSOEpdV1UAPj//EWtqLIXGNYdt0aZZ3y', NULL, 1, 0, 1666338581, 1666338581, '127.0.0.1', '', 'alex.zavala.b@gmail.com', 1);
 INSERT INTO `user` VALUES (4, 'Eusebio', 'R2i55ASw_R9oV2bIubE7IHggMTL6FsUs', '$2y$13$2iLXQZCmNHuNJ8Wkr4ccHONNHXU2XSP0w4Zp6bFGfm9/lHP/zbphi', NULL, 1, 0, 1666338615, 1667247267, '127.0.0.1', '', '', 0);
+INSERT INTO `user` VALUES (5, 'Jaimito', '29jo0AAJM4r4o0jmkWgiXXtNDRI2Bh35', '$2y$13$/cnQKD06bxHGtGz246j4j.gorKPDMKEqs1s/O3UvpKFLD/hPERdi6', NULL, 1, 0, 1670197386, 1670197386, '127.0.0.1', '', 'TheJaimito@gmail.com', 1);
+INSERT INTO `user` VALUES (7, 'JorgeCein', 'sbvMAgM_OdlwAL-dvdpGvf0O9qVKDgW8', '$2y$13$0HAdYtXScc2dh/RzEkYgtOhPrW8Z8BQZm4MYjKr.QMnpj1Q6renEC', NULL, 1, 0, 1670205037, 1670205037, '127.0.0.1', '', 'JCein@gmail.com', 1);
 
 -- ----------------------------
 -- Table structure for user_visit_log
@@ -757,7 +774,7 @@ CREATE TABLE `user_visit_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user_visit_log
@@ -793,5 +810,11 @@ INSERT INTO `user_visit_log` VALUES (28, '6375bb1ced705', '127.0.0.1', 'es', 'Mo
 INSERT INTO `user_visit_log` VALUES (29, '63840c5ce0580', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1669598300, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (30, '6385a0ac71cfe', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1669701804, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (31, '638671e0a65b7', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.56', 1, 1669755360, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (32, '638d150d44432', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1670190349, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (33, '638d162cc1478', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 1, 1670190636, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (34, '638d16894d262', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1670190729, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (35, '638d32897a1fb', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 5, 1670197897, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (36, '638d32b5d9554', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1670197941, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (37, '638d50f33caf9', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 5, 1670205683, 'Chrome', 'Windows');
 
 SET FOREIGN_KEY_CHECKS = 1;

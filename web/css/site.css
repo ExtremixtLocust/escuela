@@ -99,7 +99,8 @@ a.desc:after {
 }
 
 .dashboard:hover{
-    box-shadow:.2rem .2rem 1rem #fff
+    box-shadow:.2rem .2rem 1rem #212529;
+    transform: scale(1.05);
 }
 
 .facebook{

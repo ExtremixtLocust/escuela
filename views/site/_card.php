@@ -13,4 +13,4 @@ HTML5;
 ?>
 
 <!--Boton generando el contenido-->
-<?= Html::a($boton, [$model->dash_url], ['class' => 'btn btn-secondary dashboard']) ?>
+<?= Html::a($boton, [$model->dash_url], ['class' => 'btn dashboard']) ?>
