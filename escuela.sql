@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : Conector
- Source Server Type    : MySQL
+ Source Server         : MariaDB
+ Source Server Type    : MariaDB
  Source Server Version : 100421
  Source Host           : localhost:3306
  Source Schema         : escuela
 
- Target Server Type    : MySQL
+ Target Server Type    : MariaDB
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 04/12/2022 20:02:08
+ Date: 05/12/2022 00:29:43
 */
 
 SET NAMES utf8mb4;
@@ -22,8 +22,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `administrativo`;
 CREATE TABLE `administrativo`  (
-  `adm_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `adm_departamento_id` int NOT NULL COMMENT 'Id departamento',
+  `adm_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `adm_departamento_id` int(11) NOT NULL COMMENT 'Id departamento',
   `adm_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   `adm_appaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Paterno',
   `adm_apmaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Materno',
@@ -31,38 +31,39 @@ CREATE TABLE `administrativo`  (
   `adm_direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Dirección',
   `adm_rfc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RFC',
   `adm_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Correo',
-  `adm_fkuser` int NOT NULL COMMENT 'Id User',
+  `adm_fkuser` int(11) NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`adm_id`) USING BTREE,
   INDEX `fk_administrativo_departamento_1`(`adm_departamento_id`) USING BTREE,
   INDEX `adm_fkuser`(`adm_fkuser`) USING BTREE,
-  CONSTRAINT `administrativo_ibfk_1` FOREIGN KEY (`adm_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_administrativo_departamento_1` FOREIGN KEY (`adm_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `fk_administrativo_departamento_1` FOREIGN KEY (`adm_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `administrativo_ibfk_1` FOREIGN KEY (`adm_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of administrativo
 -- ----------------------------
 INSERT INTO `administrativo` VALUES (3, 1, 'Bryan Alejandro', 'Zavala', 'García', '9933757716', 'C Francisco Villa Col Vicente Guerrero 2nda Etapa', 'ZAGB00HTCVRRA308', 'alex.zavala.b@gmail.com', 3);
+INSERT INTO `administrativo` VALUES (5, 2, 'Marta', 'Ruth', 'Ruth', '9933265986', 'Indeco', 'Ruth11223', 'ruth@gmail.com', 8);
 
 -- ----------------------------
 -- Table structure for alumno
 -- ----------------------------
 DROP TABLE IF EXISTS `alumno`;
 CREATE TABLE `alumno`  (
-  `alu_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `alu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `alu_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   `alu_appaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Paterno',
   `alu_apmaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Materno',
-  `alu_reticula_id` int NOT NULL COMMENT 'Retícula',
+  `alu_reticula_id` int(11) NOT NULL COMMENT 'Retícula',
   `alu_nocontrol` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'No de control',
-  `alu_semestre` int NOT NULL COMMENT 'Semestre',
-  `alu_fkuser` int NOT NULL COMMENT 'Id User',
+  `alu_semestre` int(11) NOT NULL COMMENT 'Semestre',
+  `alu_fkuser` int(11) NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`alu_id`) USING BTREE,
   INDEX `fk_alumno_reticula_1`(`alu_reticula_id`) USING BTREE,
   INDEX `alu_fkuser`(`alu_fkuser`) USING BTREE,
-  CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`alu_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_alumno_reticula_1` FOREIGN KEY (`alu_reticula_id`) REFERENCES `reticula` (`ret_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `fk_alumno_reticula_1` FOREIGN KEY (`alu_reticula_id`) REFERENCES `reticula` (`ret_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`alu_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of alumno
@@ -74,10 +75,10 @@ INSERT INTO `alumno` VALUES (1, 'Eusebio Angel', 'Sanchez', 'Rincon', 1, '183012
 -- ----------------------------
 DROP TABLE IF EXISTS `aula`;
 CREATE TABLE `aula`  (
-  `aul_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `aul_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `aul_numero` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'No de aula',
   PRIMARY KEY (`aul_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of aula
@@ -90,18 +91,19 @@ INSERT INTO `aula` VALUES (1, '1');
 DROP TABLE IF EXISTS `auth_assignment`;
 CREATE TABLE `auth_assignment`  (
   `item_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_id` int NOT NULL,
-  `created_at` int NULL DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`item_name`, `user_id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `auth_assignment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_assignment
 -- ----------------------------
 INSERT INTO `auth_assignment` VALUES ('Administrativo', 3, 1667766936);
+INSERT INTO `auth_assignment` VALUES ('Administrativo', 8, 1670219897);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 4, 1667247225);
 INSERT INTO `auth_assignment` VALUES ('Trabajador', 5, 1670198481);
 
@@ -111,12 +113,12 @@ INSERT INTO `auth_assignment` VALUES ('Trabajador', 5, 1670198481);
 DROP TABLE IF EXISTS `auth_item`;
 CREATE TABLE `auth_item`  (
   `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `type` int NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `type` int(11) NOT NULL,
+  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `rule_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `created_at` int NULL DEFAULT NULL,
-  `updated_at` int NULL DEFAULT NULL,
+  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created_at` int(11) NULL DEFAULT NULL,
+  `updated_at` int(11) NULL DEFAULT NULL,
   `group_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`name`) USING BTREE,
   INDEX `rule_name`(`rule_name`) USING BTREE,
@@ -124,7 +126,7 @@ CREATE TABLE `auth_item`  (
   INDEX `fk_auth_item_group_code`(`group_code`) USING BTREE,
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `auth_item_ibfk_2` FOREIGN KEY (`group_code`) REFERENCES `auth_item_group` (`code`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_item
@@ -358,7 +360,7 @@ CREATE TABLE `auth_item_child`  (
   INDEX `child`(`child`) USING BTREE,
   CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_item_child
@@ -390,6 +392,8 @@ INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/bulk-a
 INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/bulk-deactivate');
 INSERT INTO `auth_item_child` VALUES ('editUsers', '/user-management/user/update');
 INSERT INTO `auth_item_child` VALUES ('editUsers', 'viewUsers');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/administrativo/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/administrativo/view');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/create');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAdministrativo', '/alumno/update');
@@ -436,13 +440,16 @@ INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/contact');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/error');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeAlumno', '/site/language');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/inventario/index');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/inventario/view');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/proveedor/index');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/proveedor/view');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/*');
-INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/trabajador/update');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/about');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/captcha');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/contact');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/error');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/index');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/language');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/site/login');
+INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/trabajador/index');
 INSERT INTO `auth_item_child` VALUES ('PermisodeTrabajador', '/trabajador/view');
+INSERT INTO `auth_item_child` VALUES ('Trabajador', 'PermisodeTrabajador');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/grid-page-size');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/index');
 INSERT INTO `auth_item_child` VALUES ('viewUsers', '/user-management/user/view');
@@ -457,16 +464,17 @@ DROP TABLE IF EXISTS `auth_item_group`;
 CREATE TABLE `auth_item_group`  (
   `code` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `created_at` int NULL DEFAULT NULL,
-  `updated_at` int NULL DEFAULT NULL,
+  `created_at` int(11) NULL DEFAULT NULL,
+  `updated_at` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`code`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_item_group
 -- ----------------------------
 INSERT INTO `auth_item_group` VALUES ('GrupodeAlumnos', 'Grupo de Alumnos', 1670191902, 1670191941);
 INSERT INTO `auth_item_group` VALUES ('GrupodeEscuela', 'Grupo de Escuela', 1667247380, 1667247380);
+INSERT INTO `auth_item_group` VALUES ('GrupodeTrabajador', 'Grupo de Trabajador', 1670220533, 1670220533);
 INSERT INTO `auth_item_group` VALUES ('userCommonPermissions', 'User common permission', 1426062189, 1426062189);
 INSERT INTO `auth_item_group` VALUES ('userManagement', 'User management', 1426062189, 1426062189);
 
@@ -476,11 +484,11 @@ INSERT INTO `auth_item_group` VALUES ('userManagement', 'User management', 14260
 DROP TABLE IF EXISTS `auth_rule`;
 CREATE TABLE `auth_rule`  (
   `name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `created_at` int NULL DEFAULT NULL,
-  `updated_at` int NULL DEFAULT NULL,
+  `data` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created_at` int(11) NULL DEFAULT NULL,
+  `updated_at` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_rule
@@ -491,15 +499,15 @@ CREATE TABLE `auth_rule`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `carga`;
 CREATE TABLE `carga`  (
-  `car_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `car_reticula_id` int NOT NULL COMMENT 'Id retícula',
-  `car_materia_id` int NOT NULL COMMENT 'Id materia',
+  `car_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `car_reticula_id` int(11) NOT NULL COMMENT 'Id retícula',
+  `car_materia_id` int(11) NOT NULL COMMENT 'Id materia',
   PRIMARY KEY (`car_id`) USING BTREE,
   INDEX `fk_carga_reticula_1`(`car_reticula_id`) USING BTREE,
   INDEX `fk_carga_materia_1`(`car_materia_id`) USING BTREE,
   CONSTRAINT `fk_carga_materia_1` FOREIGN KEY (`car_materia_id`) REFERENCES `materia` (`mat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_carga_reticula_1` FOREIGN KEY (`car_reticula_id`) REFERENCES `reticula` (`ret_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of carga
@@ -513,15 +521,15 @@ INSERT INTO `carga` VALUES (3, 1, 2);
 -- ----------------------------
 DROP TABLE IF EXISTS `curso`;
 CREATE TABLE `curso`  (
-  `cur_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `cur_alumno_id` int NOT NULL COMMENT 'Id alumno',
-  `cur_grupo_id` int NOT NULL COMMENT 'Id carrera',
+  `cur_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `cur_alumno_id` int(11) NOT NULL COMMENT 'Id alumno',
+  `cur_grupo_id` int(11) NOT NULL COMMENT 'Id carrera',
   PRIMARY KEY (`cur_id`) USING BTREE,
   INDEX `fk_curso_alumno_1`(`cur_alumno_id`) USING BTREE,
   INDEX `fk_curso_grupo_1`(`cur_grupo_id`) USING BTREE,
   CONSTRAINT `fk_curso_alumno_1` FOREIGN KEY (`cur_alumno_id`) REFERENCES `alumno` (`alu_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_curso_grupo_1` FOREIGN KEY (`cur_grupo_id`) REFERENCES `grupo` (`gru_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of curso
@@ -533,16 +541,16 @@ INSERT INTO `curso` VALUES (1, 1, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `dashboard`;
 CREATE TABLE `dashboard`  (
-  `dash_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `dash_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `dash_titulo` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Título',
   `dash_img` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Imagen',
   `dash_descripcion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Descripción',
   `dash_url` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Url',
   `dash_estatus` tinyint(1) NOT NULL COMMENT 'Estatus',
   `dash_roles` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Roles',
-  `dash_orden` int NOT NULL COMMENT 'Orden',
+  `dash_orden` int(11) NOT NULL COMMENT 'Orden',
   PRIMARY KEY (`dash_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of dashboard
@@ -552,7 +560,7 @@ INSERT INTO `dashboard` VALUES (2, 'Maestros', 'maestros', 'Acceder al menú de 
 INSERT INTO `dashboard` VALUES (3, 'Administrativos', 'administrativos', 'Acceder al menú del personal Administrativo', '/administrativo/index', 1, 'Administrativo', 3);
 INSERT INTO `dashboard` VALUES (4, 'Retículas', 'reticulas', 'Acceder al menú de las retículas', '/reticula/index', 1, 'Administrativo,Alumno', 4);
 INSERT INTO `dashboard` VALUES (5, 'Departamentos', 'departamentos', 'Acceder al menú de los departamentos', '/departamento/index', 1, 'Administrativo', 5);
-INSERT INTO `dashboard` VALUES (6, 'Trabajador', 'trabajadores', 'Acceder al menú de los trabajadores', '/trabajador/index', 1, 'Administrativo', 6);
+INSERT INTO `dashboard` VALUES (6, 'Trabajador', 'trabajadores', 'Acceder al menú de los trabajadores', '/trabajador/index', 1, 'Administrativo,Trabajador', 6);
 INSERT INTO `dashboard` VALUES (7, 'Inventario', 'inventario', 'Acceder al menú del inventario', '/inventario/index', 1, 'Administrativo', 7);
 INSERT INTO `dashboard` VALUES (8, 'Proveedores', 'proveedores', 'Acceder al menú de los proveedores', '/proveedor/index', 1, 'Administrativo', 8);
 INSERT INTO `dashboard` VALUES (9, 'Materia', 'materias', 'Acceder al menú de las materias', '/materia/index', 1, 'Administrativo,Alumno', 9);
@@ -563,13 +571,13 @@ INSERT INTO `dashboard` VALUES (11, 'Dashboard', 'dashboard', 'Administrar dashb
 -- ----------------------------
 DROP TABLE IF EXISTS `departamento`;
 CREATE TABLE `departamento`  (
-  `dep_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `dep_proveedor_id` int NOT NULL COMMENT 'Id proveedor',
+  `dep_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `dep_proveedor_id` int(11) NOT NULL COMMENT 'Id proveedor',
   `dep_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre del departamento',
   PRIMARY KEY (`dep_id`) USING BTREE,
   INDEX `fk_departamento_proveedor_1`(`dep_proveedor_id`) USING BTREE,
   CONSTRAINT `fk_departamento_proveedor_1` FOREIGN KEY (`dep_proveedor_id`) REFERENCES `proveedor` (`pro_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of departamento
@@ -582,10 +590,10 @@ INSERT INTO `departamento` VALUES (2, 1, 'Económico');
 -- ----------------------------
 DROP TABLE IF EXISTS `grupo`;
 CREATE TABLE `grupo`  (
-  `gru_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `gru_materia_id` int NOT NULL COMMENT 'Id materia',
-  `gru_maestro_id` int NOT NULL COMMENT 'Id maestro',
-  `gru_aula_id` int NOT NULL COMMENT 'Id aula',
+  `gru_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `gru_materia_id` int(11) NOT NULL COMMENT 'Id materia',
+  `gru_maestro_id` int(11) NOT NULL COMMENT 'Id maestro',
+  `gru_aula_id` int(11) NOT NULL COMMENT 'Id aula',
   PRIMARY KEY (`gru_id`) USING BTREE,
   INDEX `fk_grupo_aula_1`(`gru_aula_id`) USING BTREE,
   INDEX `fk_grupo_maestro_1`(`gru_maestro_id`) USING BTREE,
@@ -593,7 +601,7 @@ CREATE TABLE `grupo`  (
   CONSTRAINT `fk_grupo_aula_1` FOREIGN KEY (`gru_aula_id`) REFERENCES `aula` (`aul_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_grupo_maestro_1` FOREIGN KEY (`gru_maestro_id`) REFERENCES `maestro` (`mae_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_grupo_materia_1` FOREIGN KEY (`gru_materia_id`) REFERENCES `materia` (`mat_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of grupo
@@ -604,11 +612,11 @@ CREATE TABLE `grupo`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `inventario`;
 CREATE TABLE `inventario`  (
-  `inv_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `inv_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `inv_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre del artículo',
   `inv_clave` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Clave',
   PRIMARY KEY (`inv_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of inventario
@@ -620,8 +628,8 @@ INSERT INTO `inventario` VALUES (1, 'Silla', 'SillaCCN1');
 -- ----------------------------
 DROP TABLE IF EXISTS `maestro`;
 CREATE TABLE `maestro`  (
-  `mae_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `mae_departamento_id` int NOT NULL COMMENT 'Id departamento',
+  `mae_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `mae_departamento_id` int(11) NOT NULL COMMENT 'Id departamento',
   `mae_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   `mae_appaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Paterno',
   `mae_apmaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Materno',
@@ -629,13 +637,13 @@ CREATE TABLE `maestro`  (
   `mae_telefono` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Teléfono',
   `mae_direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Direccion',
   `mae_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Correo',
-  `mae_fkuser` int NOT NULL COMMENT 'Id User',
+  `mae_fkuser` int(11) NOT NULL COMMENT 'Id User',
   PRIMARY KEY (`mae_id`) USING BTREE,
   INDEX `fk_maestro_departamento_1`(`mae_departamento_id`) USING BTREE,
   INDEX `mae_fkuser`(`mae_fkuser`) USING BTREE,
   CONSTRAINT `fk_maestro_departamento_1` FOREIGN KEY (`mae_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `maestro_ibfk_1` FOREIGN KEY (`mae_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of maestro
@@ -647,10 +655,10 @@ INSERT INTO `maestro` VALUES (3, 1, 'Jorge', 'Cein', 'Villanueva', 'Cei1265988',
 -- ----------------------------
 DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia`  (
-  `mat_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `mat_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `mat_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   PRIMARY KEY (`mat_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of materia
@@ -666,14 +674,14 @@ INSERT INTO `materia` VALUES (6, 'Materia Eusebio');
 -- ----------------------------
 DROP TABLE IF EXISTS `proveedor`;
 CREATE TABLE `proveedor`  (
-  `pro_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `pro_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `pro_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   `pro_fechaAsoc` date NOT NULL COMMENT 'Fecha de Asociación',
   `pro_direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Direccion',
   `pro_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Correo',
   `pro_telefono` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Teléfono',
   PRIMARY KEY (`pro_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of proveedor
@@ -684,10 +692,10 @@ CREATE TABLE `proveedor`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `reticula`;
 CREATE TABLE `reticula`  (
-  `ret_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `ret_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `ret_carrera` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Carrera',
   PRIMARY KEY (`ret_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of reticula
@@ -705,8 +713,8 @@ INSERT INTO `reticula` VALUES (8, 'Ing. Bioquímica');
 -- ----------------------------
 DROP TABLE IF EXISTS `trabajador`;
 CREATE TABLE `trabajador`  (
-  `tra_id` int NOT NULL AUTO_INCREMENT COMMENT 'Id',
-  `tra_departamento_id` int NOT NULL COMMENT 'Id departamento',
+  `tra_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `tra_departamento_id` int(11) NOT NULL COMMENT 'Id departamento',
   `tra_nombre` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Nombre',
   `tra_appaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Paterno',
   `tra_apmaterno` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Apellido Materno',
@@ -714,39 +722,40 @@ CREATE TABLE `trabajador`  (
   `tra_direccion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Direccion',
   `tra_telefono` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Teléfono',
   `tra_correo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Correo',
-  `tra_fkuser` int NOT NULL COMMENT 'Id User\r\n',
+  `tra_fkuser` int(11) NOT NULL COMMENT 'Id User\r\n',
   PRIMARY KEY (`tra_id`) USING BTREE,
   INDEX `fk_trabajador_departamento_1`(`tra_departamento_id`) USING BTREE,
   INDEX `tra_fkuser`(`tra_fkuser`) USING BTREE,
   CONSTRAINT `fk_trabajador_departamento_1` FOREIGN KEY (`tra_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `trabajador_ibfk_1` FOREIGN KEY (`tra_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of trabajador
 -- ----------------------------
 INSERT INTO `trabajador` VALUES (1, 1, 'Jaimito', 'El', 'Carterito', 'Jai659823', 'Indeco', '9966326598', 'jaimito@gmail.com', 5);
+INSERT INTO `trabajador` VALUES (2, 1, 'Pedro', 'Gomez', 'Gomez', 'Ped12345', 'Indeco', '9933659441', 'pedro@gmail.com', 9);
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `auth_key` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password_hash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `confirmation_token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int NOT NULL DEFAULT 1,
-  `superadmin` smallint NULL DEFAULT 0,
-  `created_at` int NOT NULL,
-  `updated_at` int NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
+  `superadmin` smallint(6) NULL DEFAULT 0,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
   `registration_ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `bind_to_ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email_confirmed` smallint NOT NULL DEFAULT 0,
+  `email_confirmed` smallint(6) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -754,27 +763,29 @@ CREATE TABLE `user`  (
 INSERT INTO `user` VALUES (1, 'superadmin', 'kz2px152FAWlkHbkZoCiXgBAd-S8SSjF', '$2y$13$MhlYe12xkGFnSeK0sO2up.Y9kAD9Ct6JS1i9VLP7YAqd1dFsSylz2', NULL, 1, 1, 1426062188, 1426062188, NULL, NULL, NULL, 0);
 INSERT INTO `user` VALUES (3, 'Bryan', 'JDykEffZcYtqBHsIsbc6b1ucUKvw2WSs', '$2y$13$WSiG7qvI0cvgabJJLkXlFOSOEpdV1UAPj//EWtqLIXGNYdt0aZZ3y', NULL, 1, 0, 1666338581, 1666338581, '127.0.0.1', '', 'alex.zavala.b@gmail.com', 1);
 INSERT INTO `user` VALUES (4, 'Eusebio', 'R2i55ASw_R9oV2bIubE7IHggMTL6FsUs', '$2y$13$2iLXQZCmNHuNJ8Wkr4ccHONNHXU2XSP0w4Zp6bFGfm9/lHP/zbphi', NULL, 1, 0, 1666338615, 1667247267, '127.0.0.1', '', '', 0);
-INSERT INTO `user` VALUES (5, 'Jaimito', '29jo0AAJM4r4o0jmkWgiXXtNDRI2Bh35', '$2y$13$/cnQKD06bxHGtGz246j4j.gorKPDMKEqs1s/O3UvpKFLD/hPERdi6', NULL, 1, 0, 1670197386, 1670197386, '127.0.0.1', '', 'TheJaimito@gmail.com', 1);
+INSERT INTO `user` VALUES (5, 'Jaimito', '29jo0AAJM4r4o0jmkWgiXXtNDRI2Bh35', '$2y$13$lYvsKjifUUR7XXcX4YGX3.uZgHzYsbjoFRRAe4Ef/Ut2XB/vE9rvS', NULL, 1, 0, 1670197386, 1670219232, '127.0.0.1', '', 'TheJaimito@gmail.com', 1);
 INSERT INTO `user` VALUES (7, 'JorgeCein', 'sbvMAgM_OdlwAL-dvdpGvf0O9qVKDgW8', '$2y$13$0HAdYtXScc2dh/RzEkYgtOhPrW8Z8BQZm4MYjKr.QMnpj1Q6renEC', NULL, 1, 0, 1670205037, 1670205037, '127.0.0.1', '', 'JCein@gmail.com', 1);
+INSERT INTO `user` VALUES (8, 'Ruth', 'gRhqZ4NKprfEo14YaQ_eOuFVyFv0-KXi', '$2y$13$qXNSJmuiQSjMptGCz25.Iu5DXodB28LGchQ6EJSNWjZFc2sTlTiZG', NULL, 1, 0, 1670219717, 1670219717, '127.0.0.1', '', 'ruth@gmail.com', 1);
+INSERT INTO `user` VALUES (9, 'Pedro', 'Mnghv49wdYqdGR90CTseDhaOtOPnzaGa', '$2y$13$NV9Smf.IWXIL/1glsaMi..1OsL4JfD7HDBJLMzvrgeU4PwnV3LeLO', NULL, 1, 0, 1670221500, 1670221500, '127.0.0.1', '', 'pedro@gmail.com', 1);
 
 -- ----------------------------
 -- Table structure for user_visit_log
 -- ----------------------------
 DROP TABLE IF EXISTS `user_visit_log`;
 CREATE TABLE `user_visit_log`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `language` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `user_agent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `user_id` int NULL DEFAULT NULL,
-  `visit_time` int NOT NULL,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `visit_time` int(11) NOT NULL,
   `browser` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `os` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 44 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_visit_log
@@ -816,5 +827,11 @@ INSERT INTO `user_visit_log` VALUES (34, '638d16894d262', '127.0.0.1', 'es', 'Mo
 INSERT INTO `user_visit_log` VALUES (35, '638d32897a1fb', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 5, 1670197897, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (36, '638d32b5d9554', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 1, 1670197941, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (37, '638d50f33caf9', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 OPR/93.0.0.0', 5, 1670205683, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (38, '638d834d2f539', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 1, 1670218573, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (39, '638d83e850166', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 4, 1670218728, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (40, '638d854526194', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 3, 1670219077, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (41, '638d886890ef6', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 8, 1670219880, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (42, '638d894f87e07', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 5, 1670220111, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (43, '638d8deb7c616', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:107.0) Gecko/20100101 Firefox/107.0', 4, 1670221291, 'Firefox', 'Windows');
 
 SET FOREIGN_KEY_CHECKS = 1;
