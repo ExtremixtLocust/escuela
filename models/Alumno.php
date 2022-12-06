@@ -18,6 +18,7 @@ use Yii;
  *
  * @property Reticula $aluReticula
  * @property Curso[] $cursos
+ * @property Usuario $alu_usuario
  */
 class Alumno extends \yii\db\ActiveRecord
 {
@@ -38,10 +39,12 @@ class Alumno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre',], 'required'],
-            [['alu_reticula_id', 'alu_semestre'], 'integer'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre', 'alu_fkuser'], 'required'],
+            [['alu_reticula_id', 'alu_semestre', 'alu_fkuser'], 'integer'],
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
+            //regla para cargar la llave foránea del usuario
+            [['alu_fkuser'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_fkuser' => 'id']],
             //reglas nuevas de control
             // [['alu_img'], 'string', 'max' => 25],
             // [['alu_img'], 'unique'],
@@ -64,6 +67,7 @@ class Alumno extends \yii\db\ActiveRecord
             'alu_reticula_id' => Yii::t('app', 'Retícula'),
             'alu_nocontrol' => Yii::t('app', 'No de control'),
             'alu_semestre' => Yii::t('app', 'Semestre'),
+            'alu_fkuser' => Yii::t('app', 'Usuario'),
             //añadimos el campo personalizado al idioma
             'reticula' => Yii::t('app', 'Retícula'),
             //parámetros para guardar imágenes
@@ -98,6 +102,12 @@ class Alumno extends \yii\db\ActiveRecord
     public function getReticula()
     {
         return $this->aluReticula->ret_carrera;
+    }
+
+    //metodo creado para obtener el usuario
+    public function getUser()
+    {
+        return $this->aluFkUser->id;
     }
 
     //funciones para buscar imagenes

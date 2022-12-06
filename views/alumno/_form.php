@@ -8,6 +8,9 @@ use app\models\Reticula;
 use kartik\icons\Icon;
 use kartik\typeahead\TypeaheadBasic;
 use kartik\file\FileInput;
+use webvimark\modules\UserManagement\models\User;
+
+//$modeloRecibido;
 
 Icon::map($this);
 
@@ -15,6 +18,7 @@ Icon::map($this);
 /* @var $model app\models\Alumno */
 /* @var $form yii\widgets\ActiveForm */
 
+$seleccionarUsuario = ArrayHelper::map(User::find()->where(['id' => $modeloRecibido])->all(), 'id', 'username');
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 //variables para texto
 $seleccionar = Yii::t('app', 'Seleccionar') . ':';
@@ -59,6 +63,12 @@ $apellidosP = [
                 <div class="col"><?= $form->field($model, 'alu_nocontrol')->textInput(['maxlength' => true]) ?></div>
                 <div class="col"><?= $form->field($model, 'alu_semestre')->textInput() ?></div>
             </div>
+            <div class="row">
+                <!--Input de conexion a modeloRecibido-->
+                <div class="col">
+                    <?= $form->field($model, 'alu_fkuser')->dropDownList($seleccionarUsuario) ?>
+                </div>
+            </div>
         </div> <!-- fin de col-8 form -->
         <div class="col">
 
@@ -80,21 +90,8 @@ $apellidosP = [
     </div> <!-- Cierre de fila maestra -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Guardar'), ['class' => 'btn btn-success btn-lg']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

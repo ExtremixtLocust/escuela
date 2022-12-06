@@ -2,14 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Alumno;
-use app\models\AlumnoSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
-
 use Yii;
+use app\models\Alumno;
+use yii\web\Controller;
+use yii\web\UploadedFile;
+use yii\filters\VerbFilter;
+use app\models\AlumnoSearch;
+use app\widgets\ImgController;
+use yii\helpers\ArrayHelper;
+use yii\web\NotFoundHttpException;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * AlumnoController implements the CRUD actions for Alumno model.
@@ -62,7 +64,7 @@ class AlumnoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($modeloRecibido = 0)
     {
         $model = new Alumno();
 
@@ -110,6 +112,7 @@ class AlumnoController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modeluser' => $modeluser,
+            'modeloRecibido' => $modeloRecibido,
         ]);
     }
 
@@ -184,6 +187,12 @@ class AlumnoController extends Controller
     //guardar la imagen
     private function guardarImagen($model)
     {
+        /*ImgController::widget([
+            'model' => $model,
+            'rol' => 'Alumno',
+        ]);*/
+
+        //codigo sin widget
         $objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
         if (!is_null($objeto_imagen)) {
             $nombre = $model->alu_nocontrol; //reset(explode(".", $objeto_imagen->name));

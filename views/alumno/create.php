@@ -8,6 +8,9 @@ use yii\helpers\Html;
 $this->title = Yii::t('app', 'Crear Alumno');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Alumnos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
+$user;
+//$modeloRecibido;
 ?>
 <div class="alumno-create">
 
@@ -15,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modeloRecibido' => $modeloRecibido,
     ]) ?>
 
 </div>
