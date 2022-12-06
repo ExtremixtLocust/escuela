@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\Administrativo;
-use app\models\AdministrativoSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use Yii;
+use yii\web\Controller;
+use yii\filters\VerbFilter;
+use app\models\Administrativo;
+use app\widgets\SeguridadUsuario;
+use yii\web\NotFoundHttpException;
+use app\models\AdministrativoSearch;
 
 /**
  * AdministrativoController implements the CRUD actions for Administrativo model.
@@ -50,9 +51,17 @@ class AdministrativoController extends Controller
      */
     public function actionView($adm_id)
     {
+        $model = $this->findModel($adm_id);
+        /*
         return $this->render('view', [
             'model' => $this->findModel($adm_id),
         ]);
+        */
+        if (SeguridadUsuario::widget(['model' => $model,])) {
+            return $this->render('view', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**

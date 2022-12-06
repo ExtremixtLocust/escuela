@@ -40,7 +40,7 @@ $apellidosP = [
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
     <div class="row">
-        <div class="col-8">
+        <div class="col-7 m-5">
             <div class="row">
                 <div class="col"><?= $form->field($model, 'alu_nombre')->textInput(['maxlength' => true]) ?></div>
                 <div class="col"><?= $form->field($model, 'alu_appaterno')->widget(TypeaheadBasic::classname(), [
@@ -69,7 +69,7 @@ $apellidosP = [
                     'allowedFileExtensions' => ['png'],
                     'showUpload' => false,
                     'showRemove' => false,
-                    'initialPreview' => [$model->archivo_imagen],
+                    //'initialPreview' => [$model->archivo_imagen],
                     'initialPreviewAsData' => true,
                     'initialCaption' => Yii::t('app', 'Imagen del alumno: ' . $model->archivo_imagen),
                     'overwriteInitial' => false,
