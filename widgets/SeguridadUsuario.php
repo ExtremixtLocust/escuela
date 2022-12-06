@@ -5,33 +5,29 @@ namespace app\widgets;
 use Yii;
 use yii\base\Widget;
 use yii\web\NotFoundHttpException;
+use webvimark\modules\UserManagement\models\User;
 
 class SeguridadUsuario extends Widget
 {
     public $model;
-    public $modelUser;
-    public $idUser;
+    private $fk;
+    private $id;
 
     public function init()
     {
         parent::init();
 
-        $modelUser = $this->findModel();
+        //  $modelUser = $this->findModel();
 
-        if ($modelUser->tra_fkuser == Yii::$app->user->id || Yii::$app->user->isSuperAdmin){
-            return $this->render('view', [
-                'model' => $modelUser,
-            ]); 
+        if ($this->model == null) {
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        } else if (User::hasRole(['Administrativo'])) {
+            return $this->model->adm_fkuser == Yii::$app->user->id;
         }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-
     }
 
     public function run()
     {
-        return $this->render('view', [
-            
-        ]);
+        return /*$this->model->tra_fkuser == Yii::$app->user->id || */ Yii::$app->user->isSuperAdmin;
     }
 }

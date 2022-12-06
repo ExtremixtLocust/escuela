@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Trabajador;
 use app\models\TrabajadorSearch;
+use app\widgets\SeguridadUsuario;
 use webvimark\modules\UserManagement\models\User;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,12 +53,22 @@ class TrabajadorController extends Controller
     public function actionView($tra_id)
     {
         $model = $this->findModel($tra_id);
-
+        /*
         if ($model->tra_fkuser == Yii::$app->user->id || Yii::$app->user->isSuperAdmin){
             return $this->render('view', [
                 'model' => $model,
             ]); 
         }
+
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    */
+        if (SeguridadUsuario::widget(['fk' => $model->tra_fkuser,])) {
+            return $this->render('view', [
+                'model' => $model,
+            ]);
+        }
+
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
@@ -73,7 +84,7 @@ class TrabajadorController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->tra_fkuser=1;
+                $model->tra_fkuser = 1;
                 if ($model->save()) {
                     return $this->redirect(['view', 'tra_id' => $model->tra_id]);
                 }
@@ -98,11 +109,11 @@ class TrabajadorController extends Controller
     {
         $model = $this->findModel($tra_id);
 
-        if (User::hasRole(['Administrativo']) || $model->tra_fkuser == Yii::$app->user->id){
+        if (User::hasRole(['Administrativo']) || $model->tra_fkuser == Yii::$app->user->id) {
             if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'tra_id' => $model->tra_id]);
             }
-    
+
             return $this->render('update', [
                 'model' => $model,
             ]);
