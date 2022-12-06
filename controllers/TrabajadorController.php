@@ -52,7 +52,16 @@ class TrabajadorController extends Controller
      */
     public function actionView($tra_id)
     {
+        //codigo nuevo
+        //se busca el modelo en cuestión
         $model = $this->findModel($tra_id);
+        //comparamos si el modelo que buscamos es el mismo
+        //que el usuario que lo solicita
+        if (SeguridadUsuario::widget(['model' => $model,])) {
+            return $this->render('view', [
+                'model' => $model,
+            ]);
+        }
         /*
         if ($model->tra_fkuser == Yii::$app->user->id || Yii::$app->user->isSuperAdmin){
             return $this->render('view', [
@@ -63,11 +72,6 @@ class TrabajadorController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     */
-        if (SeguridadUsuario::widget(['model' => $model,])) {
-            return $this->render('view', [
-                'model' => $model,
-            ]);
-        }
 
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

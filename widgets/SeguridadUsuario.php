@@ -31,6 +31,12 @@ class SeguridadUsuario extends Widget
             if ($this->model->tra_fkuser == Yii::$app->user->id) {
                 return true;
             }
+        } else if (User::hasRole(['Administrativo'])) {
+            if ($this->model->adm_fkuser == Yii::$app->user->id) {
+                return true;
+            } else {
+                throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            }
         }
     }
 }
