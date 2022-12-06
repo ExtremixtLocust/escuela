@@ -18,7 +18,7 @@ class twitter extends Widget{
     {
         //return Html::img("/img/{$this->imagen}", $this->options);
         //return Html::a(Yii::t('app', 'TWITTER'), 'https://www.twitter.com/', ['class' => 'twitter']);
-        $img = Html::a('<span style="font-size: 8rem; color:black;"<i class="bi bi-twitter"></i></span>', 'https://www.twitter.com/', ['class' => 'twitter']);
+        $img = Html::a('<span style="font-size: 8rem; color:#212529;"<i class="bi bi-twitter"></i></span>', 'https://www.twitter.com/', ['class' => 'twitter']);
         $boton = <<< HTML5
             {$img}
         HTML5;
