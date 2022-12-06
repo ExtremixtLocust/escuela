@@ -63,7 +63,7 @@ class TrabajadorController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     */
-        if (SeguridadUsuario::widget(['fk' => $model->tra_fkuser,])) {
+        if (SeguridadUsuario::widget(['model' => $model,])) {
             return $this->render('view', [
                 'model' => $model,
             ]);

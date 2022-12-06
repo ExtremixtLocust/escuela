@@ -10,8 +10,6 @@ use webvimark\modules\UserManagement\models\User;
 class SeguridadUsuario extends Widget
 {
     public $model;
-    private $fk;
-    private $id;
 
     public function init()
     {
@@ -21,13 +19,18 @@ class SeguridadUsuario extends Widget
 
         if ($this->model == null) {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-        } else if (User::hasRole(['Administrativo'])) {
+        } /*else/* if (User::hasRole(['Administrativo'])) {
             return $this->model->adm_fkuser == Yii::$app->user->id;
-        }
+        } else*/
     }
 
     public function run()
     {
-        return /*$this->model->tra_fkuser == Yii::$app->user->id || */ Yii::$app->user->isSuperAdmin;
+        /*$this->model->tra_fkuser == Yii::$app->user->id || */
+        if (User::hasRole(['Trabajador']) || Yii::$app->user->isSuperAdmin) {
+            if ($this->model->tra_fkuser == Yii::$app->user->id) {
+                return true;
+            }
+        }
     }
 }
