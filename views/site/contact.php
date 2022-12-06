@@ -10,7 +10,9 @@ use yii\captcha\Captcha;
 use dosamigos\google\maps\Map;
 use dosamigos\google\maps\LatLng;
 use app\widgets\facebook;
+use app\widgets\instagram;
 use app\widgets\twitter;
+use app\widgets\whatsapp;
 
 $this->title = Yii::t('app', 'Contacto');
 $this->params['breadcrumbs'][] = $this->title;
@@ -50,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="row row-cols-md-2">
             <br>
-            <div class="col-lg-5">
+            <div class="col-lg-8">
                 <p>
                     If you have business inquiries or other questions, please fill out the following form to contact us.
                     Thank you.
@@ -73,10 +75,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php ActiveForm::end(); ?>
 
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-2">
                 <?= facebook::widget();
                 ?>
                 <?= twitter::widget();
+                ?>
+            </div>
+            <div class="col-lg-2">
+                <?= whatsapp::widget();
+                ?>
+                <?= instagram::widget();
                 ?>
             </div>
         </div>
