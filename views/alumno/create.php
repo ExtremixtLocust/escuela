@@ -18,7 +18,7 @@ $user;
 
     <?= $this->render('_form', [
         'model' => $model,
-        'modeloRecibido' => $modeloRecibido,
+        'kfuser' => $kfuser,
     ]) ?>
 
 </div>

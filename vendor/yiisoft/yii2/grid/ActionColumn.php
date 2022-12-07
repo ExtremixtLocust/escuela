@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -196,10 +197,6 @@ class ActionColumn extends Column
                     'title' => $title,
                     'aria-label' => $title,
                     'data-pjax' => '0',
-                    //'style' => 'margin: 5% auto;',
-                    'class' => BotoneraPersonalizada::widget([
-                        'type' => $name
-                    ])
                 ], $additionalOptions, $this->buttonOptions);
                 $icon = isset($this->icons[$iconName])
                     ? $this->icons[$iconName]

@@ -5,7 +5,9 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 use app\models\Reticula;
+use app\widgets\Acciones;
 use yii\grid\ActionColumn;
+use app\widgets\MiActionColumn;
 use app\widgetsPersonalizados\TablaConPermisos;
 use webvimark\modules\UserManagement\models\User;
 
@@ -39,8 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'ret_carrera',
-            [
-                'class' => ActionColumn::className(),
+            /*[
+                'class' => MiActionColumn::className(),
                 'urlCreator' => function ($action, Reticula $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'ret_id' => $model->ret_id]);
                 },
@@ -55,7 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => function ($model, $key, $index, $column) {
                     return ['style' => 'text-align:center'];
                 },
-            ],
+            ],*/
+            Acciones::botones('ret_id'),
         ],
     ]); ?>
 

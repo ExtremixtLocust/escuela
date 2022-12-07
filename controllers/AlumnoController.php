@@ -64,11 +64,9 @@ class AlumnoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($modeloRecibido = null)
+    public function actionCreate($kfuser = null)
     {
         $model = new Alumno();
-
-        $modeluser = new \webvimark\modules\UserManagement\models\User();
 
         if ($this->request->isPost) {
             /*
@@ -97,8 +95,19 @@ class AlumnoController extends Controller
             }*/
             if ($model->load($this->request->post())) {
                 $this->guardarImagen($model);
-                if ($model->save()) {
-                    return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+                $user = new User([
+                    'username' => $model->alu_nocontrol,
+                    'password_hash' => Yii::$app->getSecurity()->generatePasswordHash($model->contrasenia1),
+                    'status' => 1,
+                    'email' => $model->correo,
+                    'email_confirmed' => 1,
+                ]);
+                if ($user->save()) {
+                    User::assignRole($user->id, 'Alumno');
+                    $model->alu_fkuser = $user->id;
+                    if ($model->save()) {
+                        return $this->redirect(['view', 'alu_id' => $model->alu_id]);
+                    }
                 }
                 echo "<pre>";
                 //var_dump($model->errors);
@@ -113,7 +122,7 @@ class AlumnoController extends Controller
         return $this->render('create', [
             'model' => $model,
             //'modeluser' => $modeluser,
-            'modeloRecibido' => $modeloRecibido,
+            'kfuser' => $kfuser,
         ]);
     }
 
@@ -144,6 +153,19 @@ class AlumnoController extends Controller
         if ($this->request->isPost && $model->load($this->request->post())) {
             $this->guardarImagen($model);
             if ($model->save()) {
+                $user = $model->aluUser;
+                $bandera = false;
+                if ($model->contrasenia1 != '******') {
+                    $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->contrasenia1);
+                    $bandera = true;
+                }
+                if ($user->email != $model->correo) {
+                    $user->email = $model->correo;
+                    $bandera = true;
+                }
+                if ($bandera) {
+                    $user->save();
+                }
                 return $this->redirect(['view', 'alu_id' => $model->alu_id]);
             }
         }
@@ -151,6 +173,7 @@ class AlumnoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'kfuser' => '',
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use webvimark\modules\UserManagement\models\User;
 use yii\helpers\Html;
 use Yii;
 
@@ -18,16 +19,18 @@ use Yii;
  *
  * @property Reticula $aluReticula
  * @property Curso[] $cursos
- * @property Usuario $alu_usuario
+ * @property Usuario $alu_fkuser
  */
 class Alumno extends \yii\db\ActiveRecord
 {
+    public $archivo_imagen;
+    public $contrasenia1;
+    public $contrasenia2;
+    public $correo;
+
     /**
      * {@inheritdoc}
      */
-
-    public $archivo_imagen;
-
     public static function tableName()
     {
         return 'alumno';
@@ -44,13 +47,18 @@ class Alumno extends \yii\db\ActiveRecord
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
             //regla para cargar la llave foránea del usuario
-            [['alu_fkuser'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_fkuser' => 'id']],
+            [['alu_fkuser'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['alu_fkuser' => 'id']],
             //reglas nuevas de control
             // [['alu_img'], 'string', 'max' => 25],
             // [['alu_img'], 'unique'],
             [['archivo_imagen'], 'safe'],
             [['archivo_imagen'], 'file', 'extensions' => 'png'],
             [['archivo_imagen'], 'file', 'maxSize' => '1000000'],
+            //reglas de la contraseña
+            [['correo', 'contrasenia1', 'contrasenia2'], 'required', 'on' => 'insert'],
+            [['contrasenia1', 'contrasenia2'], 'string', 'min' => 6, 'max' => 40],
+            ['contrasenia2', 'compare', 'compareAttribute' => 'contrasenia1'],
+            [['correo'], 'email'],
         ];
     }
 
@@ -74,6 +82,9 @@ class Alumno extends \yii\db\ActiveRecord
             'archivo_imagen' => Yii::t('app', 'Imagen'),
             //'alu_img' => Yii::t('app', 'Imagen'),
             'img' => Yii::t('app', 'Imagen'),
+            'contrasenia1' => Yii::t('app', 'Contraseña'),
+            'contrasenia2' => Yii::t('app', 'Repetir Contraseña'),
+            'correo' => Yii::t('app', 'Correo'),
         ];
     }
 
@@ -86,6 +97,17 @@ class Alumno extends \yii\db\ActiveRecord
     public function getAluReticula()
     {
         return $this->hasOne(Reticula::className(), ['ret_id' => 'alu_reticula_id']);
+    }
+
+    /**
+     * Gets query for [[AluUser]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    //metodo para obtener la relación como tal (sin datos)
+    public function getAluUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'alu_fkuser']);
     }
 
     /**
@@ -107,7 +129,13 @@ class Alumno extends \yii\db\ActiveRecord
     //metodo creado para obtener el usuario
     public function getUser()
     {
-        return $this->aluFkUser->id;
+        return $this->aluUser->id;
+    }
+
+    //metodo creado para obtener el correo
+    public function getEmail()
+    {
+        return $this->aluUser->email;
     }
 
     //funciones para buscar imagenes
@@ -115,7 +143,7 @@ class Alumno extends \yii\db\ActiveRecord
     {
         return Html::img(
             "/img/alumno/{$this->alu_nocontrol}.png",
-            ['alt' => Yii::t('app', $this->alu_nocontrol), 'style' => 'width: 70%;']
+            ['alt' => Yii::t('app', $this->alu_nocontrol), 'style' => 'width: 50%;']
         );
     }
 }

@@ -10,20 +10,26 @@ use kartik\typeahead\TypeaheadBasic;
 use kartik\file\FileInput;
 use webvimark\modules\UserManagement\models\User;
 
-//$modeloRecibido;
-
 Icon::map($this);
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Alumno */
 /* @var $form yii\widgets\ActiveForm */
 
-$seleccionarUsuario = $modeloRecibido ? ArrayHelper::map(User::find()->where(['id' => $modeloRecibido])->all(), 'id', 'username') : ArrayHelper::map(User::find()->all(), 'id', 'username');
+$isUpdate = !$model->isNewRecord;
+if ($isUpdate) {
+    $model->contrasenia1 = '******';
+    $model->contrasenia2 = '******';
+    $model->correo = $model->email;
+}
+$seleccionarUsuario = $kfuser != null ? ArrayHelper::map(User::find()->where(['id' => $kfuser])->all(), 'id', 'username') : ArrayHelper::map(User::find()->all(), 'id', 'username');
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 //variables para texto
 $seleccionar = Yii::t('app', 'Seleccionar') . ':';
 $escribirApPaterno = Yii::t('app', 'Escriba su apellido paterno') . '...';
 $escribirApMaterno = Yii::t('app', 'Escriba su apellido materno') . '...';
+//imagen
+$img = $model->archivo_imagen ? $model->archivo_imagen : '';
 
 $apellidosM = [
     'García', 'Salvador', 'Hernández', 'Valencia', 'Jiménez', 'Gutiérrez', 'Magaña', 'Pérez', 'López', 'Gómez', 'Valencia', 'Velázquez',
@@ -43,8 +49,9 @@ $apellidosP = [
 <div class="alumno-form">
 
     <?php $form = ActiveForm::begin(); ?>
+    <br>
     <div class="row">
-        <div class="col-7 m-5">
+        <div class="col-md-8 h-100%">
             <div class="row">
                 <div class="col"><?= $form->field($model, 'alu_nombre')->textInput(['maxlength' => true]) ?></div>
                 <div class="col"><?= $form->field($model, 'alu_appaterno')->widget(TypeaheadBasic::classname(), [
@@ -59,18 +66,24 @@ $apellidosP = [
                                     ]) ?></div>
             </div>
             <div class="row">
-                <div class="col"><?= $form->field($model, 'alu_reticula_id')->dropDownList($reticulas, ['prompt' => $seleccionar]) ?></div>
-                <div class="col"><?= $form->field($model, 'alu_nocontrol')->textInput(['maxlength' => true]) ?></div>
+                <div class="col">
+                    <?= $form->field($model, 'alu_reticula_id')->dropDownList($reticulas, ['prompt' => $seleccionar]) ?>
+                </div>
+                <div class="col">
+                    <?= $form->field($model, 'alu_nocontrol')->textInput(['maxlength' => true, 'readonly' => $isUpdate,]) ?>
+                </div>
                 <div class="col"><?= $form->field($model, 'alu_semestre')->textInput() ?></div>
             </div>
+
             <div class="row">
-                <!--Input de conexion a modeloRecibido-->
-                <div class="col">
-                    <?= $form->field($model, 'alu_fkuser')->dropDownList($seleccionarUsuario, ['prompt' => $seleccionar]) ?>
-                </div>
+                <div class="col"><?= $form->field($model, 'contrasenia1')->passwordInput(['maxlength' => true]) ?></div>
+                <div class="col"><?= $form->field($model, 'contrasenia2')->passwordInput(['maxlength' => true]) ?></div>
+            </div>
+            <div class="row">
+                <div class="col"><?= $form->field($model, 'correo')->textInput(['maxlength' => true]) ?></div>
             </div>
         </div> <!-- fin de col-8 form -->
-        <div class="col">
+        <div class="col col-md-4">
 
             <?= //codigo para la foto del alumno
             $form->field($model, 'archivo_imagen')->widget(FileInput::classname(), [
@@ -79,14 +92,14 @@ $apellidosP = [
                     'allowedFileExtensions' => ['png'],
                     'showUpload' => false,
                     'showRemove' => false,
-                    //'initialPreview' => [$model->archivo_imagen],
+                    'initialPreview' => $img,
                     'initialPreviewAsData' => true,
                     'initialCaption' => Yii::t('app', 'Imagen del alumno: ' . $model->archivo_imagen),
                     'overwriteInitial' => false,
                 ],
             ]); ?>
 
-        </div>
+        </div> <!-- Cierre de la foto -->
     </div> <!-- Cierre de fila maestra -->
 
 

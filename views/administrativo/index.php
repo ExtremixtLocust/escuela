@@ -6,6 +6,8 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Administrativo;
+use app\widgets\Acciones;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AdministrativoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -46,12 +48,13 @@ $this->params['breadcrumbs'][] = $this->title;
             //'adm_direccion',
             //'adm_rfc',
             //'adm_correo',
-            [
+            /*[
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Administrativo $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'adm_id' => $model->adm_id]);
                 }
-            ],
+            ],*/
+            Acciones::botones('adm_id'),
         ],
     ]); ?>
 
