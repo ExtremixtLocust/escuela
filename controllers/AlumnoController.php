@@ -64,7 +64,7 @@ class AlumnoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($modeloRecibido = 0)
+    public function actionCreate($modeloRecibido = null)
     {
         $model = new Alumno();
 
@@ -101,7 +101,8 @@ class AlumnoController extends Controller
                     return $this->redirect(['view', 'alu_id' => $model->alu_id]);
                 }
                 echo "<pre>";
-                var_dump($model->errors);
+                //var_dump($model->errors);
+                echo "ha ocurrido el error despues de guardar la foto";
                 echo "</pre>";
                 die;
             }
@@ -111,7 +112,7 @@ class AlumnoController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modeluser' => $modeluser,
+            //'modeluser' => $modeluser,
             'modeloRecibido' => $modeloRecibido,
         ]);
     }

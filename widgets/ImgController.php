@@ -24,6 +24,13 @@ class ImgController extends Widget
             if ($this->rol == 'Alumno') {
                 $nombre = $model->alu_nocontrol;
                 $carpeta = 'alumno';
+                echo "<pre>";
+                var_dump($model->errors);
+                echo "</pre>";
+                die;
+            } else if ($this->rol == 'Administrativo') {
+                $nombre = $model->adm_nocontrol;
+                $carpeta = 'administrativo';
             }
             $extension = 'png';
             $destino = Yii::$app->basePath . "/web/img/{$carpeta}/{$nombre}.{$extension}";

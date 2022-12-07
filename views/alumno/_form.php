@@ -18,7 +18,7 @@ Icon::map($this);
 /* @var $model app\models\Alumno */
 /* @var $form yii\widgets\ActiveForm */
 
-$seleccionarUsuario = ArrayHelper::map(User::find()->where(['id' => $modeloRecibido])->all(), 'id', 'username');
+$seleccionarUsuario = $modeloRecibido ? ArrayHelper::map(User::find()->where(['id' => $modeloRecibido])->all(), 'id', 'username') : ArrayHelper::map(User::find()->all(), 'id', 'username');
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 //variables para texto
 $seleccionar = Yii::t('app', 'Seleccionar') . ':';
@@ -42,7 +42,7 @@ $apellidosP = [
 
 <div class="alumno-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-7 m-5">
             <div class="row">
@@ -66,7 +66,7 @@ $apellidosP = [
             <div class="row">
                 <!--Input de conexion a modeloRecibido-->
                 <div class="col">
-                    <?= $form->field($model, 'alu_fkuser')->dropDownList($seleccionarUsuario) ?>
+                    <?= $form->field($model, 'alu_fkuser')->dropDownList($seleccionarUsuario, ['prompt' => $seleccionar]) ?>
                 </div>
             </div>
         </div> <!-- fin de col-8 form -->
