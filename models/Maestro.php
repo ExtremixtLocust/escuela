@@ -1,6 +1,9 @@
 <?php
 
 namespace app\models;
+//controlador de imagenes
+use webvimark\modules\UserManagement\models\User;
+use app\widgets\ImgController;
 
 use Yii;
 
@@ -19,9 +22,20 @@ use Yii;
  *
  * @property Grupo[] $grupos
  * @property Departamento $maeDepartamento
+ * @property Usuario $mae_fkuser
  */
 class Maestro extends \yii\db\ActiveRecord
 {
+    //gestor de imagen
+    public $archivo_imagen;
+    //contraseña
+    public $contrasenia1;
+    public $contrasenia2;
+    //correo del usuario
+    //se usa el correo que guarda el maestro
+    //public $correo;
+
+    //inicio de la clase
     /**
      * {@inheritdoc}
      */
@@ -36,11 +50,21 @@ class Maestro extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mae_departamento_id', 'mae_nombre', 'mae_appaterno', 'mae_apmaterno', 'mae_rfc', 'mae_telefono', 'mae_direccion', 'mae_correo'], 'required'],
-            [['mae_departamento_id'], 'integer'],
+            [['mae_departamento_id', 'mae_nombre', 'mae_appaterno', 'mae_apmaterno', 'mae_rfc', 'mae_telefono', 'mae_direccion', 'mae_correo', /*clave del usuario*/ 'mae_fkuser'], 'required'],
+            [['mae_departamento_id',  'mae_fkuser'], 'integer'],
             [['mae_nombre', 'mae_appaterno', 'mae_apmaterno', 'mae_rfc', 'mae_direccion', 'mae_correo'], 'string', 'max' => 255],
             [['mae_telefono'], 'string', 'max' => 15],
             [['mae_departamento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departamento::className(), 'targetAttribute' => ['mae_departamento_id' => 'dep_id']],
+            //regla para cargar la llave foránea del usuario
+            [['mae_fkuser'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['mae_fkuser' => 'id']],
+            //reglas nuevas de control para la imagen
+            [['archivo_imagen'], 'safe'],
+            [['archivo_imagen'], 'file', 'extensions' => 'png'],
+            [['archivo_imagen'], 'file', 'maxSize' => '1000000'],
+            //reglas de la contraseña
+            [['contrasenia1', 'contrasenia2'], 'required', 'on' => 'insert'],
+            [['contrasenia1', 'contrasenia2'], 'string', 'min' => 6, 'max' => 40],
+            ['contrasenia2', 'compare', 'compareAttribute' => 'contrasenia1'],
         ];
     }
 
@@ -61,6 +85,13 @@ class Maestro extends \yii\db\ActiveRecord
             'mae_telefono' => Yii::t('app', 'Teléfono'),
             'mae_direccion' => Yii::t('app', 'Dirección'),
             'mae_correo' => Yii::t('app', 'Correo'),
+            'mae_fkuser' => Yii::t('app', 'Usuario'),
+            //parámetros para guardar imágenes
+            'archivo_imagen' => Yii::t('app', 'Imagen'),
+            'img' => Yii::t('app', 'Imagen'),
+            'contrasenia1' => Yii::t('app', 'Contraseña'),
+            'contrasenia2' => Yii::t('app', 'Repetir Contraseña'),
+            'correo' => Yii::t('app', 'Correo'),
         ];
     }
 
@@ -84,9 +115,37 @@ class Maestro extends \yii\db\ActiveRecord
         return $this->hasOne(Departamento::className(), ['dep_id' => 'mae_departamento_id']);
     }
 
+    /**
+     * Gets query for [[MaeUser]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    //metodo para obtener la relación con un usuario como tal (sin datos)
+    public function getMaeUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'mae_fkuser']);
+    }
+
     //creamos el método que nos devolverá el nombre del departamento traído de la BD
     public function getDepartamento()
     {
         return $this->maeDepartamento->dep_nombre;
+    }
+
+    //metodo creado para obtener el usuario
+    public function getUser()
+    {
+        return $this->maeUser->id;
+    }
+
+    //funciones para buscar imagenes
+    public function getImg()
+    {
+        //widget para buscar la imagen
+        return ImgController::widget([
+            'busqueda' => $this->mae_rfc,
+            'rol' => 'maestro',
+            'funcion' => 'get',
+        ]);
     }
 }

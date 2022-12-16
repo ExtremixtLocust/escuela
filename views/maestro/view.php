@@ -31,6 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            [
+                'attribute' => 'img',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return "{$model->mae_rfc}<br><div style='width: 30%;'>{$model->img}</div>";
+                }
+            ],
             'mae_id',
             //'mae_departamento_id',
             'departamento',

@@ -5,11 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Alumno;
 use yii\web\Controller;
-use yii\web\UploadedFile;
-use yii\filters\VerbFilter;
 use app\models\AlumnoSearch;
 use app\widgets\ImgController;
-use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use webvimark\modules\UserManagement\models\User;
 
@@ -64,37 +61,18 @@ class AlumnoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate($kfuser = null)
+    public function actionCreate($fkUser = null)
     {
         $model = new Alumno();
 
         if ($this->request->isPost) {
-            /*
-            //codigo anterior
-            if ($model->load($this->request->post()) && $modeluser->load($this->request->post())) {
 
-
-                $avatar = \yii\web\UploadedFile::getInstance($model, 'file');
-                if (!is_null($avatar)) {
-                    $name = explode('.', $avatar->name);
-                    $ext = end($name);
-                    $model->avatar = Yii::$app->security->generateRandomString() . ".{$ext}";
-                    $resource = Yii::$app->basePath . '@web/img/';    //<--Recuerda que "avatar/" es el nombre de la carpeta donde se guardan las imagenes
-                    $path = $resource . $model->avatar;
-                    if ($avatar->saveAs($path)) {
-                        if ($modeluser->save()) {
-                            $model->fkuser = $modeluser->alu_id;
-                            $modeluser::assignRole($modeluser->alu_id, 'Alumno');
-                            if ($model->save()) {
-                                return $this->redirect(['view', 'alu_id' => $model->alu_id]);
-                            }
-                        }
-                    }
-                }
-            
-            }*/
+            //controles para contraseña y datos
+            //controles para contraseña y datos
             if ($model->load($this->request->post())) {
+                //se guarda la imagen
                 $this->guardarImagen($model);
+                //se crear el usuario que puede iniciar sesión
                 $user = new User([
                     'username' => $model->alu_nocontrol,
                     'password_hash' => Yii::$app->getSecurity()->generatePasswordHash($model->contrasenia1),
@@ -102,19 +80,22 @@ class AlumnoController extends Controller
                     'email' => $model->correo,
                     'email_confirmed' => 1,
                 ]);
+                //se comprueba si se ha guardado el usuario
+                //que inicia sesión
                 if ($user->save()) {
+                    //se asigna el rol
                     User::assignRole($user->id, 'Alumno');
+                    //se asigna el usuario al modelo maestro
                     $model->alu_fkuser = $user->id;
+                    //se comprueba que se haya guardado
+                    //el nuevo maestro
                     if ($model->save()) {
+                        //si todo sale bien, se muestra el view
                         return $this->redirect(['view', 'alu_id' => $model->alu_id]);
                     }
                 }
-                echo "<pre>";
-                //var_dump($model->errors);
-                echo "ha ocurrido el error despues de guardar la foto";
-                echo "</pre>";
-                die;
             }
+            //si desde el principio no viene guardado
         } else {
             $model->loadDefaultValues();
         }
@@ -122,7 +103,7 @@ class AlumnoController extends Controller
         return $this->render('create', [
             'model' => $model,
             //'modeluser' => $modeluser,
-            'kfuser' => $kfuser,
+            'fkUser' => $fkUser,
         ]);
     }
 
@@ -150,30 +131,41 @@ class AlumnoController extends Controller
     {
         $model = $this->findModel($alu_id);
 
+        //se comprueba que se haya guardado
         if ($this->request->isPost && $model->load($this->request->post())) {
+            //se guarda la imagen
             $this->guardarImagen($model);
             if ($model->save()) {
+                //se identifica el usuario
+                //que inicia sesion
                 $user = $model->aluUser;
+                //se crea una bandera para cambio de correo y contraseña
                 $bandera = false;
+                //se revisa si la contraseña ha cambiado en el form
                 if ($model->contrasenia1 != '******') {
+                    //se guarda la contraseña haseada
                     $user->password_hash = Yii::$app->getSecurity()->generatePasswordHash($model->contrasenia1);
                     $bandera = true;
                 }
+                //se verifica si el correo del ususario
                 if ($user->email != $model->correo) {
                     $user->email = $model->correo;
                     $bandera = true;
                 }
+                //se revisa bandera
                 if ($bandera) {
                     $user->save();
                 }
+                //se retorna a la vista
                 return $this->redirect(['view', 'alu_id' => $model->alu_id]);
             }
         }
+        //imagen
         $model->archivo_imagen = "/img/alumno/{$model->alu_nocontrol}.png";
 
         return $this->render('update', [
             'model' => $model,
-            'kfuser' => '',
+            'fkuser' => '',
         ]);
     }
 
@@ -211,6 +203,7 @@ class AlumnoController extends Controller
     //guardar la imagen
     private function guardarImagen($model)
     {
+        //widget para guardar la imagen
         ImgController::widget([
             'model' => $model,
             'rol' => 'alumno',

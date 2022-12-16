@@ -50,24 +50,22 @@ class ImgController extends Widget
             //se revisa el rol
             if ($this->rol == 'alumno') {
                 $this->nombreParaGuardar = $model->alu_nocontrol;
-                $this->carpeta = 'alumno';
             } else if ($this->rol == 'administrativo') {
                 $this->nombreParaGuardar = $model->adm_rfc;
-                $this->carpeta = 'administrativo';
+            } else if ($this->rol == 'maestro') {
+                $this->nombreParaGuardar = $model->mae_rfc;
             }
-            $this->rutaParaGuardar = Yii::$app->basePath . "/web/img/{$this->carpeta}/{$this->nombreParaGuardar}.{$this->extension}";
+            $this->rutaParaGuardar = Yii::$app->basePath . "/web/img/{$this->rol}/{$this->nombreParaGuardar}.{$this->extension}";
             $objeto_imagen->saveAs($this->rutaParaGuardar);
         }
     }
 
     private function getImg($rol, $nombre)
     {
-        if ($rol == 'alumno') {
-            return Html::img(
-                "/img/{$rol}/{$nombre}.png",
-                ['alt' => Yii::t('app', $nombre), 'style' => 'width: 50%;']
-            );
-        }
+        return Html::img(
+            "/img/{$rol}/{$nombre}.png",
+            ['alt' => Yii::t('app', $nombre), 'style' => 'width: 50%;']
+        );
     }
 
     //metodo para comprobar que exista un rol

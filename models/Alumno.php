@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\Html;
 use app\widgets\ImgController;
 use webvimark\modules\UserManagement\models\User;
 
@@ -43,15 +42,13 @@ class Alumno extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre', 'alu_fkuser'], 'required'],
+            [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_reticula_id', 'alu_nocontrol', 'alu_semestre', /*clave del usuario*/ 'alu_fkuser'], 'required'],
             [['alu_reticula_id', 'alu_semestre', 'alu_fkuser'], 'integer'],
             [['alu_nombre', 'alu_appaterno', 'alu_apmaterno', 'alu_nocontrol'], 'string', 'max' => 255],
             [['alu_reticula_id'], 'exist', 'skipOnError' => true, 'targetClass' => Reticula::className(), 'targetAttribute' => ['alu_reticula_id' => 'ret_id']],
             //regla para cargar la llave foránea del usuario
             [['alu_fkuser'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['alu_fkuser' => 'id']],
-            //reglas nuevas de control
-            // [['alu_img'], 'string', 'max' => 25],
-            // [['alu_img'], 'unique'],
+            //reglas nuevas de control para la imagen
             [['archivo_imagen'], 'safe'],
             [['archivo_imagen'], 'file', 'extensions' => 'png'],
             [['archivo_imagen'], 'file', 'maxSize' => '1000000'],
@@ -81,7 +78,6 @@ class Alumno extends \yii\db\ActiveRecord
             'reticula' => Yii::t('app', 'Retícula'),
             //parámetros para guardar imágenes
             'archivo_imagen' => Yii::t('app', 'Imagen'),
-            //'alu_img' => Yii::t('app', 'Imagen'),
             'img' => Yii::t('app', 'Imagen'),
             'contrasenia1' => Yii::t('app', 'Contraseña'),
             'contrasenia2' => Yii::t('app', 'Repetir Contraseña'),
@@ -148,7 +144,7 @@ class Alumno extends \yii\db\ActiveRecord
             ['alt' => Yii::t('app', $this->alu_nocontrol), 'style' => 'width: 50%;']
         );*/
 
-        //widget
+        //widget para buscar la imagen
         return ImgController::widget([
             'busqueda' => $this->alu_nocontrol,
             'rol' => 'alumno',

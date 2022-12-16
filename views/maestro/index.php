@@ -35,13 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\SerialColumn',
                 //se agrega un botón para limpiar el buscador
                 'header' => Html::a('<i class="bi bi-recycle"></i>', ['index']),
-                //se añade codigo para centrar el boton de limpiar
-                'headerOptions' => [
-                    'style' => 'text-align:center'
+            ],
+            [
+                'attribute' => 'mae_rfc',
+                'format' => 'raw',
+                'contentOptions' => [
+                    'style' => 'width: 150px;',
                 ],
-                //centramos el contenido de ids
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    return ['style' => 'text-align:center'];
+                'value' => function ($model) {
+                    return "<center>{$model->mae_rfc}<br>{$model->img}</center>";
                 }
             ],
             'mae_nombre',
