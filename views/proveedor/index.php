@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
 use app\models\Proveedor;
+use app\widgets\Acciones;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProveedorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -41,12 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'pro_direccion',
             'pro_correo',
             'pro_telefono',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Proveedor $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'pro_id' => $model->pro_id]);
-                }
-            ],
+            Acciones::botones('pro_id'),
         ],
     ]); ?>
 

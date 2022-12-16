@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use app\widgets\Acciones;
 use app\models\Trabajador;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TrabajadorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -45,12 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'tra_direccion',
             //'tra_telefono',
             //'tra_correo',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Trabajador $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'tra_id' => $model->tra_id]);
-                }
-            ],
+            Acciones::botones('tra_id'),
         ],
     ]); ?>
 

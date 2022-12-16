@@ -211,18 +211,19 @@ class AlumnoController extends Controller
     //guardar la imagen
     private function guardarImagen($model)
     {
-        /*ImgController::widget([
+        ImgController::widget([
             'model' => $model,
-            'rol' => 'Alumno',
-        ]);*/
+            'rol' => 'alumno',
+            'funcion' => 'save',
+        ]);
 
         //codigo sin widget
-        $objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
+        /*$objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
         if (!is_null($objeto_imagen)) {
             $nombre = $model->alu_nocontrol; //reset(explode(".", $objeto_imagen->name));
             $extension = 'png'; //end((explode(".", $objeto_imagen->name)));
             $destino = Yii::$app->basePath . "/web/img/alumno/{$nombre}.{$extension}";
             $objeto_imagen->saveAs($destino);
-        }
+        }*/
     }
 }

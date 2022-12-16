@@ -87,7 +87,7 @@ class MaestroController extends Controller
     public function actionUpdate($mae_id)
     {
         $model = $this->findModel($mae_id);
-        if($model->mae_fkuser==Yii::$app->user->id){
+        if ($model->mae_fkuser == Yii::$app->user->id || Yii::$app->user->isSuperAdmin) {
 
             if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'mae_id' => $model->mae_id]);
@@ -96,10 +96,9 @@ class MaestroController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
-        } 
-        
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
 
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**

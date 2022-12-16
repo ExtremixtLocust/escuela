@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
 use app\models\Dashboard;
+use app\widgets\Acciones;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DashboardSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -53,28 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'dash_roles',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'dash_id' => $model->dash_id]);
-                },
-                'contentOptions' => ['style' => 'width: 80px;']
-            ],
-            /* código anterior
-            'dash_id',
-            'dash_titulo',
-            'dash_img',
-            'dash_descripcion',
-            'dash_url:url',
-            //'dash_estatus',
-            //'dash_roles',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Dashboard $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'dash_id' => $model->dash_id]);
-                 }
-            ],
-*/
+            Acciones::botones('dash_id'),
         ],
     ]); ?>
 

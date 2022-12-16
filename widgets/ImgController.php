@@ -4,6 +4,7 @@ namespace app\widgets;
 
 use Yii;
 use yii\base\Widget;
+use yii\helpers\Html;
 use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
 
@@ -11,8 +12,18 @@ class ImgController extends Widget
 {
     public $model;
     public $rol;
+    //operacion
+    public $funcion = null;
+    //busqueda
+    public $busqueda = null;
 
-    private $nombreParaGuardar;
+    //extensión de la imagen
+    private $extension = 'png';
+    //carpeta
+    private $carpeta = null;
+    //nombre que llevará la imagen
+    private $nombreParaGuardar = null;
+    //ruta de la imagen
     private $rutaParaGuardar;
     public function init()
     {
@@ -20,56 +31,50 @@ class ImgController extends Widget
 
     public function run()
     {
-        $model = $this->model;
-        $objeto_imagen = $this->objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
-        if (!is_null($objeto_imagen)) {
-            $carpeta = null;
-            $nombre = null;
-            if ($this->rol == 'Alumno') {
-                $nombre = $model->alu_nocontrol;
-                $carpeta = 'alumno';
-                echo "<pre>";
-                var_dump($model->errors);
-                echo "</pre>";
-                die;
-            } else if ($this->rol == 'Administrativo') {
-                $nombre = $model->adm_nocontrol;
-                $carpeta = 'administrativo';
-            }
-            $extension = 'png';
-            $destino = Yii::$app->basePath . "/web/img/{$carpeta}/{$nombre}.{$extension}";
-            $objeto_imagen->saveAs($destino);
+        //se comprueba que haya un rol
+        $this->seleccionarRol();
+        if ($this->funcion == 'save') {
+            //se guarda la imagen
+            $this->guardarImagen($this->model);
+        } else if ($this->funcion == 'get') {
+            return $this->getImg($this->rol, $this->busqueda);
         }
     }
 
-    private function guardarImagen()
+    //metodo para guardar la imagen
+    private function guardarImagen($model)
     {
-        $model = $this->model;
-        $objeto_imagen = $this->objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
+        $model = $model;
+        $objeto_imagen = UploadedFile::getInstance($model, 'archivo_imagen');
         if (!is_null($objeto_imagen)) {
-            $carpeta = null;
-            $nombre = null;
-            if ($this->rol == 'Alumno') {
-                $nombre = $model->alu_nocontrol;
-                $carpeta = 'alumno';
-                echo "<pre>";
-                var_dump($model->errors);
-                echo "</pre>";
-                die;
-            } else if ($this->rol == 'Administrativo') {
-                $nombre = $model->adm_nocontrol;
-                $carpeta = 'administrativo';
+            //se revisa el rol
+            if ($this->rol == 'alumno') {
+                $this->nombreParaGuardar = $model->alu_nocontrol;
+                $this->carpeta = 'alumno';
+            } else if ($this->rol == 'administrativo') {
+                $this->nombreParaGuardar = $model->adm_rfc;
+                $this->carpeta = 'administrativo';
             }
-            $extension = 'png';
-            $destino = Yii::$app->basePath . "/web/img/{$carpeta}/{$nombre}.{$extension}";
-            $objeto_imagen->saveAs($destino);
+            $this->rutaParaGuardar = Yii::$app->basePath . "/web/img/{$this->carpeta}/{$this->nombreParaGuardar}.{$this->extension}";
+            $objeto_imagen->saveAs($this->rutaParaGuardar);
         }
     }
 
+    private function getImg($rol, $nombre)
+    {
+        if ($rol == 'alumno') {
+            return Html::img(
+                "/img/{$rol}/{$nombre}.png",
+                ['alt' => Yii::t('app', $nombre), 'style' => 'width: 50%;']
+            );
+        }
+    }
+
+    //metodo para comprobar que exista un rol
     private function seleccionarRol()
     {
         if ($this->rol == null) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'Ha ocurrido un error al guardar la imagen.'));
         }
     }
 }

@@ -1,10 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use app\widgets\Acciones;
 use app\models\Departamento;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DepartamentoSearch */
@@ -41,12 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //cambiamos el id de proveedor por su nombre
             //'dep_proveedor_id',
             'proveedor',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Departamento $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'dep_id' => $model->dep_id]);
-                }
-            ],
+            Acciones::botones('dep_id'),
         ],
     ]); ?>
 

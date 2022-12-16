@@ -18,7 +18,7 @@ class SeguridadUsuario extends Widget
         //  $modelUser = $this->findModel();
 
         if ($this->model == null) {
-            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException(Yii::t('app', 'Seguridad de usuario.'));
         } /*else/* if (User::hasRole(['Administrativo'])) {
             return $this->model->adm_fkuser == Yii::$app->user->id;
         } else*/
@@ -27,7 +27,10 @@ class SeguridadUsuario extends Widget
     public function run()
     {
         /*$this->model->tra_fkuser == Yii::$app->user->id || */
-        if (User::hasRole(['Trabajador']) || Yii::$app->user->isSuperAdmin) {
+        if (Yii::$app->user->isSuperAdmin) {
+            return true;
+        }
+        if (User::hasRole(['Trabajador'])) {
             if ($this->model->tra_fkuser == Yii::$app->user->id) {
                 return true;
             }
@@ -35,7 +38,7 @@ class SeguridadUsuario extends Widget
             if ($this->model->adm_fkuser == Yii::$app->user->id) {
                 return true;
             } else {
-                throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+                throw new NotFoundHttpException(Yii::t('app', 'Seguridad de usuario.'));
             }
         }
     }

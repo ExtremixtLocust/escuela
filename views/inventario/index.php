@@ -1,11 +1,12 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
+use yii\grid\GridView;
+use app\widgets\Acciones;
 use app\models\Inventario;
+use yii\grid\ActionColumn;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InventarioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -38,12 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'inv_id',
             'inv_nombre',
             'inv_clave',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Inventario $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'inv_id' => $model->inv_id]);
-                }
-            ],
+            Acciones::botones('inv_id'),
         ],
     ]); ?>
 

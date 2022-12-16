@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use yii\grid\GridView;
 use app\models\Materia;
+use app\widgets\Acciones;
 use yii\grid\ActionColumn;
 use webvimark\modules\UserManagement\models\User;
 
@@ -47,23 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'mat_id',
             'mat_nombre',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Materia $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'mat_id' => $model->mat_id]);
-                },
-                //sentencias para que solo administrativos
-                //puedan editar y borrar
-                'visibleButtons' => [
-                    'update' => User::hasRole(['Administrativo']),
-                    //\Yii::$app->user->can('update')
-                    'delete' => User::hasRole(['Administrativo']),
-                ],
-                //contenido centrado
-                'contentOptions' => function ($model, $key, $index, $column) {
-                    return ['style' => 'text-align:center'];
-                }
-            ],
+            Acciones::botones('mat_id'),
         ],
     ]); ?>
 

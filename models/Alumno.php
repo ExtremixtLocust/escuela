@@ -2,9 +2,10 @@
 
 namespace app\models;
 
-use webvimark\modules\UserManagement\models\User;
-use yii\helpers\Html;
 use Yii;
+use yii\helpers\Html;
+use app\widgets\ImgController;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * This is the model class for table "alumno".
@@ -141,9 +142,17 @@ class Alumno extends \yii\db\ActiveRecord
     //funciones para buscar imagenes
     public function getImg()
     {
-        return Html::img(
+        //codigo sin widget
+        /*return Html::img(
             "/img/alumno/{$this->alu_nocontrol}.png",
             ['alt' => Yii::t('app', $this->alu_nocontrol), 'style' => 'width: 50%;']
-        );
+        );*/
+
+        //widget
+        return ImgController::widget([
+            'busqueda' => $this->alu_nocontrol,
+            'rol' => 'alumno',
+            'funcion' => 'get',
+        ]);
     }
 }
