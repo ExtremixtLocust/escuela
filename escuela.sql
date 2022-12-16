@@ -11,7 +11,7 @@
  Target Server Version : 100421
  File Encoding         : 65001
 
- Date: 07/12/2022 12:36:00
+ Date: 16/12/2022 10:42:58
 */
 
 SET NAMES utf8mb4;
@@ -63,7 +63,7 @@ CREATE TABLE `alumno`  (
   INDEX `alu_fkuser`(`alu_fkuser`) USING BTREE,
   CONSTRAINT `alumno_ibfk_1` FOREIGN KEY (`alu_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_alumno_reticula_1` FOREIGN KEY (`alu_reticula_id`) REFERENCES `reticula` (`ret_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of alumno
@@ -72,6 +72,10 @@ INSERT INTO `alumno` VALUES (1, 'Eusebio Angel', 'Sanchez', 'Rincon', 1, '183012
 INSERT INTO `alumno` VALUES (4, 'Arturo', 'Martinez', 'Martinez', 1, '18300101', 1, 11);
 INSERT INTO `alumno` VALUES (5, 'Martha', 'Dariana', 'Flores', 3, '18300102', 1, 12);
 INSERT INTO `alumno` VALUES (6, 'Jose', 'Angel', 'Magañita', 1, '18300103', 1, 13);
+INSERT INTO `alumno` VALUES (7, 'Benito', 'González', 'González', 4, '18300104', 1, 14);
+INSERT INTO `alumno` VALUES (8, 'Juan', 'Gordillo', 'Gordillo', 6, '18300105', 1, 15);
+INSERT INTO `alumno` VALUES (9, 'Juan', 'Salvador', 'Salvador', 7, '18300106', 1, 17);
+INSERT INTO `alumno` VALUES (10, 'Carlitos', 'Gomez', 'Gordillo', 8, '18300107', 1, 20);
 
 -- ----------------------------
 -- Table structure for aula
@@ -111,6 +115,11 @@ INSERT INTO `auth_assignment` VALUES ('Alumno', 4, 1667247225);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 10, 1670350219);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 12, 1670389670);
 INSERT INTO `auth_assignment` VALUES ('Alumno', 13, 1670389645);
+INSERT INTO `auth_assignment` VALUES ('Alumno', 14, 1671156877);
+INSERT INTO `auth_assignment` VALUES ('Alumno', 15, 1671157105);
+INSERT INTO `auth_assignment` VALUES ('Alumno', 17, 1671168406);
+INSERT INTO `auth_assignment` VALUES ('Alumno', 20, 1671170272);
+INSERT INTO `auth_assignment` VALUES ('Maestro', 23, 1671171098);
 INSERT INTO `auth_assignment` VALUES ('Trabajador', 5, 1670198481);
 INSERT INTO `auth_assignment` VALUES ('Trabajador', 9, 1670267703);
 
@@ -650,12 +659,13 @@ CREATE TABLE `maestro`  (
   INDEX `mae_fkuser`(`mae_fkuser`) USING BTREE,
   CONSTRAINT `fk_maestro_departamento_1` FOREIGN KEY (`mae_departamento_id`) REFERENCES `departamento` (`dep_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `maestro_ibfk_1` FOREIGN KEY (`mae_fkuser`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of maestro
 -- ----------------------------
 INSERT INTO `maestro` VALUES (3, 1, 'Jorge', 'Cein', 'Villanueva', 'Cei1265988', '9932665987', 'ITVH', 'cein@gmail.com', 7);
+INSERT INTO `maestro` VALUES (5, 2, 'Alejandra', 'Salvador', 'Salvadorç', 'ale119922', '9933225544', 'indeco', 'ale2119922@gmail.com', 23);
 
 -- ----------------------------
 -- Table structure for materia
@@ -762,7 +772,7 @@ CREATE TABLE `user`  (
   `email` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email_confirmed` smallint(6) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
@@ -771,13 +781,18 @@ INSERT INTO `user` VALUES (1, 'superadmin', 'kz2px152FAWlkHbkZoCiXgBAd-S8SSjF', 
 INSERT INTO `user` VALUES (3, 'Bryan', 'JDykEffZcYtqBHsIsbc6b1ucUKvw2WSs', '$2y$13$WSiG7qvI0cvgabJJLkXlFOSOEpdV1UAPj//EWtqLIXGNYdt0aZZ3y', NULL, 1, 0, 1666338581, 1666338581, '127.0.0.1', '', 'alex.zavala.b@gmail.com', 1);
 INSERT INTO `user` VALUES (4, 'Eusebio', 'R2i55ASw_R9oV2bIubE7IHggMTL6FsUs', '$2y$13$2iLXQZCmNHuNJ8Wkr4ccHONNHXU2XSP0w4Zp6bFGfm9/lHP/zbphi', NULL, 1, 0, 1666338615, 1670393228, '127.0.0.1', '', '18301276@gmail.com', 0);
 INSERT INTO `user` VALUES (5, 'Jaimito', '29jo0AAJM4r4o0jmkWgiXXtNDRI2Bh35', '$2y$13$lYvsKjifUUR7XXcX4YGX3.uZgHzYsbjoFRRAe4Ef/Ut2XB/vE9rvS', NULL, 1, 0, 1670197386, 1670219232, '127.0.0.1', '', 'TheJaimito@gmail.com', 1);
-INSERT INTO `user` VALUES (7, 'JorgeCein', 'sbvMAgM_OdlwAL-dvdpGvf0O9qVKDgW8', '$2y$13$0HAdYtXScc2dh/RzEkYgtOhPrW8Z8BQZm4MYjKr.QMnpj1Q6renEC', NULL, 1, 0, 1670205037, 1670205037, '127.0.0.1', '', 'JCein@gmail.com', 1);
+INSERT INTO `user` VALUES (7, 'JorgeCein', 'sbvMAgM_OdlwAL-dvdpGvf0O9qVKDgW8', '$2y$13$0HAdYtXScc2dh/RzEkYgtOhPrW8Z8BQZm4MYjKr.QMnpj1Q6renEC', NULL, 1, 0, 1670205037, 1671171712, '127.0.0.1', '', 'cein@gmail.com', 1);
 INSERT INTO `user` VALUES (8, 'Ruth', 'gRhqZ4NKprfEo14YaQ_eOuFVyFv0-KXi', '$2y$13$qXNSJmuiQSjMptGCz25.Iu5DXodB28LGchQ6EJSNWjZFc2sTlTiZG', NULL, 1, 0, 1670219717, 1670219717, '127.0.0.1', '', 'ruth@gmail.com', 1);
 INSERT INTO `user` VALUES (9, 'Pedro', 'Mnghv49wdYqdGR90CTseDhaOtOPnzaGa', '$2y$13$NV9Smf.IWXIL/1glsaMi..1OsL4JfD7HDBJLMzvrgeU4PwnV3LeLO', NULL, 1, 0, 1670221500, 1670221500, '127.0.0.1', '', 'pedro@gmail.com', 1);
 INSERT INTO `user` VALUES (10, 'alumno1', 'abHQJZ1LMfQUbRxOlAF74tqo4CVBpDvA', '$2y$13$ToCa.jMkqUZzoYAT/qawHurUsHjewIadfYV6YhDTqAFu.7db.T2Hq', NULL, 1, 0, 1670316837, 1670361148, '127.0.0.1', '', 'entrada@gmail.com', 1);
 INSERT INTO `user` VALUES (11, 'alumno2', '8GoVSO-fJR62oBxYxlEobkZjMiRNDnSt', '$2y$13$UeDdGRY3qHXzfJq19TOUcusyvoRA6es.U9GKvCk8ASw8rjgOso3o2', NULL, 1, 0, 1670379594, 1670393187, '127.0.0.1', '', '18300101@gmail.com', 1);
 INSERT INTO `user` VALUES (12, '18300102', 'qo5mG8F9nwGmZWMzyuvntoZbGrrBHxx5', '$2y$13$vWD.G7VkVGjX4vztQbwAiOU/LfXeeqYtMFIyWnubNh5t3GU8/Q3uC', NULL, 1, 0, 1670389247, 1670393394, '127.0.0.1', '', 'marthita@gmail.com', 1);
 INSERT INTO `user` VALUES (13, '18300103', 'IV98McgqFaHumeZBevKvT_tvTM2yO920', '$2y$13$rhTkvtNMEpqX4VICkcNCeef3lOy60MBt1mP0ni6sgKHz7.NgOA7E.', NULL, 1, 0, 1670389645, 1670389645, '127.0.0.1', '', 'maganita@gmail.com', 1);
+INSERT INTO `user` VALUES (14, '18300104', 'KbZEYu9MKzjKECgCLrP84tGp7wVlBAns', '$2y$13$74S7XU.HOZ/EnVT6k2uScOjccb8x9j3A/GxhjrpxF5bKPz1m8b/1e', NULL, 1, 0, 1671156877, 1671156877, '127.0.0.1', '', '18300104@gmail.com', 1);
+INSERT INTO `user` VALUES (15, '18300105', 'RZT0CGgyURXgscCOaYhUfYvpwSBWiySr', '$2y$13$uNAx2l8Iqss/6CKuhvKb/eNv2hfC.455JzFxwcaLXdXf4H6fG0/vS', NULL, 1, 0, 1671157105, 1671157105, '127.0.0.1', '', '18300105@gmail.com', 1);
+INSERT INTO `user` VALUES (17, '18300106', 'cwf7SCWdI8mzxGOpq_oiJlByRjj6d5gO', '$2y$13$SVvZUrdpvveVVqAOZSoFJeVGfob.uD1OhHUx0Po621nD9HRkKyfMW', NULL, 1, 0, 1671168406, 1671168406, '127.0.0.1', '', '18300106@gmail.com', 1);
+INSERT INTO `user` VALUES (20, '18300107', 'Z_1PU4GJEm7oq4dYdW218kKgUdmB2kMb', '$2y$13$4fSTQ3Ng1VbZ1FfB7MpGwOjOrl2WcOwq.Ic6FTCKPBtcgtUhH4uii', NULL, 1, 0, 1671170272, 1671170272, '127.0.0.1', '', '18300107@gmail.com', 1);
+INSERT INTO `user` VALUES (23, 'ale119922', 'qs9517FSVxQgzS2L1WfYugTsTUVqjWEC', '$2y$13$KkbCI8Z8f4M.GjxBRIhNYexdkeny9gzHHBpAQlMJjsyDDn7RpAcL2', NULL, 1, 0, 1671171098, 1671171479, '127.0.0.1', '', 'ale2119922@gmail.com', 1);
 
 -- ----------------------------
 -- Table structure for user_visit_log
@@ -796,7 +811,7 @@ CREATE TABLE `user_visit_log`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `user_visit_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 58 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_visit_log
@@ -858,5 +873,9 @@ INSERT INTO `user_visit_log` VALUES (54, '638f00916c780', '127.0.0.1', 'es', 'Mo
 INSERT INTO `user_visit_log` VALUES (55, '638f80bb2dd08', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62', 1, 1670348987, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (56, '63902e5313a84', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.42', 1, 1670393427, 'Chrome', 'Windows');
 INSERT INTO `user_visit_log` VALUES (57, '63902eab5d806', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.42', 12, 1670393515, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (58, '63915a75b800d', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.42', 1, 1670470261, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (59, '639bcad392b5b', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46', 1, 1671154387, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (60, '639bff263975b', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46', 1, 1671167782, 'Chrome', 'Windows');
+INSERT INTO `user_visit_log` VALUES (61, '639bff8e1df70', '127.0.0.1', 'es', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36 Edg/108.0.1462.46', 1, 1671167886, 'Chrome', 'Windows');
 
 SET FOREIGN_KEY_CHECKS = 1;
