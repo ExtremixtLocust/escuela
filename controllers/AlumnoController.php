@@ -165,7 +165,7 @@ class AlumnoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'fkuser' => '',
+            'fkUser' => '',
         ]);
     }
 

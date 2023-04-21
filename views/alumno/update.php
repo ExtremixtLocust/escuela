@@ -9,7 +9,7 @@ use yii\helpers\Html;
     'name' => $model->alu_nombre,
 ]);*/
 //cambiamos el código para concatenar texto y variable nombre
-$this->title = Yii::t('app', 'Actualizar información de:').' '.$model->alu_nombre;
+$this->title = Yii::t('app', 'Actualizar información de:') . ' ' . $model->alu_nombre;
 
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Alumnos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->alu_nombre, 'url' => ['view', 'alu_id' => $model->alu_id]];
@@ -21,7 +21,6 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
-        'kfuser' => $kfuser,
     ]) ?>
 
 </div>

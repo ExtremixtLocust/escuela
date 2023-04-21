@@ -22,7 +22,6 @@ if ($isUpdate) {
     $model->contrasenia2 = '******';
     $model->correo = $model->email;
 }
-$seleccionarUsuario = $fkUser != null ? ArrayHelper::map(User::find()->where(['id' => $fkUser])->all(), 'id', 'username') : ArrayHelper::map(User::find()->all(), 'id', 'username');
 $reticulas = ArrayHelper::map(Reticula::find()->all(), 'ret_id', 'ret_carrera');
 //variables para texto
 $seleccionar = Yii::t('app', 'Seleccionar') . ':';
